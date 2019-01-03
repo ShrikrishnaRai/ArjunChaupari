@@ -12,4 +12,6 @@ package archjunchaupari.Utils;
 public class RestUrl {
 
     public static String ACCESS_TOKEN = "http://aavash.pythonanywhere.com/api/get-token/";
+    public static String SAVE_INVENTORY = "http://aavash.pythonanywhere.com/api/v1/inventory/expendable-item/";
+    public static String GET_INVENTORY = "http://aavash.pythonanywhere.com/api/v1/inventory/expendable-item/";
 }

@@ -16,7 +16,7 @@ import org.apache.http.client.ClientProtocolException;
 public class LoginServices implements LoginDaoService {
 
     LoginDaoIMPL loginDaoIMPL_ic = new LoginDaoIMPL();
-
+    
     @Override
     public boolean login(String email, String password) throws ClientProtocolException, IOException {
         if (loginDaoIMPL_ic.login(email, password)) {

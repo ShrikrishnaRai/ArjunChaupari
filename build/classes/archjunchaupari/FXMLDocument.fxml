@@ -2,13 +2,15 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.TreeView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
@@ -23,7 +25,7 @@
                     <menus>
                         <Menu mnemonicParsing="false" text="File">
                             <items>
-                                <MenuItem mnemonicParsing="false" text="Close" />
+                                <MenuItem fx:id="close" mnemonicParsing="false" onAction="#close" text="Close" />
                             </items>
                         </Menu>
                         <Menu mnemonicParsing="false" text="Edit">
@@ -42,6 +44,8 @@
                     <children>
                         <TextField fx:id="email" promptText="Email" />
                         <PasswordField fx:id="password" promptText="Password" />
+                        <ComboBox fx:id="roleCombo" prefHeight="26.0" prefWidth="87.0" promptText="Role">
+                        </ComboBox>
                         <Region />
                         <Button fx:id="login" mnemonicParsing="false" onAction="#login" text="LOGIN">
                             <HBox.margin>
@@ -53,15 +57,12 @@
             </children>
         </VBox>
     </top>
-    <left>
-        <TreeView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
-    </left>
     <bottom>
         <VBox prefHeight="15.0" prefWidth="600.0" BorderPane.alignment="CENTER">
             <children>
                 <HBox alignment="BASELINE_RIGHT" prefHeight="100.0" prefWidth="200.0">
                     <children>
-                        <Label text="Design and Developed by Microsoft">
+                        <Label text="Design and Developed by Seven Tech">
                             <HBox.margin>
                                 <Insets bottom="5.0" right="10.0" />
                             </HBox.margin>
@@ -74,4 +75,15 @@
     <center>
         <WebView fx:id="webView" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
     </center>
+    <left>
+        <VBox style="-fx-background-color: #FFFFFF;" BorderPane.alignment="CENTER">
+            <children>
+                <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Emblem_of_Nepal.svg/1200px-Emblem_of_Nepal.svg.png" />
+                    </image>
+                </ImageView>
+            </children>
+        </VBox>
+    </left>
 </BorderPane>

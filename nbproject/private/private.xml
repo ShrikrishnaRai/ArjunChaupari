@@ -2,6 +2,18 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/home/cri/NetBeansProjects/ArchjunChaupari/src/archjunchaupari/Utils/RestUrl.java</file>
+            <file>file:/home/cri/NetBeansProjects/ArchjunChaupari/src/archjunchaupari/Inventory/InventoryDAO/InventoryDaoIMPL.java</file>
+            <file>file:/home/cri/NetBeansProjects/ArchjunChaupari/src/archjunchaupari/Inventory/Services/InventoryDaoService.java</file>
+            <file>file:/home/cri/NetBeansProjects/ArchjunChaupari/src/archjunchaupari/Inventory/Services/InventoryService.java</file>
+            <file>file:/home/cri/NetBeansProjects/ArchjunChaupari/src/archjunchaupari/Model/Inventory/ExInventoryDto.java</file>
+            <file>file:/home/cri/NetBeansProjects/ArchjunChaupari/src/archjunchaupari/FXMLDocumentController.java</file>
+            <file>file:/home/cri/NetBeansProjects/ArchjunChaupari/src/archjunchaupari/Inventory/InventoryController.java</file>
+            <file>file:/home/cri/NetBeansProjects/ArchjunChaupari/src/archjunchaupari/Dashboard/DashFXMLController.java</file>
+            <file>file:/home/cri/NetBeansProjects/ArchjunChaupari/src/archjunchaupari/Dashboard/DashFXML.fxml</file>
+            <file>file:/home/cri/NetBeansProjects/ArchjunChaupari/src/archjunchaupari/FXMLDocument.fxml</file>
+            <file>file:/home/cri/NetBeansProjects/ArchjunChaupari/src/archjunchaupari/Inventory/InventoryDAO/InventoryDAO.java</file>
+        </group>
     </open-files>
 </project-private>
