@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package archjunchaupari.Inventory.Services;
+package archjunchaupari.Services.Inventory;
 
 import archjunchaupari.Model.Inventory.ExInventoryDto;
 import java.util.List;
@@ -17,6 +17,5 @@ public interface InventoryDaoService {
     void saveInventory(ExInventoryDto inventoryDto);
 
     List<ExInventoryDto> getInventory();
-    
-    
+
 }

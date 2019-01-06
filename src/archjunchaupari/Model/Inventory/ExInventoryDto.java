@@ -18,7 +18,7 @@ public class ExInventoryDto {
     private String name;
     private String registration_number;
     private String quantity;
-    private double rate;
+    private String rate;
     private String specification;
     private String section;
     private String section_number;
@@ -65,11 +65,11 @@ public class ExInventoryDto {
         this.quantity = quantity;
     }
 
-    public double getRate() {
+    public String getRate() {
         return rate;
     }
 
-    public void setRate(double rate) {
+    public void setRate(String rate) {
         this.rate = rate;
     }
 

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package archjunchaupari.Inventory.Services;
+package archjunchaupari.Services.Inventory;
 
 import archjunchaupari.Inventory.InventoryDAO.InventoryDAO;
 import archjunchaupari.Inventory.InventoryDAO.InventoryDaoIMPL;
@@ -22,7 +22,7 @@ public class InventoryService implements InventoryDaoService {
 
     @Override
     public void saveInventory(ExInventoryDto inventoryDto) {
-        inventoryDao.saveInventory(inventoryDto);
+        in.saveInventory(inventoryDto);
     }
 
     @Override

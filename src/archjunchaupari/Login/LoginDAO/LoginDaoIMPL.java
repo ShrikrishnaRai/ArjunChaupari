@@ -5,12 +5,19 @@
  */
 package archjunchaupari.Login.LoginDAO;
 
+import archjunchaupari.Model.Inventory.ExInventoryDto;
+import archjunchaupari.Utils.Credential.CredentialDto;
+import archjunchaupari.Utils.Credential.HCredential;
 import archjunchaupari.Utils.RestUrl;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,6 +37,11 @@ import org.apache.http.message.BasicNameValuePair;
  */
 public class LoginDaoIMPL implements LoginDAO {
 
+    Gson gson;
+    List<CredentialDto> credentialList = new ArrayList<>();
+    public static String token;
+    HCredential h = new HCredential();
+
     @Override
     public boolean login(String email, String password) throws ClientProtocolException, IOException {
         HttpClient client = HttpClientBuilder.create().build();
@@ -41,17 +53,32 @@ public class LoginDaoIMPL implements LoginDAO {
         HttpResponse response = client.execute(post);
         int statusCode = response.getStatusLine().getStatusCode();
         BufferedReader br_Dco = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-        StringBuilder result = new StringBuilder();
-        String line = "";
-        while ((line = br_Dco.readLine()) != null) {
-            result.append(line);
+        gson = new Gson();
+        Type credentialDto = new TypeToken<ArrayList<CredentialDto>>() {
+        }.getType();
+        credentialList = new Gson().fromJson(br_Dco, credentialDto);
+        for (int i = 0; i < credentialList.size(); i++) {
+            token = credentialList.get(i).getToken();
+            if (token != null) {
+                break;
+            }
         }
+        h.saveCredential(token);
+        h.setToken(token);
         if (statusCode == 200) {
             return true;
         } else {
             return false;
         }
 
+    }
+
+    public static String getToken() {
+        return token;
+    }
+
+    public static void setToken(String token) {
+        LoginDaoIMPL.token = token;
     }
 
 }

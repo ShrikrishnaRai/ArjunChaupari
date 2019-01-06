@@ -14,4 +14,6 @@ public class RestUrl {
     public static String ACCESS_TOKEN = "http://aavash.pythonanywhere.com/api/get-token/";
     public static String SAVE_INVENTORY = "http://aavash.pythonanywhere.com/api/v1/inventory/expendable-item/";
     public static String GET_INVENTORY = "http://aavash.pythonanywhere.com/api/v1/inventory/expendable-item/";
+    public static String GET_DARTA = "http://aavash.pythonanywhere.com/api/v1/inventory/patra-darta/";
+    public static String GET_PATRA_CHALANI = "http://aavash.pythonanywhere.com/api/v1/inventory/patra-chalani/";
 }

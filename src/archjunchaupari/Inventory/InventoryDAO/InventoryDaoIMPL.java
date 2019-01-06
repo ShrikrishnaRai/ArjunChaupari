@@ -5,7 +5,11 @@
  */
 package archjunchaupari.Inventory.InventoryDAO;
 
+import archjunchaupari.FXMLDocumentController;
+import archjunchaupari.Login.LoginDAO.LoginDaoIMPL;
 import archjunchaupari.Model.Inventory.ExInventoryDto;
+import archjunchaupari.Utils.Credential.CredentialDto;
+import archjunchaupari.Utils.Credential.HCredential;
 import archjunchaupari.Utils.RestUrl;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -19,13 +23,19 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.message.BasicHeader;
 import org.apache.http.message.BasicNameValuePair;
 
 /**
@@ -36,41 +46,29 @@ public class InventoryDaoIMPL implements InventoryDAO {
 
     List<ExInventoryDto> inventoryList = new ArrayList<>();
 
+    LoginDaoIMPL l = new LoginDaoIMPL();
+    HCredential hCredential_ic = new HCredential();
+    int statusCode;
+
     @Override
     public void saveInventory(ExInventoryDto inventoryDto) {
         try {
-            HttpClient client = HttpClientBuilder.create().build();
-            HttpPost post = new HttpPost(RestUrl.SAVE_INVENTORY);
-            List<NameValuePair> saveInventory = new ArrayList<>();
-            saveInventory.add(new BasicNameValuePair("name", "" + inventoryDto.getName()));
-            saveInventory.add(new BasicNameValuePair("registration_number", "" + inventoryDto.getRegistration_number()));
-            saveInventory.add(new BasicNameValuePair("quantity", "" + inventoryDto.getQuantity()));
-            saveInventory.add(new BasicNameValuePair("rate", "" + inventoryDto.getRate()));
-            saveInventory.add(new BasicNameValuePair("specification", "" + inventoryDto.getSpecification()));
-            saveInventory.add(new BasicNameValuePair("section", "" + inventoryDto.getSection()));
-            saveInventory.add(new BasicNameValuePair("section_number", "" + inventoryDto.getSection_number()));
-            saveInventory.add(new BasicNameValuePair("remarks", "" + inventoryDto.getRemarks()));
-            post.setEntity(new UrlEncodedFormEntity(saveInventory));
-            HttpResponse response = client.execute(post);
-            /*        HttpClient client = HttpClientBuilder.create().build();
-            HttpPost post = new HttpPost(RestUrl.ACCESS_TOKEN);
-            List<NameValuePair> login = new ArrayList<>();
-            login.add(new BasicNameValuePair("email", "" + email));
-            login.add(new BasicNameValuePair("password", "" + password));
-            post.setEntity(new UrlEncodedFormEntity(login));
-            HttpResponse response = client.execute(post);
-            int statusCode = response.getStatusLine().getStatusCode();
-            BufferedReader br_Dco = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-            StringBuilder result = new StringBuilder();
-            String line = "";
-            while ((line = br_Dco.readLine()) != null) {
-            result.append(line);
-            }
-            if (statusCode == 200) {
-            return true;
-            } else {
-            return false;
-            }*/
+            CloseableHttpClient client = HttpClients.createDefault();
+            HttpPost httpPost = new HttpPost(RestUrl.SAVE_INVENTORY);
+            Gson gson = new Gson();
+            JOptionPane.showMessageDialog(null, "" + inventoryDto.getName());
+            String json = gson.toJson(inventoryDto);
+            JOptionPane.showMessageDialog(null, "String::" + json);
+            StringEntity entity = new StringEntity(json);
+            httpPost.setEntity(entity);
+            httpPost.setHeader("Accept", "application/json");
+            httpPost.setHeader("Content-type", "application/json");
+            httpPost.addHeader("Authorization", "JWT " + LoginDaoIMPL.token);
+            CloseableHttpResponse response = client.execute(httpPost);
+            client.close();
+            JOptionPane.showMessageDialog(null, "" + response);
+            System.out.println("" + response);
+            statusCode = response.getStatusLine().getStatusCode();
         } catch (UnsupportedEncodingException ex) {
             JOptionPane.showMessageDialog(null, "" + ex);
         } catch (IOException ex) {
@@ -90,7 +88,7 @@ public class InventoryDaoIMPL implements InventoryDAO {
             Gson gson = new Gson();
             Type inventoryDto = new TypeToken<ArrayList<ExInventoryDto>>() {
             }.getType();
-            List<ExInventoryDto> iList = new Gson().fromJson(bufReader, inventoryDto);
+            inventoryList = new Gson().fromJson(bufReader, inventoryDto);
         } catch (IOException ex) {
             Logger.getLogger(InventoryDaoIMPL.class.getName()).log(Level.SEVERE, null, ex);
         }
