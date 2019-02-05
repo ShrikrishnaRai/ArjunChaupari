@@ -17,4 +17,7 @@ public interface InventoryDAO {
     void saveInventory(ExInventoryDto inventoryDto);
 
     List<ExInventoryDto> getInventory();
+    
+    void deleteInventory(int id);
+    
 }

@@ -5,18 +5,18 @@
  */
 package archjunchaupari.Dashboard;
 
-import archjunchaupari.Inventory.InventoryDAO.InventoryDaoIMPL;
 import archjunchaupari.Services.Inventory.InventoryDaoService;
 import archjunchaupari.Services.Inventory.InventoryService;
-import archjunchaupari.Login.LoginDAO.LoginDaoIMPL;
 import archjunchaupari.Model.Darta.DartaDto;
 import archjunchaupari.Model.Inventory.ExInventoryDto;
 import archjunchaupari.Services.Darta.DartaServices;
+import archjunchaupari.Utils.RestUrl;
+import java.io.IOException;
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
-import javafx.application.Application;
-import javafx.beans.property.SimpleStringProperty;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,6 +25,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Hyperlink;
+import javafx.scene.control.Label;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -32,7 +35,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javax.swing.JOptionPane;
 
@@ -42,6 +50,18 @@ import javax.swing.JOptionPane;
  * @author cri
  */
 public class DashFXMLController implements Initializable {
+    
+    @FXML
+    private TextField searchText;
+    
+    @FXML
+    private Button searchButton;
+
+    @FXML
+    private SplitPane splitPane;
+
+    @FXML
+    private Button logOut;
 
     @FXML
     private Button b;
@@ -56,7 +76,13 @@ public class DashFXMLController implements Initializable {
     private TableView dartaTable;
 
     @FXML
+    private TableColumn<ExInventoryDto, Hyperlink> columnDelete;
+
+    @FXML
     private TableColumn<ExInventoryDto, String> columnName;
+
+    @FXML
+    private TableColumn<ExInventoryDto, String> columnId;
 
     @FXML
     private TextField textName;
@@ -112,7 +138,10 @@ public class DashFXMLController implements Initializable {
     @FXML
     private TableColumn<ExInventoryDto, String> columnIs_Approved;
 
-    //Data TableView column
+    //Darta TableView column
+    @FXML
+    private TableColumn<DartaDto, String> darta_id;
+
     @FXML
     private TableColumn<DartaDto, String> created_date;
 
@@ -149,9 +178,11 @@ public class DashFXMLController implements Initializable {
     InventoryDaoService inventoryService;
     DartaServices dartaService;
     ExInventoryDto inventoryDto;
+    int i = 0;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        splitPane.setDividerPositions(-0.5);
         loadInventory("Spendable Item", "UnSpendable Item");
         loadDarta("Darta", "Chalani");
         loadTable();
@@ -162,6 +193,7 @@ public class DashFXMLController implements Initializable {
     public void loadTable() {
         inventoryService = new InventoryService();
         //load item on tableview from pojo class 
+        columnId.setCellValueFactory(new PropertyValueFactory<>("id"));
         columnName.setCellValueFactory(new PropertyValueFactory<>("name"));
         columnRegistrationNumber.setCellValueFactory(new PropertyValueFactory<>("registration_number"));
         columnQuantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
@@ -171,12 +203,29 @@ public class DashFXMLController implements Initializable {
         columnSection_number.setCellValueFactory(new PropertyValueFactory<>("section_number"));
         columnRemarks.setCellValueFactory(new PropertyValueFactory<>("remarks"));
         columnDate.setCellValueFactory(new PropertyValueFactory<>("created_date"));
+        columnIs_Approved.setCellValueFactory(new PropertyValueFactory<>("is_approved"));
         tableView.getItems().setAll(inventoryService.getInventory());
     }
-
+        //load searched Inventory on Table
+    public void loadSearchTable(String inventory) {
+        inventoryService = new InventoryService();
+        //load item on tableview from pojo class 
+        columnId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        columnName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        columnRegistrationNumber.setCellValueFactory(new PropertyValueFactory<>("registration_number"));
+        columnQuantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+        columnRate.setCellValueFactory(new PropertyValueFactory<>("rate"));
+        columnSpecification.setCellValueFactory(new PropertyValueFactory<>("specification"));
+        columnSection.setCellValueFactory(new PropertyValueFactory<>("section"));
+        columnSection_number.setCellValueFactory(new PropertyValueFactory<>("section_number"));
+        columnRemarks.setCellValueFactory(new PropertyValueFactory<>("remarks"));
+        columnDate.setCellValueFactory(new PropertyValueFactory<>("created_date"));
+        columnIs_Approved.setCellValueFactory(new PropertyValueFactory<>("is_approved"));
+        tableView.getItems().setAll(inventoryService.getSearchInventory(inventory));
+    }
     public void loadDartaTable() {
         dartaService = new DartaServices();
-//        created_date.setCellValueFactory(new PropertyValueFactory<>("created_date"));
+        darta_id.setCellValueFactory(new PropertyValueFactory<>("id"));
         darta_number.setCellValueFactory(new PropertyValueFactory<>("darta_number"));
         darta_date.setCellValueFactory(new PropertyValueFactory<>("darta_date"));
         letter_quantity.setCellValueFactory(new PropertyValueFactory<>("letter_quantity"));
@@ -219,7 +268,6 @@ public class DashFXMLController implements Initializable {
 
         });*/
         root.getChildren().add(inventory);
-
         inventory.getChildren().add(spendable);
         inventory.getChildren().add(unspendable);
         treeViewDash.setRoot(root);
@@ -244,11 +292,82 @@ public class DashFXMLController implements Initializable {
             inventoryDto.setSection_number(textSection_number.getText());
             inventoryDto.setRemarks(textRemarks.getText());
             inventoryService.saveInventory(inventoryDto);
-
+            loadTable();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "" + e);
         }
+    }
 
+    @FXML
+    public void logOut() {
+        try {
+            Stage primary_stage = (Stage) logOut.getScene().getWindow();
+            primary_stage.close();
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/archjunchaupari/FXMLDocument.fxml"));
+            Parent root1 = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setTitle("ArjunChaupari Gaupalika");
+            stage.setScene(new Scene(root1));
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(DashFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    public void deleteRow() {
+        tableView.setOnMouseClicked((MouseEvent event) -> {
+            if (event.getButton().equals(MouseButton.PRIMARY)) {
+                if (event.getClickCount() == 2) {
+                    final Stage dialog = new Stage();
+                    dialog.initModality(Modality.APPLICATION_MODAL);
+                    ExInventoryDto inventoryDto1 = (ExInventoryDto) tableView.getSelectionModel().getSelectedItem();
+                    VBox dialogVbox = new VBox(20);
+                    Button button = new Button("Delete");
+                    Button buttonUpdate = new Button("Update");
+                    buttonUpdate.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event2) -> {
+                        try {
+                            Stage primary_stage = (Stage) buttonUpdate.getScene().getWindow();
+                            primary_stage.close();
+                            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/archjunchaupari/Update/UpdateFXML.fxml"));
+                            Parent root1 = (Parent) fxmlLoader.load();
+                            Stage stage = new Stage();
+                            stage.setTitle("ArjunChaupari Gaupalika");
+                            stage.setScene(new Scene(root1));
+                            stage.show();
+                        } catch (IOException ex) {
+                            Logger.getLogger(DashFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    });
+                    button.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event1) -> {
+                        int option = JOptionPane.showConfirmDialog(null, "Are You Sure?", "Warning", JOptionPane.YES_NO_OPTION);
+                        if (option == JOptionPane.YES_OPTION) {
+                            inventoryService.deleteInventory(inventoryDto1.getId());
+                            loadTable();
+                        }
+                    });
+                    dialogVbox.getChildren().add(new Text(inventoryDto1.getName() + "" + inventoryDto1.getId()));
+                    dialogVbox.getChildren().add(button);
+                    dialogVbox.getChildren().add(buttonUpdate);
+                    Scene dialogScene = new Scene(dialogVbox, 300, 200);
+                    dialog.setScene(dialogScene);
+                    dialog.show();
+                }
+            }
+        });
+    }
+    
+    public void searchButtonAction(){
+        if(searchText.getText()!=null){
+        loadSearchTable(searchText.getText());}
+        else{
+            JOptionPane.showMessageDialog(null, "Enter items to be Searched");
+        }
+    }
+
+    @FXML
+    public void close() {
+        Platform.exit();
     }
 
 }

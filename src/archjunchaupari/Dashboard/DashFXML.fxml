@@ -54,10 +54,10 @@
                 </MenuBar>
                 <ToolBar prefHeight="22.0" prefWidth="600.0">
                     <items>
-                        <Button alignment="CENTER" mnemonicParsing="false" text="Log Out" />
+                        <Button fx:id="logOut" alignment="CENTER" mnemonicParsing="false" onAction="#logOut" text="Log Out" />
                         <Pane HBox.hgrow="ALWAYS" />
-                        <TextField alignment="BASELINE_RIGHT" promptText="Inventory / Staff" />
-                        <Button alignment="BOTTOM_RIGHT" mnemonicParsing="false" text="Search" />
+                        <TextField fx:id="searchText" alignment="BASELINE_RIGHT" promptText="Inventory / Staff" />
+                        <Button fx:id="searchButton" alignment="BOTTOM_RIGHT" mnemonicParsing="false" onMouseClicked="#searchButtonAction" text="Search" />
                     </items>
                 </ToolBar>
             </children>
@@ -84,7 +84,7 @@
         </VBox>
     </bottom>
     <center>
-        <SplitPane dividerPositions="0.5" prefHeight="160.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+        <SplitPane fx:id="splitPane" dividerPositions="0.5" prefHeight="160.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <items>
                 <BorderPane prefHeight="310.0" prefWidth="130.0">
                     <center>
@@ -103,9 +103,9 @@
                                                     <items>
                                                         <BorderPane prefHeight="200.0" prefWidth="200.0">
                                                             <center>
-                                                                <TableView fx:id="tableView" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                                                <TableView fx:id="tableView" onMouseClicked="#deleteRow" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                                                     <columns>
-                                                      <TableColumn fx:id="columnName1" prefWidth="75.0" text="SN" />
+                                                      <TableColumn fx:id="columnId" prefWidth="75.0" text="SN" />
                                                                         <TableColumn fx:id="columnName" prefWidth="75.0" text="Name" />
                                                                         <TableColumn fx:id="columnRegistrationNumber" prefWidth="75.0" text="Registration Number" />
                                                                         <TableColumn fx:id="columnQuantity" prefWidth="75.0" text="Quantity" />
@@ -225,7 +225,7 @@
                                                             <Insets left="10.0" />
                                                          </GridPane.margin>
                                                                         </Label>
-                                                                        <DatePicker fx:id="textDate" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                                                        <DatePicker fx:id="textDate" promptText="Date" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                                                                         <Button mnemonicParsing="false" onAction="#saveInventory" prefHeight="26.0" prefWidth="100.0" text="Save" GridPane.columnIndex="3" GridPane.rowIndex="6" />
                                                                         <TextField fx:id="textRate" layoutX="68.0" layoutY="25.0" promptText="Rate" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                                                         <TextField fx:id="textSection" layoutX="68.0" layoutY="36.0" promptText="Section" GridPane.columnIndex="1" GridPane.rowIndex="4" />
@@ -265,15 +265,15 @@
                                                 <TableView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                                    <columns>
                                                       <TableColumn fx:id="columnName11" prefWidth="75.0" text="SN" />
-                                                      <TableColumn fx:id="columnName1" prefWidth="75.0" text="Name" />
-                                                      <TableColumn fx:id="columnRegistrationNumber1" prefWidth="75.0" text="Registration Number" />
-                                                      <TableColumn fx:id="columnQuantity1" prefWidth="75.0" text="Quantity" />
-                                                      <TableColumn fx:id="columnRate1" prefWidth="75.0" text="Rate" />
-                                                      <TableColumn fx:id="columnSpecification1" prefWidth="75.0" text="Specification" />
-                                                      <TableColumn fx:id="columnSection1" prefWidth="75.0" text="Section" />
-                                                      <TableColumn fx:id="columnSection_number1" prefWidth="75.0" text="Section Number" />
-                                                      <TableColumn fx:id="columnRemarks1" prefWidth="75.0" text="Remarks" />
-                                                      <TableColumn fx:id="columnDate1" prefWidth="75.0" text="Date" />
+                                                      <TableColumn fx:id="columnName1" prefWidth="75.0" text="Created Date" />
+                                                      <TableColumn fx:id="columnRegistrationNumber1" prefWidth="75.0" text="Chalani Date" />
+                                                      <TableColumn fx:id="columnQuantity1" prefWidth="75.0" text="Chalani Number" />
+                                                      <TableColumn fx:id="columnRate1" prefWidth="75.0" text="Letter Quantity" />
+                                                      <TableColumn fx:id="columnSpecification1" prefWidth="75.0" text="Reception" />
+                                                      <TableColumn fx:id="columnSection1" prefWidth="75.0" text="Ticket" />
+                                                      <TableColumn fx:id="columnSection_number1" prefWidth="75.0" text="Letter Date" />
+                                                      <TableColumn fx:id="columnRemarks1" prefWidth="75.0" text="Subject" />
+                                                      <TableColumn fx:id="columnDate1" prefWidth="75.0" text="Remarks" />
                                                       <TableColumn fx:id="columnIs_Approved1" prefWidth="75.0" text="Approved" />
                                                       <TableColumn fx:id="columnIs_Approved11" prefWidth="75.0" text="Maintain" />
                                                    </columns>
@@ -301,7 +301,7 @@
                                                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                                    </rowConstraints>
                                                    <children>
-                                                      <Label text="Name">
+                                                      <Label text="Created Date">
                                                          <GridPane.margin>
                                                             <Insets left="10.0" />
                                                          </GridPane.margin>
@@ -309,10 +309,8 @@
                                                             <Font name="System Bold" size="13.0" />
                                                          </font>
                                                       </Label>
-                                                      <TextField fx:id="textName1" promptText="Name" GridPane.columnIndex="1" />
-                                                      <TextField fx:id="textRegistrationNumber1" promptText="Registration Number" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                                      <TextField fx:id="textQuantity1" layoutX="107.0" layoutY="30.0" promptText="Quantity" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                                      <Label layoutX="10.0" layoutY="13.0" text="Registration Number" GridPane.rowIndex="1">
+                                                      <TextField fx:id="textQuantity1" layoutX="107.0" layoutY="30.0" promptText="Chalani Number" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                                      <Label layoutX="10.0" layoutY="13.0" text="Chalani Date" GridPane.rowIndex="1">
                                                          <GridPane.margin>
                                                             <Insets left="10.0" />
                                                          </GridPane.margin>
@@ -323,7 +321,7 @@
                                                             <Insets />
                                                          </opaqueInsets>
                                                       </Label>
-                                                      <Label layoutX="10.0" layoutY="35.0" text="Quantity" GridPane.rowIndex="2">
+                                                      <Label layoutX="10.0" layoutY="35.0" text="Chalani Number" GridPane.rowIndex="2">
                                                          <GridPane.margin>
                                                             <Insets left="10.0" />
                                                          </GridPane.margin>
@@ -331,7 +329,7 @@
                                                             <Font name="System Bold" size="13.0" />
                                                          </font>
                                                       </Label>
-                                                      <Label layoutX="10.0" layoutY="57.0" text="Rate" GridPane.rowIndex="3">
+                                                      <Label layoutX="10.0" layoutY="57.0" text="Letter Quantity" GridPane.rowIndex="3">
                                                          <GridPane.margin>
                                                             <Insets left="10.0" />
                                                          </GridPane.margin>
@@ -339,7 +337,7 @@
                                                             <Font name="System Bold" size="13.0" />
                                                          </font>
                                                       </Label>
-                                                      <Label layoutX="10.0" layoutY="89.0" text="Section" GridPane.rowIndex="4">
+                                                      <Label layoutX="10.0" layoutY="89.0" text="Receiption" GridPane.rowIndex="4">
                                                          <GridPane.margin>
                                                             <Insets left="10.0" />
                                                          </GridPane.margin>
@@ -347,7 +345,7 @@
                                                             <Font name="System Bold" size="13.0" />
                                                          </font>
                                                       </Label>
-                                                      <Label layoutX="10.0" layoutY="94.0" text="Section Number" GridPane.rowIndex="5">
+                                                      <Label layoutX="10.0" layoutY="94.0" text="Ticket" GridPane.rowIndex="5">
                                                          <GridPane.margin>
                                                             <Insets left="10.0" />
                                                          </GridPane.margin>
@@ -355,7 +353,7 @@
                                                             <Font name="System Bold" size="13.0" />
                                                          </font>
                                                       </Label>
-                                                      <Label layoutX="10.0" layoutY="94.0" text="Specification" GridPane.columnIndex="2">
+                                                      <Label layoutX="10.0" layoutY="94.0" text="Subject" GridPane.columnIndex="2">
                                                          <GridPane.margin>
                                                             <Insets left="60.0" />
                                                          </GridPane.margin>
@@ -363,7 +361,7 @@
                                                             <Font name="System Bold" size="13.0" />
                                                          </font>
                                                       </Label>
-                                                      <TextArea fx:id="textSpecification1" prefHeight="200.0" prefWidth="200.0" promptText="Specification About Product....." GridPane.columnIndex="3" />
+                                                      <TextArea fx:id="textSpecification1" prefHeight="200.0" prefWidth="200.0" promptText="Subject Issue" GridPane.columnIndex="3" />
                                                       <Label layoutX="126.0" layoutY="10.0" text="Remarks" GridPane.columnIndex="2" GridPane.rowIndex="3">
                                                          <GridPane.margin>
                                                             <Insets left="60.0" />
@@ -373,7 +371,7 @@
                                                          </font>
                                                       </Label>
                                                       <TextArea fx:id="textRemarks1" layoutX="185.0" layoutY="-3.0" prefHeight="200.0" prefWidth="200.0" promptText="Remarks...." GridPane.columnIndex="3" GridPane.rowIndex="3" />
-                                                      <Label layoutX="10.0" layoutY="94.0" text="Date" GridPane.rowIndex="6">
+                                                      <Label layoutX="10.0" layoutY="94.0" text="Letter Date" GridPane.rowIndex="6">
                                                          <padding>
                                                             <Insets left="5.0" />
                                                          </padding>
@@ -384,11 +382,13 @@
                                                             <Insets left="10.0" />
                                                          </GridPane.margin>
                                                       </Label>
-                                                      <DatePicker fx:id="textDate1" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                                      <DatePicker fx:id="textDate1" promptText="Letter Date" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                                                       <Button fx:id="b" mnemonicParsing="false" onAction="#check" prefHeight="26.0" prefWidth="100.0" text="Save" GridPane.columnIndex="3" GridPane.rowIndex="6" />
                                                       <TextField fx:id="textRate1" layoutX="68.0" layoutY="25.0" promptText="Rate" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                                       <TextField fx:id="textSection1" layoutX="68.0" layoutY="36.0" promptText="Section" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                                                      <TextField fx:id="textSection_number1" layoutX="68.0" layoutY="48.0" promptText="Section Number" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                                      <TextField fx:id="textSection_number1" layoutX="68.0" layoutY="48.0" promptText="Ticket" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                                      <DatePicker promptText="Created Date" GridPane.columnIndex="1" />
+                                                      <DatePicker promptText="Chalani Date" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                                    </children>
                                                 </GridPane>
                                              </center>
@@ -423,7 +423,7 @@
                                              <center>
                                                 <TableView fx:id="dartaTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                                    <columns>
-                                                      <TableColumn fx:id="columnName111" prefWidth="75.0" text="SN" />
+                                                      <TableColumn fx:id="darta_id" prefWidth="75.0" text="SN" />
                                                       <TableColumn fx:id="darta_number" prefWidth="75.0" text="Darta Number" />
                                                       <TableColumn fx:id="darta_date" prefWidth="75.0" text="Darta Date" />
                                                       <TableColumn fx:id="letter_quantity" prefWidth="75.0" text="Letter Quantity" />
@@ -459,7 +459,7 @@
                                                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                                    </rowConstraints>
                                                    <children>
-                                                      <Label text="Name">
+                                                      <Label text="Created Date">
                                                          <GridPane.margin>
                                                             <Insets left="10.0" />
                                                          </GridPane.margin>
@@ -467,10 +467,8 @@
                                                             <Font name="System Bold" size="13.0" />
                                                          </font>
                                                       </Label>
-                                                      <TextField fx:id="textName11" promptText="Name" GridPane.columnIndex="1" />
-                                                      <TextField fx:id="textRegistrationNumber11" promptText="Registration Number" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                                       <TextField fx:id="textQuantity11" layoutX="107.0" layoutY="30.0" promptText="Quantity" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                                      <Label layoutX="10.0" layoutY="13.0" text="Registration Number" GridPane.rowIndex="1">
+                                                      <Label layoutX="10.0" layoutY="13.0" text="Darta Date" GridPane.rowIndex="1">
                                                          <GridPane.margin>
                                                             <Insets left="10.0" />
                                                          </GridPane.margin>
@@ -481,7 +479,7 @@
                                                             <Insets />
                                                          </opaqueInsets>
                                                       </Label>
-                                                      <Label layoutX="10.0" layoutY="35.0" text="Quantity" GridPane.rowIndex="2">
+                                                      <Label layoutX="10.0" layoutY="35.0" text="Darta Number" GridPane.rowIndex="2">
                                                          <GridPane.margin>
                                                             <Insets left="10.0" />
                                                          </GridPane.margin>
@@ -489,7 +487,7 @@
                                                             <Font name="System Bold" size="13.0" />
                                                          </font>
                                                       </Label>
-                                                      <Label layoutX="10.0" layoutY="57.0" text="Rate" GridPane.rowIndex="3">
+                                                      <Label layoutX="10.0" layoutY="57.0" text="Letter Quantity" GridPane.rowIndex="3">
                                                          <GridPane.margin>
                                                             <Insets left="10.0" />
                                                          </GridPane.margin>
@@ -497,7 +495,7 @@
                                                             <Font name="System Bold" size="13.0" />
                                                          </font>
                                                       </Label>
-                                                      <Label layoutX="10.0" layoutY="89.0" text="Section" GridPane.rowIndex="4">
+                                                      <Label layoutX="10.0" layoutY="89.0" text="Reception" GridPane.rowIndex="4">
                                                          <GridPane.margin>
                                                             <Insets left="10.0" />
                                                          </GridPane.margin>
@@ -505,7 +503,7 @@
                                                             <Font name="System Bold" size="13.0" />
                                                          </font>
                                                       </Label>
-                                                      <Label layoutX="10.0" layoutY="94.0" text="Section Number" GridPane.rowIndex="5">
+                                                      <Label layoutX="10.0" layoutY="94.0" text="Signed Date" GridPane.rowIndex="5">
                                                          <GridPane.margin>
                                                             <Insets left="10.0" />
                                                          </GridPane.margin>
@@ -513,7 +511,7 @@
                                                             <Font name="System Bold" size="13.0" />
                                                          </font>
                                                       </Label>
-                                                      <Label layoutX="10.0" layoutY="94.0" text="Specification" GridPane.columnIndex="2">
+                                                      <Label layoutX="10.0" layoutY="94.0" text="Subject" GridPane.columnIndex="2">
                                                          <GridPane.margin>
                                                             <Insets left="60.0" />
                                                          </GridPane.margin>
@@ -521,7 +519,7 @@
                                                             <Font name="System Bold" size="13.0" />
                                                          </font>
                                                       </Label>
-                                                      <TextArea fx:id="textSpecification11" prefHeight="200.0" prefWidth="200.0" promptText="Specification About Product....." GridPane.columnIndex="3" />
+                                                      <TextArea fx:id="textSpecification11" prefHeight="200.0" prefWidth="200.0" promptText="Subject" GridPane.columnIndex="3" />
                                                       <Label layoutX="126.0" layoutY="10.0" text="Remarks" GridPane.columnIndex="2" GridPane.rowIndex="3">
                                                          <GridPane.margin>
                                                             <Insets left="60.0" />
@@ -542,11 +540,22 @@
                                                             <Insets left="10.0" />
                                                          </GridPane.margin>
                                                       </Label>
-                                                      <DatePicker fx:id="textDate11" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                                      <DatePicker fx:id="textDate11" promptText="Date" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                                                       <Button mnemonicParsing="false" onAction="#saveInventory" prefHeight="26.0" prefWidth="100.0" text="Save" GridPane.columnIndex="3" GridPane.rowIndex="6" />
-                                                      <TextField fx:id="textRate11" layoutX="68.0" layoutY="25.0" promptText="Rate" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                                      <TextField fx:id="textSection11" layoutX="68.0" layoutY="36.0" promptText="Section" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                                      <TextField fx:id="textRate11" layoutX="68.0" layoutY="25.0" promptText="Letter Quantity" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                                      <TextField fx:id="textSection11" layoutX="68.0" layoutY="36.0" promptText="To Office" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                                                       <TextField fx:id="textSection_number11" layoutX="68.0" layoutY="48.0" promptText="Section Number" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                                      <DatePicker promptText="Created Date" GridPane.columnIndex="1" />
+                                                      <DatePicker promptText="Darta Date" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                                      <Label text="Image" GridPane.columnIndex="2" GridPane.rowIndex="5">
+                                                         <font>
+                                                            <Font name="System Bold" size="13.0" />
+                                                         </font>
+                                                         <GridPane.margin>
+                                                            <Insets left="60.0" />
+                                                         </GridPane.margin>
+                                                      </Label>
+                                                      <TextField GridPane.columnIndex="3" GridPane.rowIndex="5" />
                                                    </children>
                                                 </GridPane>
                                              </center>
