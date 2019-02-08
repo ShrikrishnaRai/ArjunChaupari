@@ -11,12 +11,17 @@ import archjunchaupari.Model.Darta.DartaDto;
 import archjunchaupari.Model.Inventory.ExInventoryDto;
 import archjunchaupari.Services.Darta.DartaServices;
 import archjunchaupari.Utils.RestUrl;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
+import javafx.embed.swing.SwingFXUtils;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -28,6 +33,8 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -35,13 +42,16 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 
 /**
@@ -50,10 +60,52 @@ import javax.swing.JOptionPane;
  * @author cri
  */
 public class DashFXMLController implements Initializable {
-    
+
+    @FXML
+    private TextField inventoryId;
+
+    @FXML
+    private TextField staffId;
+
+    @FXML
+    private TextField dartaId;
+
+    @FXML
+    private TextField dartaChalaniId;
+
+    @FXML
+    private Button updateInventory;
+
+    @FXML
+    private Button updateStaff;
+
+    @FXML
+    private Button updateDarta;
+
+    @FXML
+    private Button updateDartaChalani;
+
+    @FXML
+    private Button uploadImage;
+
     @FXML
     private TextField searchText;
-    
+
+    @FXML
+    private TabPane tabPane;
+
+    @FXML
+    private Tab inventoryTab;
+
+    @FXML
+    private Tab patraTab;
+
+    @FXML
+    private Tab dartaTab;
+
+    @FXML
+    private Tab staffTab;
+
     @FXML
     private Button searchButton;
 
@@ -74,6 +126,12 @@ public class DashFXMLController implements Initializable {
 
     @FXML
     private TableView dartaTable;
+
+    @FXML
+    private TableView staffTable;
+
+    @FXML
+    private TableView chalaniTable;
 
     @FXML
     private TableColumn<ExInventoryDto, Hyperlink> columnDelete;
@@ -138,6 +196,31 @@ public class DashFXMLController implements Initializable {
     @FXML
     private TableColumn<ExInventoryDto, String> columnIs_Approved;
 
+    //Darta Field
+    @FXML
+    private TextField dartaNumber;
+
+    @FXML
+    private TextField letterQuantity;
+
+    @FXML
+    private TextField reception;
+
+    @FXML
+    private TextArea dartaSubject;
+
+    @FXML
+    private TextArea dartaRemarks;
+
+    @FXML
+    private TextField dartaImage;
+
+    @FXML
+    private DatePicker dartaDate;
+
+    @FXML
+    private DatePicker signedDate;
+
     //Darta TableView column
     @FXML
     private TableColumn<DartaDto, String> darta_id;
@@ -178,6 +261,7 @@ public class DashFXMLController implements Initializable {
     InventoryDaoService inventoryService;
     DartaServices dartaService;
     ExInventoryDto inventoryDto;
+    DartaDto dartaDto;
     int i = 0;
 
     @Override
@@ -187,6 +271,14 @@ public class DashFXMLController implements Initializable {
         loadDarta("Darta", "Chalani");
         loadTable();
         loadDartaTable();
+        updateInventory.setDisable(true);
+        updateDarta.setDisable(true);
+        updateDartaChalani.setDisable(true);
+        updateStaff.setDisable(true);
+        inventoryId.setEditable(false);
+        staffId.setEditable(false);
+        dartaChalaniId.setEditable(false);
+        dartaId.setEditable(false);
     }
 
     //load Inventory on Table
@@ -206,7 +298,8 @@ public class DashFXMLController implements Initializable {
         columnIs_Approved.setCellValueFactory(new PropertyValueFactory<>("is_approved"));
         tableView.getItems().setAll(inventoryService.getInventory());
     }
-        //load searched Inventory on Table
+    //load searched Inventory on Table
+
     public void loadSearchTable(String inventory) {
         inventoryService = new InventoryService();
         //load item on tableview from pojo class 
@@ -223,6 +316,7 @@ public class DashFXMLController implements Initializable {
         columnIs_Approved.setCellValueFactory(new PropertyValueFactory<>("is_approved"));
         tableView.getItems().setAll(inventoryService.getSearchInventory(inventory));
     }
+
     public void loadDartaTable() {
         dartaService = new DartaServices();
         darta_id.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -279,6 +373,23 @@ public class DashFXMLController implements Initializable {
     }
 
     @FXML
+    public void saveDarta() {
+        dartaDto = new DartaDto();
+        dartaService = new DartaServices();
+        dartaDto.setDarta_number(dartaNumber.getText());
+        dartaDto.setLetter_quantity(letterQuantity.getText());
+        dartaDto.setRemarks(dartaRemarks.getText());
+        dartaDto.setReponsible_person_full_name(reception.getText());
+        dartaDto.setSubject(dartaSubject.getText());
+        //  dartaDto.setImage(uploadImage());
+        String dateValue = dartaDate.getValue().format(DateTimeFormatter.ISO_DATE);
+        dartaDto.setDarta_date(dateValue);
+        String signedValue = signedDate.getValue().format(DateTimeFormatter.ISO_DATE);
+        dartaDto.setSigned_date(signedValue);
+        dartaService.saveDarta(dartaDto);
+    }
+
+    @FXML
     public void saveInventory() {
         try {
             inventoryService = new InventoryService();
@@ -315,6 +426,50 @@ public class DashFXMLController implements Initializable {
     }
 
     @FXML
+    public void deleteRowDarta() {
+        dartaTable.setOnMouseClicked((MouseEvent event) -> {
+            if (event.getButton().equals(MouseButton.PRIMARY)) {
+                if (event.getClickCount() == 2) {
+                    final Stage dialog = new Stage();
+                    dialog.initModality(Modality.APPLICATION_MODAL);
+                    DartaDto dartaDto = (DartaDto) dartaTable.getSelectionModel().getSelectedItem();
+                    VBox dialogVbox = new VBox(20);
+                    Button button = new Button("Delete");
+                    Button buttonUpdate = new Button("Update");
+                    //Transfers to another update view
+//                    buttonUpdate.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event2) -> {
+//                        try {
+//                            Stage primary_stage = (Stage) buttonUpdate.getScene().getWindow();
+//                            primary_stage.close();
+//                            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/archjunchaupari/Update/UpdateFXML.fxml"));
+//                            Parent root1 = (Parent) fxmlLoader.load();
+//                            Stage stage = new Stage();
+//                            stage.setTitle("ArjunChaupari Gaupalika");
+//                            stage.setScene(new Scene(root1));
+//                            stage.show();
+//                        } catch (IOException ex) {
+//                            Logger.getLogger(DashFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+//                        }
+//                    });
+//                    button.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event1) -> {
+//                        int option = JOptionPane.showConfirmDialog(null, "Are You Sure?", "Warning", JOptionPane.YES_NO_OPTION);
+//                        if (option == JOptionPane.YES_OPTION) {
+//                            //   inventoryService.deleteInventory(inventoryDto1.getId());
+//                            loadTable();
+//                        }
+//                    });
+                    dialogVbox.getChildren().add(new Text(dartaDto.getDarta_date() + " " + dartaDto.getId()));
+                    dialogVbox.getChildren().add(button);
+                    dialogVbox.getChildren().add(buttonUpdate);
+                    Scene dialogScene = new Scene(dialogVbox, 300, 200);
+                    dialog.setScene(dialogScene);
+                    dialog.show();
+                }
+            }
+        });
+    }
+
+    @FXML
     public void deleteRow() {
         tableView.setOnMouseClicked((MouseEvent event) -> {
             if (event.getButton().equals(MouseButton.PRIMARY)) {
@@ -325,19 +480,21 @@ public class DashFXMLController implements Initializable {
                     VBox dialogVbox = new VBox(20);
                     Button button = new Button("Delete");
                     Button buttonUpdate = new Button("Update");
+                    //Transfers to another update view
                     buttonUpdate.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event2) -> {
-                        try {
-                            Stage primary_stage = (Stage) buttonUpdate.getScene().getWindow();
-                            primary_stage.close();
-                            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/archjunchaupari/Update/UpdateFXML.fxml"));
-                            Parent root1 = (Parent) fxmlLoader.load();
-                            Stage stage = new Stage();
-                            stage.setTitle("ArjunChaupari Gaupalika");
-                            stage.setScene(new Scene(root1));
-                            stage.show();
-                        } catch (IOException ex) {
-                            Logger.getLogger(DashFXMLController.class.getName()).log(Level.SEVERE, null, ex);
-                        }
+//                        try {
+////                            Stage primary_stage = (Stage) buttonUpdate.getScene().getWindow();
+////                            primary_stage.close();
+////                            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/archjunchaupari/Update/UpdateFXML.fxml"));
+////                            Parent root1 = (Parent) fxmlLoader.load();
+////                            Stage stage = new Stage();
+////                            stage.setTitle("ArjunChaupari Gaupalika");
+////                            stage.setScene(new Scene(root1));
+////                            stage.show();
+//                        } catch (IOException ex) {
+//                            Logger.getLogger(DashFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+//                        }
+                        updateInventory.setDisable(false);
                     });
                     button.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event1) -> {
                         int option = JOptionPane.showConfirmDialog(null, "Are You Sure?", "Warning", JOptionPane.YES_NO_OPTION);
@@ -356,18 +513,48 @@ public class DashFXMLController implements Initializable {
             }
         });
     }
-    
-    public void searchButtonAction(){
-        if(searchText.getText()!=null){
-        loadSearchTable(searchText.getText());}
-        else{
-            JOptionPane.showMessageDialog(null, "Enter items to be Searched");
+
+    public void searchButtonAction() {
+        switch (tabPane.getSelectionModel().getSelectedIndex()) {
+            case 0:
+                loadSearchTable(searchText.getText());
+                break;
+            case 1:
+                JOptionPane.showMessageDialog(null, "1");
+                break;
+            case 2:
+                JOptionPane.showMessageDialog(null, "2");
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
         }
     }
 
     @FXML
     public void close() {
         Platform.exit();
+    }
+
+    @FXML
+    public Image uploadImage() {
+        Image image1 = null;
+        try {
+            FileChooser fileChooser = new FileChooser();
+            //Set extension filter
+            FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.jpg");
+            FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.png");
+            FileChooser.ExtensionFilter extFilterJPEG = new FileChooser.ExtensionFilter("JPEG files (*.jpeg)", "*.jpeg");
+            fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG, extFilterJPEG);
+            //Show open file dialog
+            File file = fileChooser.showOpenDialog(null);
+            BufferedImage bufferedImage = ImageIO.read(file);
+            image1 = SwingFXUtils.toFXImage(bufferedImage, null);
+        } catch (IOException | NullPointerException | IllegalArgumentException ex) {
+            JOptionPane.showMessageDialog(null, "No Image Selected");
+        }
+        return image1;
     }
 
 }

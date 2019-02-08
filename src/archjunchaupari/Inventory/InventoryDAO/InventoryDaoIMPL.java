@@ -70,7 +70,7 @@ public class InventoryDaoIMPL implements InventoryDAO {
             if (statusCode == 201) {
                 JOptionPane.showMessageDialog(null, "Request Sent for Approval");
             } else {
-                JOptionPane.showMessageDialog(null, "Server Error");
+                JOptionPane.showMessageDialog(null, "Server Error::"+response);
             }
 
         } catch (UnsupportedEncodingException ex) {

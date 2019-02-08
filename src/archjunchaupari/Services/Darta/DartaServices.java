@@ -24,8 +24,8 @@ public class DartaServices implements DartaServiceDao {
     }
 
     @Override
-    public void saveDarta() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void saveDarta(DartaDto dartaDto) {
+        dartaDao.saveDarta(dartaDto);
     }
 
     @Override

@@ -5,6 +5,8 @@
  */
 package archjunchaupari.Model.Darta;
 
+import javafx.scene.image.Image;
+
 /**
  *
  * @author cri
@@ -13,7 +15,6 @@ package archjunchaupari.Model.Darta;
 public class DartaDto {
 
     private int id;
-    private String created_date;
     private String darta_number;
     private String darta_date;
     private String letter_quantity;
@@ -30,14 +31,6 @@ public class DartaDto {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getCreated_date() {
-        return created_date;
-    }
-
-    public void setCreated_date(String created_date) {
-        this.created_date = created_date;
     }
 
     public String getDarta_number() {

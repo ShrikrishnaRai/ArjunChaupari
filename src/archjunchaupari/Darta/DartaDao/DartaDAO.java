@@ -14,7 +14,7 @@ import java.util.List;
  */
 public interface DartaDAO {
 
-    void saveDarta();
+    void saveDarta(DartaDto dartaDto);
 
     List<DartaDto> getDartaList();
 

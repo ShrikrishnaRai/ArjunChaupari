@@ -6,6 +6,7 @@
 package archjunchaupari.Darta.DartaDao;
 
 import archjunchaupari.Inventory.InventoryDAO.InventoryDaoIMPL;
+import archjunchaupari.Login.LoginDAO.LoginDaoIMPL;
 import archjunchaupari.Model.Darta.DartaDto;
 import archjunchaupari.Model.Inventory.ExInventoryDto;
 import archjunchaupari.Utils.RestUrl;
@@ -14,24 +15,55 @@ import com.google.gson.reflect.TypeToken;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.impl.client.HttpClients;
 
 /**
  *
  * @author cri
  */
 public class DartaDaoIMPL implements DartaDAO {
+    int statusCode;
 
     @Override
-    public void saveDarta() {
+    public void saveDarta(DartaDto dartaDto) {
+        try {
+            CloseableHttpClient client = HttpClients.createDefault();
+            HttpPost httpPost = new HttpPost(RestUrl.SAVE_DARTA);
+            Gson gson = new Gson();
+            String json = gson.toJson(dartaDto);
+            StringEntity entity = new StringEntity(json);
+            httpPost.setEntity(entity);
+            httpPost.setHeader("Accept", "application/json");
+            httpPost.setHeader("Content-type", "application/json");
+            httpPost.addHeader("Authorization", "JWT " + LoginDaoIMPL.token);
+            CloseableHttpResponse response = client.execute(httpPost);
+            client.close();
+            statusCode = response.getStatusLine().getStatusCode();
+            if (statusCode == 201) {
+                JOptionPane.showMessageDialog(null, "Request Sent for Approval");
+            } else {
+                JOptionPane.showMessageDialog(null, ""+response);
+            }
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(DartaDaoIMPL.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(DartaDaoIMPL.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override

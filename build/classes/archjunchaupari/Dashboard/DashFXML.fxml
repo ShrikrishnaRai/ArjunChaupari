@@ -7,6 +7,7 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
@@ -17,7 +18,6 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.control.TreeView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -54,10 +54,13 @@
                 </MenuBar>
                 <ToolBar prefHeight="22.0" prefWidth="600.0">
                     <items>
-                        <Button fx:id="logOut" alignment="CENTER" mnemonicParsing="false" onAction="#logOut" text="Log Out" />
+                        <Button fx:id="logOut" alignment="CENTER" mnemonicParsing="false" onAction="#logOut" prefHeight="28.0" prefWidth="100.0" style="-fx-background-color: #904e4e;" text="Log Out" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Button>
                         <Pane HBox.hgrow="ALWAYS" />
                         <TextField fx:id="searchText" alignment="BASELINE_RIGHT" promptText="Inventory / Staff" />
-                        <Button fx:id="searchButton" alignment="BOTTOM_RIGHT" mnemonicParsing="false" onMouseClicked="#searchButtonAction" text="Search" />
+                        <Button fx:id="searchButton" alignment="BOTTOM_RIGHT" mnemonicParsing="false" onAction="#searchButtonAction" onMouseClicked="#searchButtonAction" text="Search" />
                     </items>
                 </ToolBar>
             </children>
@@ -93,9 +96,9 @@
                 </BorderPane>
                 <BorderPane prefHeight="200.0" prefWidth="200.0">
                     <center>
-                        <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+                        <TabPane fx:id="tabPane" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
                             <tabs>
-                                <Tab text="Inventory">
+                                <Tab fx:id="inventoryTab" text="Inventory">
                                     <content>
                                         <BorderPane prefHeight="200.0" prefWidth="200.0">
                                             <center>
@@ -105,7 +108,7 @@
                                                             <center>
                                                                 <TableView fx:id="tableView" onMouseClicked="#deleteRow" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                                                     <columns>
-                                                      <TableColumn fx:id="columnId" prefWidth="75.0" text="SN" />
+                                                                        <TableColumn fx:id="columnId" prefWidth="75.0" text="SN" />
                                                                         <TableColumn fx:id="columnName" prefWidth="75.0" text="Name" />
                                                                         <TableColumn fx:id="columnRegistrationNumber" prefWidth="75.0" text="Registration Number" />
                                                                         <TableColumn fx:id="columnQuantity" prefWidth="75.0" text="Quantity" />
@@ -116,7 +119,186 @@
                                                                         <TableColumn fx:id="columnRemarks" prefWidth="75.0" text="Remarks" />
                                                                         <TableColumn fx:id="columnDate" prefWidth="75.0" text="Date" />
                                                                         <TableColumn fx:id="columnIs_Approved" prefWidth="75.0" text="Approved" />
-                                                      <TableColumn fx:id="columnIs_Approved1" prefWidth="75.0" text="Maintain" />
+                                                                        <TableColumn fx:id="columnIs_Approved1" prefWidth="75.0" text="Maintain" />
+                                                                    </columns>
+                                                                </TableView>
+                                                            </center>
+                                                        </BorderPane>
+                                                        <BorderPane prefHeight="200.0" prefWidth="200.0">
+                                                            <center>
+                                                                <GridPane BorderPane.alignment="CENTER">
+                                                                    <columnConstraints>
+                                                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                                    </columnConstraints>
+                                                                    <rowConstraints>
+                                                                        <RowConstraints />
+                                                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                    </rowConstraints>
+                                                                    <children>
+                                                                        <Label text="Name" GridPane.rowIndex="2">
+                                                                            <GridPane.margin>
+                                                                                <Insets left="10.0" />
+                                                                            </GridPane.margin>
+                                                                            <font>
+                                                                                <Font name="System Bold" size="13.0" />
+                                                                            </font>
+                                                                        </Label>
+                                                                        <TextField fx:id="textName" promptText="Name" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                                                        <TextField fx:id="textRegistrationNumber" promptText="Registration Number" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                                                        <TextField fx:id="textQuantity" layoutX="107.0" layoutY="30.0" promptText="Quantity" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                                                        <Label layoutX="10.0" layoutY="13.0" text="Registration Number" GridPane.rowIndex="3">
+                                                                            <GridPane.margin>
+                                                                                <Insets left="10.0" />
+                                                                            </GridPane.margin>
+                                                                            <font>
+                                                                                <Font name="System Bold" size="13.0" />
+                                                                            </font>
+                                                                            <opaqueInsets>
+                                                                                <Insets />
+                                                                            </opaqueInsets>
+                                                                        </Label>
+                                                                        <Label layoutX="10.0" layoutY="35.0" text="Quantity" GridPane.rowIndex="4">
+                                                                            <GridPane.margin>
+                                                                                <Insets left="10.0" />
+                                                                            </GridPane.margin>
+                                                                            <font>
+                                                                                <Font name="System Bold" size="13.0" />
+                                                                            </font>
+                                                                        </Label>
+                                                                        <Label layoutX="10.0" layoutY="57.0" text="Rate" GridPane.rowIndex="5">
+                                                                            <GridPane.margin>
+                                                                                <Insets left="10.0" />
+                                                                            </GridPane.margin>
+                                                                            <font>
+                                                                                <Font name="System Bold" size="13.0" />
+                                                                            </font>
+                                                                        </Label>
+                                                                        <Label layoutX="10.0" layoutY="89.0" text="Section" GridPane.rowIndex="6">
+                                                                            <GridPane.margin>
+                                                                                <Insets left="10.0" />
+                                                                            </GridPane.margin>
+                                                                            <font>
+                                                                                <Font name="System Bold" size="13.0" />
+                                                                            </font>
+                                                                        </Label>
+                                                                        <Label layoutX="10.0" layoutY="94.0" text="Section Number" GridPane.rowIndex="7">
+                                                                            <GridPane.margin>
+                                                                                <Insets left="10.0" />
+                                                                            </GridPane.margin>
+                                                                            <font>
+                                                                                <Font name="System Bold" size="13.0" />
+                                                                            </font>
+                                                                        </Label>
+                                                                        <Label layoutX="10.0" layoutY="94.0" text="Specification" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                                                            <GridPane.margin>
+                                                                                <Insets left="60.0" />
+                                                                            </GridPane.margin>
+                                                                            <font>
+                                                                                <Font name="System Bold" size="13.0" />
+                                                                            </font>
+                                                                        </Label>
+                                                                        <TextArea fx:id="textSpecification" prefHeight="200.0" prefWidth="200.0" promptText="Specification About Product....." GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                                                                        <Label layoutX="126.0" layoutY="10.0" text="Remarks" GridPane.columnIndex="2" GridPane.rowIndex="4">
+                                                                            <GridPane.margin>
+                                                                                <Insets left="60.0" />
+                                                                            </GridPane.margin>
+                                                                            <font>
+                                                                                <Font name="System Bold" size="13.0" />
+                                                                            </font>
+                                                                        </Label>
+                                                                        <TextArea fx:id="textRemarks" layoutX="185.0" layoutY="-3.0" prefHeight="200.0" prefWidth="200.0" promptText="Remarks...." GridPane.columnIndex="3" GridPane.rowIndex="4" />
+                                                                        <Label layoutX="10.0" layoutY="94.0" text="Date" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                                                            <padding>
+                                                                                <Insets left="35.0" />
+                                                                            </padding>
+                                                                            <font>
+                                                                                <Font name="System Bold" size="13.0" />
+                                                                            </font>
+                                                                            <GridPane.margin>
+                                                                                <Insets left="25.0" />
+                                                                            </GridPane.margin>
+                                                                        </Label>
+                                                                        <DatePicker fx:id="textDate" promptText="Signed Date" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                                                         <GridPane.margin>
+                                                            <Insets top="10.0" />
+                                                         </GridPane.margin></DatePicker>
+                                                                        <Button mnemonicParsing="false" onAction="#saveInventory" prefHeight="26.0" prefWidth="100.0" text="Save" GridPane.columnIndex="3" GridPane.rowIndex="7">
+                                                         <font>
+                                                            <Font size="12.0" />
+                                                         </font></Button>
+                                                                        <TextField fx:id="textRate" layoutX="68.0" layoutY="25.0" promptText="Rate" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                                                        <TextField fx:id="textSection" layoutX="68.0" layoutY="36.0" promptText="Section" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                                                        <TextField fx:id="textSection_number" layoutX="68.0" layoutY="48.0" promptText="Section Number" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                                                      <Button fx:id="updateInventory" mnemonicParsing="false" prefHeight="26.0" prefWidth="100.0" style="-fx-background-color: blue;" text="Update" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="6">
+                                                         <font>
+                                                            <Font name="System Bold" size="12.0" />
+                                                         </font></Button>
+                                                      <Label text="Id" GridPane.rowIndex="1">
+                                                         <font>
+                                                            <Font name="System Bold" size="13.0" />
+                                                         </font>
+                                                         <padding>
+                                                            <Insets left="10.0" />
+                                                         </padding>
+                                                      </Label>
+                                                      <TextField fx:id="inventoryId" promptText="Auto Generated" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                                                    </children>
+                                                                </GridPane>
+                                                            </center>
+                                                            <top>
+                                                                <VBox prefHeight="0.0" prefWidth="293.0" BorderPane.alignment="CENTER">
+                                                                    <children>
+                                                                        <Label text="Enter Detail's below">
+                                                                            <font>
+                                                                                <Font name="System Bold" size="18.0" />
+                                                                            </font>
+                                                                            <VBox.margin>
+                                                                                <Insets left="5.0" />
+                                                                            </VBox.margin>
+                                                                        </Label>
+                                                                    </children>
+                                                                </VBox>
+                                                            </top>
+                                                        </BorderPane>
+                                                    </items>
+                                                </SplitPane>
+                                            </center>
+                                        </BorderPane>
+                                    </content>
+                                </Tab>
+                                <Tab fx:id="patraTab" text="Patra Chalani">
+                                    <content>
+                                        <BorderPane prefHeight="200.0" prefWidth="200.0">
+                                            <center>
+                                                <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" BorderPane.alignment="CENTER">
+                                                    <items>
+                                                        <BorderPane prefHeight="200.0" prefWidth="200.0">
+                                                            <center>
+                                                                <TableView fx:id="chalaniTable" onMouseClicked="#deleteRow" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                                                    <columns>
+                                                                        <TableColumn fx:id="columnName11" prefWidth="75.0" text="SN" />
+                                                                        <TableColumn fx:id="columnName1" prefWidth="75.0" text="Created Date" />
+                                                                        <TableColumn fx:id="columnRegistrationNumber1" prefWidth="75.0" text="Chalani Date" />
+                                                                        <TableColumn fx:id="columnQuantity1" prefWidth="75.0" text="Chalani Number" />
+                                                                        <TableColumn fx:id="columnRate1" prefWidth="75.0" text="Letter Quantity" />
+                                                                        <TableColumn fx:id="columnSpecification1" prefWidth="75.0" text="Reception" />
+                                                                        <TableColumn fx:id="columnSection1" prefWidth="75.0" text="Ticket" />
+                                                                        <TableColumn fx:id="columnSection_number1" prefWidth="75.0" text="Letter Date" />
+                                                                        <TableColumn fx:id="columnRemarks1" prefWidth="75.0" text="Subject" />
+                                                                        <TableColumn fx:id="columnDate1" prefWidth="75.0" text="Remarks" />
+                                                                        <TableColumn fx:id="columnIs_Approved2" prefWidth="75.0" text="Approved" />
+                                                                        <TableColumn fx:id="columnIs_Approved11" prefWidth="75.0" text="Maintain" />
                                                                     </columns>
                                                                 </TableView>
                                                             </center>
@@ -142,7 +324,7 @@
                                                                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                                                     </rowConstraints>
                                                                     <children>
-                                                                        <Label text="Name">
+                                                                        <Label text="Created Date" GridPane.rowIndex="1">
                                                                             <GridPane.margin>
                                                                                 <Insets left="10.0" />
                                                                             </GridPane.margin>
@@ -150,29 +332,19 @@
                                                                                 <Font name="System Bold" size="13.0" />
                                                                             </font>
                                                                         </Label>
-                                                                        <TextField fx:id="textName" promptText="Name" GridPane.columnIndex="1" />
-                                                                        <TextField fx:id="textRegistrationNumber" promptText="Registration Number" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                                                        <TextField fx:id="textQuantity" layoutX="107.0" layoutY="30.0" promptText="Quantity" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                                                        <Label layoutX="10.0" layoutY="13.0" text="Registration Number" GridPane.rowIndex="1">
+                                                                        <TextField fx:id="textQuantity1" layoutX="107.0" layoutY="30.0" promptText="Chalani Number" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                                                        <Label layoutX="10.0" layoutY="13.0" text="Chalani Date" GridPane.rowIndex="2">
                                                                             <GridPane.margin>
                                                                                 <Insets left="10.0" />
                                                                             </GridPane.margin>
                                                                             <font>
                                                                                 <Font name="System Bold" size="13.0" />
                                                                             </font>
-                                                         <opaqueInsets>
-                                                            <Insets />
-                                                         </opaqueInsets>
+                                                                            <opaqueInsets>
+                                                                                <Insets />
+                                                                            </opaqueInsets>
                                                                         </Label>
-                                                                        <Label layoutX="10.0" layoutY="35.0" text="Quantity" GridPane.rowIndex="2">
-                                                                            <GridPane.margin>
-                                                                                <Insets left="10.0" />
-                                                                            </GridPane.margin>
-                                                                            <font>
-                                                                                <Font name="System Bold" size="13.0" />
-                                                                            </font>
-                                                                        </Label>
-                                                                        <Label layoutX="10.0" layoutY="57.0" text="Rate" GridPane.rowIndex="3">
+                                                                        <Label layoutX="10.0" layoutY="35.0" text="Chalani Number" GridPane.rowIndex="3">
                                                                             <GridPane.margin>
                                                                                 <Insets left="10.0" />
                                                                             </GridPane.margin>
@@ -180,15 +352,7 @@
                                                                                 <Font name="System Bold" size="13.0" />
                                                                             </font>
                                                                         </Label>
-                                                                        <Label layoutX="10.0" layoutY="89.0" text="Section" GridPane.rowIndex="4">
-                                                                            <GridPane.margin>
-                                                                                <Insets left="10.0" />
-                                                                            </GridPane.margin>
-                                                         <font>
-                                                            <Font name="System Bold" size="13.0" />
-                                                         </font>
-                                                                        </Label>
-                                                                        <Label layoutX="10.0" layoutY="94.0" text="Section Number" GridPane.rowIndex="5">
+                                                                        <Label layoutX="10.0" layoutY="57.0" text="Letter Quantity" GridPane.rowIndex="4">
                                                                             <GridPane.margin>
                                                                                 <Insets left="10.0" />
                                                                             </GridPane.margin>
@@ -196,7 +360,23 @@
                                                                                 <Font name="System Bold" size="13.0" />
                                                                             </font>
                                                                         </Label>
-                                                                        <Label layoutX="10.0" layoutY="94.0" text="Specification" GridPane.columnIndex="2">
+                                                                        <Label layoutX="10.0" layoutY="89.0" text="Receiption" GridPane.rowIndex="5">
+                                                                            <GridPane.margin>
+                                                                                <Insets left="10.0" />
+                                                                            </GridPane.margin>
+                                                                            <font>
+                                                                                <Font name="System Bold" size="13.0" />
+                                                                            </font>
+                                                                        </Label>
+                                                                        <Label layoutX="10.0" layoutY="94.0" text="Ticket" GridPane.rowIndex="6">
+                                                                            <GridPane.margin>
+                                                                                <Insets left="10.0" />
+                                                                            </GridPane.margin>
+                                                                            <font>
+                                                                                <Font name="System Bold" size="13.0" />
+                                                                            </font>
+                                                                        </Label>
+                                                                        <Label layoutX="10.0" layoutY="94.0" text="Subject" GridPane.columnIndex="2">
                                                                             <GridPane.margin>
                                                                                 <Insets left="60.0" />
                                                                             </GridPane.margin>
@@ -204,7 +384,7 @@
                                                                                 <Font name="System Bold" size="13.0" />
                                                                             </font>
                                                                         </Label>
-                                                                        <TextArea fx:id="textSpecification" prefHeight="200.0" prefWidth="200.0" promptText="Specification About Product....." GridPane.columnIndex="3" />
+                                                                        <TextArea fx:id="textSpecification1" prefHeight="200.0" prefWidth="200.0" promptText="Subject Issue" GridPane.columnIndex="3" />
                                                                         <Label layoutX="126.0" layoutY="10.0" text="Remarks" GridPane.columnIndex="2" GridPane.rowIndex="3">
                                                                             <GridPane.margin>
                                                                                 <Insets left="60.0" />
@@ -213,23 +393,44 @@
                                                                                 <Font name="System Bold" size="13.0" />
                                                                             </font>
                                                                         </Label>
-                                                                        <TextArea fx:id="textRemarks" layoutX="185.0" layoutY="-3.0" prefHeight="200.0" prefWidth="200.0" promptText="Remarks...." GridPane.columnIndex="3" GridPane.rowIndex="3" />
-                                                                        <Label layoutX="10.0" layoutY="94.0" text="Date" GridPane.rowIndex="6">
+                                                                        <TextArea fx:id="textRemarks1" layoutX="185.0" layoutY="-3.0" prefHeight="200.0" prefWidth="200.0" promptText="Remarks...." GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                                                                        <Label layoutX="10.0" layoutY="94.0" text="Letter Date" GridPane.columnIndex="2" GridPane.rowIndex="1">
                                                                             <padding>
-                                                                                <Insets left="5.0" />
+                                                                                <Insets left="35.0" />
                                                                             </padding>
                                                                             <font>
                                                                                 <Font name="System Bold" size="13.0" />
                                                                             </font>
+                                                                            <GridPane.margin>
+                                                                                <Insets left="25.0" />
+                                                                            </GridPane.margin>
+                                                                        </Label>
+                                                                        <DatePicker fx:id="textDate1" promptText="Letter Date" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                                                         <GridPane.margin>
+                                                            <Insets top="10.0" />
+                                                         </GridPane.margin></DatePicker>
+                                                                        <Button fx:id="b" mnemonicParsing="false" onAction="#check" prefHeight="26.0" prefWidth="100.0" text="Save" GridPane.columnIndex="3" GridPane.rowIndex="6">
+                                                         <font>
+                                                            <Font name="System Bold" size="12.0" />
+                                                         </font></Button>
+                                                                        <TextField fx:id="textRate1" layoutX="68.0" layoutY="25.0" promptText="Rate" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                                                        <TextField fx:id="textSection1" layoutX="68.0" layoutY="36.0" promptText="Section" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                                                        <TextField fx:id="textSection_number1" layoutX="68.0" layoutY="48.0" promptText="Ticket" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                                                        <DatePicker promptText="Created Date" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                                                        <DatePicker promptText="Chalani Date" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                                      <Label text="Id">
+                                                         <font>
+                                                            <Font name="System Bold" size="13.0" />
+                                                         </font>
                                                          <GridPane.margin>
                                                             <Insets left="10.0" />
                                                          </GridPane.margin>
-                                                                        </Label>
-                                                                        <DatePicker fx:id="textDate" promptText="Date" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                                                                        <Button mnemonicParsing="false" onAction="#saveInventory" prefHeight="26.0" prefWidth="100.0" text="Save" GridPane.columnIndex="3" GridPane.rowIndex="6" />
-                                                                        <TextField fx:id="textRate" layoutX="68.0" layoutY="25.0" promptText="Rate" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                                                        <TextField fx:id="textSection" layoutX="68.0" layoutY="36.0" promptText="Section" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                                                                        <TextField fx:id="textSection_number" layoutX="68.0" layoutY="48.0" promptText="Section Number" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                                      </Label>
+                                                      <TextField fx:id="dartaChalaniId" promptText="Auto Generated" GridPane.columnIndex="1" />
+                                                      <Button fx:id="updateDartaChalani" mnemonicParsing="false" prefHeight="26.0" prefWidth="100.0" style="-fx-background-color: blue;" text="Update" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="5">
+                                                         <font>
+                                                            <Font name="System Bold" size="12.0" />
+                                                         </font></Button>
                                                                     </children>
                                                                 </GridPane>
                                                             </center>
@@ -254,335 +455,326 @@
                                         </BorderPane>
                                     </content>
                                 </Tab>
-                        <Tab text="Patra Chalani">
-                           <content>
-                              <BorderPane prefHeight="200.0" prefWidth="200.0">
-                                 <center>
-                                    <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" BorderPane.alignment="CENTER">
-                                       <items>
-                                          <BorderPane prefHeight="200.0" prefWidth="200.0">
-                                             <center>
-                                                <TableView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                                                   <columns>
-                                                      <TableColumn fx:id="columnName11" prefWidth="75.0" text="SN" />
-                                                      <TableColumn fx:id="columnName1" prefWidth="75.0" text="Created Date" />
-                                                      <TableColumn fx:id="columnRegistrationNumber1" prefWidth="75.0" text="Chalani Date" />
-                                                      <TableColumn fx:id="columnQuantity1" prefWidth="75.0" text="Chalani Number" />
-                                                      <TableColumn fx:id="columnRate1" prefWidth="75.0" text="Letter Quantity" />
-                                                      <TableColumn fx:id="columnSpecification1" prefWidth="75.0" text="Reception" />
-                                                      <TableColumn fx:id="columnSection1" prefWidth="75.0" text="Ticket" />
-                                                      <TableColumn fx:id="columnSection_number1" prefWidth="75.0" text="Letter Date" />
-                                                      <TableColumn fx:id="columnRemarks1" prefWidth="75.0" text="Subject" />
-                                                      <TableColumn fx:id="columnDate1" prefWidth="75.0" text="Remarks" />
-                                                      <TableColumn fx:id="columnIs_Approved1" prefWidth="75.0" text="Approved" />
-                                                      <TableColumn fx:id="columnIs_Approved11" prefWidth="75.0" text="Maintain" />
-                                                   </columns>
-                                                </TableView>
-                                             </center>
-                                          </BorderPane>
-                                          <BorderPane prefHeight="200.0" prefWidth="200.0">
-                                             <center>
-                                                <GridPane BorderPane.alignment="CENTER">
-                                                   <columnConstraints>
-                                                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                   </columnConstraints>
-                                                   <rowConstraints>
-                                                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                   </rowConstraints>
-                                                   <children>
-                                                      <Label text="Created Date">
-                                                         <GridPane.margin>
-                                                            <Insets left="10.0" />
-                                                         </GridPane.margin>
-                                                         <font>
-                                                            <Font name="System Bold" size="13.0" />
-                                                         </font>
-                                                      </Label>
-                                                      <TextField fx:id="textQuantity1" layoutX="107.0" layoutY="30.0" promptText="Chalani Number" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                                      <Label layoutX="10.0" layoutY="13.0" text="Chalani Date" GridPane.rowIndex="1">
-                                                         <GridPane.margin>
-                                                            <Insets left="10.0" />
-                                                         </GridPane.margin>
-                                                         <font>
-                                                            <Font name="System Bold" size="13.0" />
-                                                         </font>
-                                                         <opaqueInsets>
-                                                            <Insets />
-                                                         </opaqueInsets>
-                                                      </Label>
-                                                      <Label layoutX="10.0" layoutY="35.0" text="Chalani Number" GridPane.rowIndex="2">
-                                                         <GridPane.margin>
-                                                            <Insets left="10.0" />
-                                                         </GridPane.margin>
-                                                         <font>
-                                                            <Font name="System Bold" size="13.0" />
-                                                         </font>
-                                                      </Label>
-                                                      <Label layoutX="10.0" layoutY="57.0" text="Letter Quantity" GridPane.rowIndex="3">
-                                                         <GridPane.margin>
-                                                            <Insets left="10.0" />
-                                                         </GridPane.margin>
-                                                         <font>
-                                                            <Font name="System Bold" size="13.0" />
-                                                         </font>
-                                                      </Label>
-                                                      <Label layoutX="10.0" layoutY="89.0" text="Receiption" GridPane.rowIndex="4">
-                                                         <GridPane.margin>
-                                                            <Insets left="10.0" />
-                                                         </GridPane.margin>
-                                                         <font>
-                                                            <Font name="System Bold" size="13.0" />
-                                                         </font>
-                                                      </Label>
-                                                      <Label layoutX="10.0" layoutY="94.0" text="Ticket" GridPane.rowIndex="5">
-                                                         <GridPane.margin>
-                                                            <Insets left="10.0" />
-                                                         </GridPane.margin>
-                                                         <font>
-                                                            <Font name="System Bold" size="13.0" />
-                                                         </font>
-                                                      </Label>
-                                                      <Label layoutX="10.0" layoutY="94.0" text="Subject" GridPane.columnIndex="2">
-                                                         <GridPane.margin>
-                                                            <Insets left="60.0" />
-                                                         </GridPane.margin>
-                                                         <font>
-                                                            <Font name="System Bold" size="13.0" />
-                                                         </font>
-                                                      </Label>
-                                                      <TextArea fx:id="textSpecification1" prefHeight="200.0" prefWidth="200.0" promptText="Subject Issue" GridPane.columnIndex="3" />
-                                                      <Label layoutX="126.0" layoutY="10.0" text="Remarks" GridPane.columnIndex="2" GridPane.rowIndex="3">
-                                                         <GridPane.margin>
-                                                            <Insets left="60.0" />
-                                                         </GridPane.margin>
-                                                         <font>
-                                                            <Font name="System Bold" size="13.0" />
-                                                         </font>
-                                                      </Label>
-                                                      <TextArea fx:id="textRemarks1" layoutX="185.0" layoutY="-3.0" prefHeight="200.0" prefWidth="200.0" promptText="Remarks...." GridPane.columnIndex="3" GridPane.rowIndex="3" />
-                                                      <Label layoutX="10.0" layoutY="94.0" text="Letter Date" GridPane.rowIndex="6">
-                                                         <padding>
-                                                            <Insets left="5.0" />
-                                                         </padding>
-                                                         <font>
-                                                            <Font name="System Bold" size="13.0" />
-                                                         </font>
-                                                         <GridPane.margin>
-                                                            <Insets left="10.0" />
-                                                         </GridPane.margin>
-                                                      </Label>
-                                                      <DatePicker fx:id="textDate1" promptText="Letter Date" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                                                      <Button fx:id="b" mnemonicParsing="false" onAction="#check" prefHeight="26.0" prefWidth="100.0" text="Save" GridPane.columnIndex="3" GridPane.rowIndex="6" />
-                                                      <TextField fx:id="textRate1" layoutX="68.0" layoutY="25.0" promptText="Rate" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                                      <TextField fx:id="textSection1" layoutX="68.0" layoutY="36.0" promptText="Section" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                                                      <TextField fx:id="textSection_number1" layoutX="68.0" layoutY="48.0" promptText="Ticket" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                                                      <DatePicker promptText="Created Date" GridPane.columnIndex="1" />
-                                                      <DatePicker promptText="Chalani Date" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                                   </children>
-                                                </GridPane>
-                                             </center>
-                                             <top>
-                                                <VBox prefHeight="0.0" prefWidth="293.0" BorderPane.alignment="CENTER">
-                                                   <children>
-                                                      <Label text="Enter Detail's below">
-                                                         <font>
-                                                            <Font name="System Bold" size="18.0" />
-                                                         </font>
-                                                         <VBox.margin>
-                                                            <Insets left="5.0" />
-                                                         </VBox.margin>
-                                                      </Label>
-                                                   </children>
-                                                </VBox>
-                                             </top>
-                                          </BorderPane>
-                                       </items>
-                                    </SplitPane>
-                                 </center>
-                              </BorderPane>
-                           </content>
-                        </Tab>
-                        <Tab text="Patra Darta">
-                           <content>
-                              <BorderPane prefHeight="200.0" prefWidth="200.0">
-                                 <center>
-                                    <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" BorderPane.alignment="CENTER">
-                                       <items>
-                                          <BorderPane prefHeight="200.0" prefWidth="200.0">
-                                             <center>
-                                                <TableView fx:id="dartaTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                                                   <columns>
-                                                      <TableColumn fx:id="darta_id" prefWidth="75.0" text="SN" />
-                                                      <TableColumn fx:id="darta_number" prefWidth="75.0" text="Darta Number" />
-                                                      <TableColumn fx:id="darta_date" prefWidth="75.0" text="Darta Date" />
-                                                      <TableColumn fx:id="letter_quantity" prefWidth="75.0" text="Letter Quantity" />
-                                                      <TableColumn fx:id="to_office" prefWidth="75.0" text="Reception" />
-                                                      <TableColumn fx:id="subject" prefWidth="75.0" text="Subject" />
-                                                      <TableColumn fx:id="image" prefWidth="75.0" text="Image" />
-                                                      <TableColumn fx:id="responsible_person_full_name" prefWidth="75.0" text="Resposible Person" />
-                                                      <TableColumn fx:id="signed_date" prefWidth="75.0" text="Signed Date" />
-                                                      <TableColumn fx:id="remarks" prefWidth="75.0" text="Remarks" />
-                                                      <TableColumn fx:id="columnDate111" prefWidth="75.0" text="Maintain" />
-                                                   </columns>
-                                                </TableView>
-                                             </center>
-                                          </BorderPane>
-                                          <BorderPane prefHeight="200.0" prefWidth="200.0">
-                                             <center>
-                                                <GridPane BorderPane.alignment="CENTER">
-                                                   <columnConstraints>
-                                                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                   </columnConstraints>
-                                                   <rowConstraints>
-                                                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                   </rowConstraints>
-                                                   <children>
-                                                      <Label text="Created Date">
-                                                         <GridPane.margin>
-                                                            <Insets left="10.0" />
-                                                         </GridPane.margin>
-                                                         <font>
-                                                            <Font name="System Bold" size="13.0" />
-                                                         </font>
-                                                      </Label>
-                                                      <TextField fx:id="textQuantity11" layoutX="107.0" layoutY="30.0" promptText="Quantity" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                                      <Label layoutX="10.0" layoutY="13.0" text="Darta Date" GridPane.rowIndex="1">
-                                                         <GridPane.margin>
-                                                            <Insets left="10.0" />
-                                                         </GridPane.margin>
-                                                         <font>
-                                                            <Font name="System Bold" size="13.0" />
-                                                         </font>
-                                                         <opaqueInsets>
-                                                            <Insets />
-                                                         </opaqueInsets>
-                                                      </Label>
-                                                      <Label layoutX="10.0" layoutY="35.0" text="Darta Number" GridPane.rowIndex="2">
-                                                         <GridPane.margin>
-                                                            <Insets left="10.0" />
-                                                         </GridPane.margin>
-                                                         <font>
-                                                            <Font name="System Bold" size="13.0" />
-                                                         </font>
-                                                      </Label>
-                                                      <Label layoutX="10.0" layoutY="57.0" text="Letter Quantity" GridPane.rowIndex="3">
-                                                         <GridPane.margin>
-                                                            <Insets left="10.0" />
-                                                         </GridPane.margin>
-                                                         <font>
-                                                            <Font name="System Bold" size="13.0" />
-                                                         </font>
-                                                      </Label>
-                                                      <Label layoutX="10.0" layoutY="89.0" text="Reception" GridPane.rowIndex="4">
-                                                         <GridPane.margin>
-                                                            <Insets left="10.0" />
-                                                         </GridPane.margin>
-                                                         <font>
-                                                            <Font name="System Bold" size="13.0" />
-                                                         </font>
-                                                      </Label>
-                                                      <Label layoutX="10.0" layoutY="94.0" text="Signed Date" GridPane.rowIndex="5">
-                                                         <GridPane.margin>
-                                                            <Insets left="10.0" />
-                                                         </GridPane.margin>
-                                                         <font>
-                                                            <Font name="System Bold" size="13.0" />
-                                                         </font>
-                                                      </Label>
-                                                      <Label layoutX="10.0" layoutY="94.0" text="Subject" GridPane.columnIndex="2">
-                                                         <GridPane.margin>
-                                                            <Insets left="60.0" />
-                                                         </GridPane.margin>
-                                                         <font>
-                                                            <Font name="System Bold" size="13.0" />
-                                                         </font>
-                                                      </Label>
-                                                      <TextArea fx:id="textSpecification11" prefHeight="200.0" prefWidth="200.0" promptText="Subject" GridPane.columnIndex="3" />
-                                                      <Label layoutX="126.0" layoutY="10.0" text="Remarks" GridPane.columnIndex="2" GridPane.rowIndex="3">
-                                                         <GridPane.margin>
-                                                            <Insets left="60.0" />
-                                                         </GridPane.margin>
-                                                         <font>
-                                                            <Font name="System Bold" size="13.0" />
-                                                         </font>
-                                                      </Label>
-                                                      <TextArea fx:id="textRemarks11" layoutX="185.0" layoutY="-3.0" prefHeight="200.0" prefWidth="200.0" promptText="Remarks...." GridPane.columnIndex="3" GridPane.rowIndex="3" />
-                                                      <Label layoutX="10.0" layoutY="94.0" text="Date" GridPane.rowIndex="6">
-                                                         <padding>
-                                                            <Insets left="5.0" />
-                                                         </padding>
-                                                         <font>
-                                                            <Font name="System Bold" size="13.0" />
-                                                         </font>
-                                                         <GridPane.margin>
-                                                            <Insets left="10.0" />
-                                                         </GridPane.margin>
-                                                      </Label>
-                                                      <DatePicker fx:id="textDate11" promptText="Date" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                                                      <Button mnemonicParsing="false" onAction="#saveInventory" prefHeight="26.0" prefWidth="100.0" text="Save" GridPane.columnIndex="3" GridPane.rowIndex="6" />
-                                                      <TextField fx:id="textRate11" layoutX="68.0" layoutY="25.0" promptText="Letter Quantity" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                                      <TextField fx:id="textSection11" layoutX="68.0" layoutY="36.0" promptText="To Office" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                                                      <TextField fx:id="textSection_number11" layoutX="68.0" layoutY="48.0" promptText="Section Number" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                                                      <DatePicker promptText="Created Date" GridPane.columnIndex="1" />
-                                                      <DatePicker promptText="Darta Date" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                                      <Label text="Image" GridPane.columnIndex="2" GridPane.rowIndex="5">
-                                                         <font>
-                                                            <Font name="System Bold" size="13.0" />
-                                                         </font>
-                                                         <GridPane.margin>
-                                                            <Insets left="60.0" />
-                                                         </GridPane.margin>
-                                                      </Label>
-                                                      <TextField GridPane.columnIndex="3" GridPane.rowIndex="5" />
-                                                   </children>
-                                                </GridPane>
-                                             </center>
-                                             <top>
-                                                <VBox prefHeight="0.0" prefWidth="293.0" BorderPane.alignment="CENTER">
-                                                   <children>
-                                                      <Label text="Enter Detail's below">
-                                                         <font>
-                                                            <Font name="System Bold" size="18.0" />
-                                                         </font>
-                                                         <VBox.margin>
-                                                            <Insets left="5.0" />
-                                                         </VBox.margin>
-                                                      </Label>
-                                                   </children>
-                                                </VBox>
-                                             </top>
-                                          </BorderPane>
-                                       </items>
-                                    </SplitPane>
-                                 </center>
-                              </BorderPane>
-                           </content>
-                        </Tab>
-                                <Tab text="Staff">
+                                <Tab fx:id="dartaTab" text="Patra Darta">
                                     <content>
-                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                        <BorderPane prefHeight="200.0" prefWidth="200.0">
+                                            <center>
+                                                <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" BorderPane.alignment="CENTER">
+                                                    <items>
+                                                        <BorderPane prefHeight="200.0" prefWidth="200.0">
+                                                            <center>
+                                                                <TableView fx:id="dartaTable" onMouseClicked="#deleteRowDarta" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                                                    <columns>
+                                                                        <TableColumn fx:id="darta_id" prefWidth="75.0" text="SN" />
+                                                                        <TableColumn fx:id="darta_number" prefWidth="75.0" text="Darta Number" />
+                                                                        <TableColumn fx:id="darta_date" prefWidth="75.0" text="Darta Date" />
+                                                                        <TableColumn fx:id="letter_quantity" prefWidth="75.0" text="Letter Quantity" />
+                                                                        <TableColumn fx:id="to_office" prefWidth="75.0" text="Reception" />
+                                                                        <TableColumn fx:id="subject" prefWidth="75.0" text="Subject" />
+                                                                        <TableColumn fx:id="image" prefWidth="75.0" text="Image" />
+                                                                        <TableColumn fx:id="responsible_person_full_name" prefWidth="75.0" text="Resposible Person" />
+                                                                        <TableColumn fx:id="signed_date" prefWidth="75.0" text="Signed Date" />
+                                                                        <TableColumn fx:id="remarks" prefWidth="75.0" text="Remarks" />
+                                                                        <TableColumn fx:id="columnDate111" prefWidth="75.0" text="Maintain" />
+                                                                    </columns>
+                                                                </TableView>
+                                                            </center>
+                                                        </BorderPane>
+                                                        <BorderPane prefHeight="200.0" prefWidth="200.0">
+                                                            <center>
+                                                                <GridPane BorderPane.alignment="CENTER">
+                                                                    <columnConstraints>
+                                                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                                    </columnConstraints>
+                                                                    <rowConstraints>
+                                                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                    </rowConstraints>
+                                                                    <children>
+                                                                        <TextField fx:id="dartaNumber" layoutX="107.0" layoutY="30.0" promptText="Quantity" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                                                        <Label layoutX="10.0" layoutY="13.0" text="Darta Date" GridPane.rowIndex="1">
+                                                                            <GridPane.margin>
+                                                                                <Insets left="10.0" />
+                                                                            </GridPane.margin>
+                                                                            <font>
+                                                                                <Font name="System Bold" size="13.0" />
+                                                                            </font>
+                                                                            <opaqueInsets>
+                                                                                <Insets />
+                                                                            </opaqueInsets>
+                                                                        </Label>
+                                                                        <Label layoutX="10.0" layoutY="35.0" text="Darta Number" GridPane.rowIndex="2">
+                                                                            <GridPane.margin>
+                                                                                <Insets left="10.0" />
+                                                                            </GridPane.margin>
+                                                                            <font>
+                                                                                <Font name="System Bold" size="13.0" />
+                                                                            </font>
+                                                                        </Label>
+                                                                        <Label layoutX="10.0" layoutY="57.0" text="Letter Quantity" GridPane.rowIndex="3">
+                                                                            <GridPane.margin>
+                                                                                <Insets left="10.0" />
+                                                                            </GridPane.margin>
+                                                                            <font>
+                                                                                <Font name="System Bold" size="13.0" />
+                                                                            </font>
+                                                                        </Label>
+                                                                        <Label layoutX="10.0" layoutY="89.0" text="Reception" GridPane.rowIndex="4">
+                                                                            <GridPane.margin>
+                                                                                <Insets left="10.0" />
+                                                                            </GridPane.margin>
+                                                                            <font>
+                                                                                <Font name="System Bold" size="13.0" />
+                                                                            </font>
+                                                                        </Label>
+                                                                        <Label layoutX="10.0" layoutY="94.0" text="Signed Date" GridPane.rowIndex="5">
+                                                                            <GridPane.margin>
+                                                                                <Insets left="10.0" />
+                                                                            </GridPane.margin>
+                                                                            <font>
+                                                                                <Font name="System Bold" size="13.0" />
+                                                                            </font>
+                                                                        </Label>
+                                                                        <Label layoutX="10.0" layoutY="94.0" text="Subject" GridPane.columnIndex="2">
+                                                                            <GridPane.margin>
+                                                                                <Insets left="60.0" />
+                                                                            </GridPane.margin>
+                                                                            <font>
+                                                                                <Font name="System Bold" size="13.0" />
+                                                                            </font>
+                                                                        </Label>
+                                                                        <TextArea fx:id="dartaSubject" prefHeight="200.0" prefWidth="200.0" promptText="Subject" GridPane.columnIndex="3" />
+                                                                        <Label layoutX="126.0" layoutY="10.0" text="Remarks" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                                                                            <GridPane.margin>
+                                                                                <Insets left="60.0" />
+                                                                            </GridPane.margin>
+                                                                            <font>
+                                                                                <Font name="System Bold" size="13.0" />
+                                                                            </font>
+                                                                        </Label>
+                                                                        <TextArea fx:id="dartaRemarks" layoutX="185.0" layoutY="-3.0" prefHeight="200.0" prefWidth="200.0" promptText="Remarks...." GridPane.columnIndex="3" GridPane.rowIndex="3">
+                                                         <GridPane.margin>
+                                                            <Insets top="10.0" />
+                                                         </GridPane.margin></TextArea>
+                                                                        <Button mnemonicParsing="false" onAction="#saveDarta" onMouseClicked="#saveDarta" prefHeight="26.0" prefWidth="100.0" text="Save" GridPane.columnIndex="3" GridPane.rowIndex="6">
+                                                         <font>
+                                                            <Font name="System Bold" size="12.0" />
+                                                         </font></Button>
+                                                                        <TextField fx:id="letterQuantity" layoutX="68.0" layoutY="25.0" promptText="Letter Quantity" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                                                        <TextField fx:id="reception" layoutX="68.0" layoutY="36.0" promptText="To Office" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                                                        <DatePicker fx:id="dartaDate" promptText="Darta Date" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                                                        <Label text="Image" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                                                            <font>
+                                                                                <Font name="System Bold" size="13.0" />
+                                                                            </font>
+                                                                            <GridPane.margin>
+                                                                                <Insets left="60.0" />
+                                                                            </GridPane.margin>
+                                                                        </Label>
+                                                      <DatePicker fx:id="signedDate" promptText="Darta Date" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                                      <Button mnemonicParsing="false" onAction="#uploadImage" onMouseClicked="#uploadImage" text="Select Image" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                                                      <Label text="Id">
+                                                         <font>
+                                                            <Font name="System Bold" size="13.0" />
+                                                         </font>
+                                                         <opaqueInsets>
+                                                            <Insets />
+                                                         </opaqueInsets>
+                                                         <GridPane.margin>
+                                                            <Insets left="10.0" />
+                                                         </GridPane.margin>
+                                                      </Label>
+                                                      <TextField fx:id="dartaId" promptText="Auto Generated" GridPane.columnIndex="1" />
+                                                      <Button fx:id="updateDarta" mnemonicParsing="false" onAction="#saveDarta" onMouseClicked="#saveDarta" prefHeight="26.0" prefWidth="100.0" style="-fx-background-color: blue;" text="Update" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="5">
+                                                         <font>
+                                                            <Font name="System Bold" size="12.0" />
+                                                         </font></Button>
+                                                                    </children>
+                                                                </GridPane>
+                                                            </center>
+                                                            <top>
+                                                                <VBox prefHeight="0.0" prefWidth="293.0" BorderPane.alignment="CENTER">
+                                                                    <children>
+                                                                        <Label text="Enter Detail's below">
+                                                                            <font>
+                                                                                <Font name="System Bold" size="18.0" />
+                                                                            </font>
+                                                                            <VBox.margin>
+                                                                                <Insets left="5.0" />
+                                                                            </VBox.margin>
+                                                                        </Label>
+                                                                    </children>
+                                                                </VBox>
+                                                            </top>
+                                                        </BorderPane>
+                                                    </items>
+                                                </SplitPane>
+                                            </center>
+                                        </BorderPane>
+                                    </content>
+                                </Tab>
+                                <Tab fx:id="staffTab" text="Staff">
+                                    <content>
+                                        <BorderPane prefHeight="200.0" prefWidth="200.0">
+                                            <center>
+                                                <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" BorderPane.alignment="CENTER">
+                                                    <items>
+                                                        <BorderPane prefHeight="200.0" prefWidth="200.0">
+                                                            <center>
+                                                                <TableView fx:id="staffTable" onMouseClicked="#deleteRowDarta" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                                                    <columns>
+                                                                        <TableColumn prefWidth="75.0" text="SN" />
+                                                                        <TableColumn prefWidth="75.0" text="Name" />
+                                                                        <TableColumn prefWidth="75.0" text="Designation" />
+                                                                        <TableColumn prefWidth="75.0" text="Salary" />
+                                                                        <TableColumn prefWidth="75.0" text="Address" />
+                                                                        <TableColumn prefWidth="75.0" text="Email" />
+                                                                    </columns>
+                                                                </TableView>
+                                                            </center>
+                                                        </BorderPane>
+                                                        <BorderPane prefHeight="200.0" prefWidth="200.0">
+                                                            <center>
+                                                                <GridPane BorderPane.alignment="CENTER">
+                                                                    <columnConstraints>
+                                                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                                    </columnConstraints>
+                                                                    <rowConstraints>
+                                                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                    </rowConstraints>
+                                                                    <children>
+                                                                        <TextField fx:id="" layoutX="107.0" layoutY="30.0" promptText="Salary" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                                                        <Label layoutX="10.0" layoutY="13.0" text="Designation" GridPane.rowIndex="2">
+                                                                            <GridPane.margin>
+                                                                                <Insets left="10.0" />
+                                                                            </GridPane.margin>
+                                                                            <font>
+                                                                                <Font name="System Bold" size="13.0" />
+                                                                            </font>
+                                                                            <opaqueInsets>
+                                                                                <Insets />
+                                                                            </opaqueInsets>
+                                                                        </Label>
+                                                                        <Label layoutX="10.0" layoutY="35.0" text="Salary" GridPane.rowIndex="3">
+                                                                            <GridPane.margin>
+                                                                                <Insets left="10.0" />
+                                                                            </GridPane.margin>
+                                                                            <font>
+                                                                                <Font name="System Bold" size="13.0" />
+                                                                            </font>
+                                                                        </Label>
+                                                                        <Label layoutX="10.0" layoutY="57.0" text="Address" GridPane.rowIndex="4">
+                                                                            <GridPane.margin>
+                                                                                <Insets left="10.0" />
+                                                                            </GridPane.margin>
+                                                                            <font>
+                                                                                <Font name="System Bold" size="13.0" />
+                                                                            </font>
+                                                                        </Label>
+                                                                        <Label layoutX="10.0" layoutY="89.0" text="Email" GridPane.rowIndex="5">
+                                                                            <GridPane.margin>
+                                                                                <Insets left="10.0" />
+                                                                            </GridPane.margin>
+                                                                            <font>
+                                                                                <Font name="System Bold" size="13.0" />
+                                                                            </font>
+                                                                        </Label>
+                                                                        <Label layoutX="10.0" layoutY="94.0" text="Password" GridPane.columnIndex="2">
+                                                                            <GridPane.margin>
+                                                                                <Insets left="35.0" />
+                                                                            </GridPane.margin>
+                                                                            <font>
+                                                                                <Font name="System Bold" size="13.0" />
+                                                                            </font>
+                                                         <padding>
+                                                            <Insets left="25.0" />
+                                                         </padding>
+                                                                        </Label>
+                                                                        <Label text="Name" GridPane.rowIndex="1">
+                                                                            <GridPane.margin>
+                                                                                <Insets left="10.0" />
+                                                                            </GridPane.margin>
+                                                                            <font>
+                                                                                <Font name="System Bold" size="13.0" />
+                                                                            </font>
+                                                                        </Label>
+                                                                        <Label layoutX="10.0" layoutY="94.0" text="Confirm Password" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                                                            <padding>
+                                                                                <Insets left="25.0" />
+                                                                            </padding>
+                                                                            <font>
+                                                                                <Font name="System Bold" size="13.0" />
+                                                                            </font>
+                                                                            <GridPane.margin>
+                                                                                <Insets left="35.0" />
+                                                                            </GridPane.margin>
+                                                                        </Label>
+                                                                        <Button mnemonicParsing="false" onAction="#saveInventory" prefHeight="26.0" prefWidth="100.0" text="Save" GridPane.columnIndex="3" GridPane.rowIndex="6">
+                                                         <font>
+                                                            <Font name="System Bold" size="12.0" />
+                                                         </font></Button>
+                                                                        <TextField layoutX="68.0" layoutY="25.0" promptText="Address" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                                                        <TextField layoutX="68.0" layoutY="36.0" promptText="Email" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                                      <TextField fx:id="1" promptText="Name" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                                      <TextField fx:id="11" promptText="Designation" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                                      <PasswordField promptText="Password" GridPane.columnIndex="3" />
+                                                      <PasswordField promptText="Confirm Password" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                                                      <Button fx:id="updateStaff" mnemonicParsing="false" onAction="#saveInventory" prefHeight="26.0" prefWidth="100.0" style="-fx-background-color: blue;" text="Update" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="5">
+                                                         <font>
+                                                            <Font name="System Bold" size="12.0" />
+                                                         </font></Button>
+                                                      <TextField fx:id="staffId" promptText="Auot Generated" GridPane.columnIndex="1" />
+                                                      <Label text="Id">
+                                                         <font>
+                                                            <Font name="System Bold" size="13.0" />
+                                                         </font>
+                                                         <GridPane.margin>
+                                                            <Insets left="10.0" />
+                                                         </GridPane.margin>
+                                                      </Label>
+                                                                    </children>
+                                                                </GridPane>
+
+                                                            </center>
+                                             <top>
+                                                <VBox prefHeight="21.0" prefWidth="293.0" BorderPane.alignment="CENTER">
+                                                   <children>
+                                                      <Label text="Enter Detail's below">
+                                                         <font>
+                                                            <Font name="System Bold" size="18.0" />
+                                                         </font>
+                                                         <VBox.margin>
+                                                            <Insets left="10.0" />
+                                                         </VBox.margin></Label>
+                                                   </children>
+                                                </VBox>
+                                             </top>
+                                                        </BorderPane>
+                                                    </items>
+                                                </SplitPane>
+                                            </center>
+                                        </BorderPane>
                                     </content>
                                 </Tab>
                             </tabs>
