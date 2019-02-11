@@ -45,7 +45,7 @@
             <ToolBar prefHeight="40.0" prefWidth="200.0">
               <items>
                 <Button mnemonicParsing="false" text="Log Out" />
-                  <Pane HBox.hgrow="ALWAYS"  />
+                  <Pane HBox.hgrow="ALWAYS" />
                   <TextField alignment="BASELINE_RIGHT" promptText="Inventory" />
                   <Button alignment="BOTTOM_RIGHT" mnemonicParsing="false" text="Search" />
               </items>
@@ -65,6 +65,7 @@
                      <center>
                         <SplitPane dividerPositions="0.5" prefHeight="160.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                            <items>
+                              <BorderPane fx:id="borderPaneMain" prefHeight="200.0" prefWidth="200.0" />
                               <BorderPane prefHeight="200.0" prefWidth="200.0">
                                  <center>
                                     <TabPane fx:id="tabPane" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
@@ -75,8 +76,16 @@
                                                    <center>
                                                       <TableView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                                         <columns>
-                                                          <TableColumn prefWidth="75.0" text="C1" />
-                                                          <TableColumn prefWidth="75.0" text="C2" />
+                                                          <TableColumn prefWidth="75.0" text="SN" />
+                                                          <TableColumn prefWidth="75.0" text="Name" />
+                                                            <TableColumn prefWidth="75.0" text="Registration Number" />
+                                                            <TableColumn prefWidth="75.0" text="Quantity" />
+                                                            <TableColumn prefWidth="75.0" text="Rate" />
+                                                            <TableColumn prefWidth="75.0" text="Specification" />
+                                                            <TableColumn prefWidth="75.0" text="Section" />
+                                                            <TableColumn prefWidth="75.0" text="Section Number" />
+                                                            <TableColumn prefWidth="75.0" text="Remarks" />
+                                                            <TableColumn prefWidth="75.0" text="Date" />
                                                         </columns>
                                                       </TableView>
                                                    </center>
@@ -89,8 +98,15 @@
                                                    <center>
                                                       <TableView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                                         <columns>
-                                                          <TableColumn prefWidth="75.0" text="C1" />
-                                                          <TableColumn prefWidth="75.0" text="C2" />
+                                                          <TableColumn prefWidth="75.0" text="SN" />
+                                                          <TableColumn prefWidth="75.0" text="Darta Date" />
+                                                            <TableColumn prefWidth="75.0" text="Darta Number" />
+                                                            <TableColumn prefWidth="75.0" text="Letter Quantity" />
+                                                            <TableColumn prefWidth="75.0" text="Reception" />
+                                                            <TableColumn prefWidth="75.0" text="Signed Date" />
+                                                            <TableColumn prefWidth="75.0" text="Responsible Person" />
+                                                            <TableColumn prefWidth="75.0" text="Subject" />
+                                                            <TableColumn prefWidth="75.0" text="Remarks" />
                                                         </columns>
                                                       </TableView>
                                                    </center>
@@ -103,8 +119,15 @@
                                                    <center>
                                                       <TableView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                                         <columns>
-                                                          <TableColumn prefWidth="75.0" text="C1" />
-                                                          <TableColumn prefWidth="75.0" text="C2" />
+                                                          <TableColumn prefWidth="75.0" text="SN" />
+                                                            <TableColumn prefWidth="75.0" text="Chalani Date" />
+                                                            <TableColumn prefWidth="75.0" text="Chalani Number" />
+                                                            <TableColumn prefWidth="75.0" text="Letter Quantity" />
+                                                            <TableColumn prefWidth="75.0" text="Reception" />
+                                                            <TableColumn prefWidth="75.0" text="Ticket" />
+                                                            <TableColumn prefWidth="75.0" text="Subject" />
+                                                            <TableColumn prefWidth="75.0" text="Letter Date" />
+                                                            <TableColumn prefWidth="75.0" text="Remarks" />
                                                         </columns>
                                                       </TableView>
                                                    </center>
@@ -117,8 +140,14 @@
                                                    <center>
                                                       <TableView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                                         <columns>
-                                                          <TableColumn prefWidth="75.0" text="C1" />
-                                                          <TableColumn prefWidth="75.0" text="C2" />
+                                                          <TableColumn prefWidth="75.0" text="SN" />
+                                                          <TableColumn prefWidth="75.0" text="Name" />
+                                                            <TableColumn prefWidth="75.0" text="Designation" />
+                                                            <TableColumn prefWidth="75.0" text="Joined Date" />
+                                                            <TableColumn prefWidth="75.0" text="Salary" />
+                                                            <TableColumn prefWidth="75.0" text="Email" />
+                                                            <TableColumn prefWidth="75.0" text="Gender" />
+                                                            <TableColumn prefWidth="75.0" text="Date Of Birth" />
                                                         </columns>
                                                       </TableView>
                                                    </center>
@@ -128,7 +157,6 @@
                                     </TabPane>
                                  </center>
                               </BorderPane>
-                              <BorderPane fx:id="borderPaneMain" prefHeight="200.0" prefWidth="200.0" />
                            </items>
                         </SplitPane>
                      </center>

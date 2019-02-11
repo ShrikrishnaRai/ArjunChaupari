@@ -5,6 +5,7 @@
  */
 package archjunchaupari.Model.Inventory;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -14,16 +15,22 @@ import java.util.Date;
 public class ExInventoryDto {
 
     private int id;
+    private int registration_number;
     private String created_date;
     private String name;
-    private String registration_number;
-    private String quantity;
+    // private String made_in_country;
+    private String size;
+    //  private String expected_life;
+    private String item_source;
+    private int quantity;
     private String rate;
+
     private String specification;
     private String section;
     private String section_number;
     private String remarks;
-    private boolean is_approved;
+    private Boolean is_approved;
+    private String type;
 
     public int getId() {
         return id;
@@ -31,6 +38,14 @@ public class ExInventoryDto {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getRegistration_number() {
+        return registration_number;
+    }
+
+    public void setRegistration_number(int registration_number) {
+        this.registration_number = registration_number;
     }
 
     public String getCreated_date() {
@@ -49,19 +64,41 @@ public class ExInventoryDto {
         this.name = name;
     }
 
-    public String getRegistration_number() {
-        return registration_number;
+//    public String getMade_in_country() {
+//        return made_in_country;
+//    }
+//
+//    public void setMade_in_country(String made_in_country) {
+//        this.made_in_country = made_in_country;
+//    }
+    public String getSize() {
+        return size;
     }
 
-    public void setRegistration_number(String registration_number) {
-        this.registration_number = registration_number;
+    public void setSize(String size) {
+        this.size = size;
     }
 
-    public String getQuantity() {
+//    public String getExpected_life() {
+//        return expected_life;
+//    }
+//
+//    public void setExpected_life(String expected_life) {
+//        this.expected_life = expected_life;
+//    }
+    public String getItem_source() {
+        return item_source;
+    }
+
+    public void setItem_source(String item_source) {
+        this.item_source = item_source;
+    }
+
+    public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(String quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 
@@ -105,12 +142,20 @@ public class ExInventoryDto {
         this.remarks = remarks;
     }
 
-    public boolean isIs_approved() {
+    public Boolean getIs_approved() {
         return is_approved;
     }
 
-    public void setIs_approved(boolean is_approved) {
+    public void setIs_approved(Boolean is_approved) {
         this.is_approved = is_approved;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
 }

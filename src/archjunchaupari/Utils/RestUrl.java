@@ -12,16 +12,17 @@ package archjunchaupari.Utils;
 public class RestUrl {
 
     public static String ACCESS_TOKEN = "http://aavash.pythonanywhere.com/api/get-token/";
-    public static String SAVE_INVENTORY = "http://aavash.pythonanywhere.com/api/v1/inventory/expendable-item/";
-    public static String GET_INVENTORY = "http://aavash.pythonanywhere.com/api/v1/inventory/expendable-item/";
+    public static String SAVE_INVENTORY = "http://aavash.pythonanywhere.com/api/v1/inventory/item/";
+    public static String GET_INVENTORY = "http://aavash.pythonanywhere.com/api/v1/inventory/item/";
     //requires id
-    public static String DELTE_INVENTORY = "http://aavash.pythonanywhere.com/api/v1/inventory/expendable-item/";
-    public static String SEARCH_INVENTORY = "http://aavash.pythonanywhere.com/api/v1/inventory/expendable-item/?search=";
-    
-    
+    public static String DELTE_INVENTORY = "http://aavash.pythonanywhere.com/api/v1/inventory/item/";
+    public static String SEARCH_INVENTORY = "http://aavash.pythonanywhere.com/api/v1/inventory/item/?search=";
+
     public static String SAVE_DARTA = "http://aavash.pythonanywhere.com/api/v1/inventory/patra-darta/";
     public static String GET_DARTA = "http://aavash.pythonanywhere.com/api/v1/inventory/patra-darta/";
-    
-    
+
     public static String GET_PATRA_CHALANI = "http://aavash.pythonanywhere.com/api/v1/inventory/patra-chalani/";
+    public static String SAVE_PATRA_CHALANI = "http://aavash.pythonanywhere.com/api/v1/inventory/patra-chalani/";
+
+    public static String GET_STAFF = "http://aavash.pythonanywhere.com/api/v1/accounts/staff-detail/";
 }

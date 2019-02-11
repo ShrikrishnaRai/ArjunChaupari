@@ -59,6 +59,7 @@ public class InventoryDaoIMPL implements InventoryDAO {
             HttpPost httpPost = new HttpPost(RestUrl.SAVE_INVENTORY);
             Gson gson = new Gson();
             String json = gson.toJson(inventoryDto);
+            JOptionPane.showMessageDialog(null, json);
             StringEntity entity = new StringEntity(json);
             httpPost.setEntity(entity);
             httpPost.setHeader("Accept", "application/json");

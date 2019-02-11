@@ -23,7 +23,7 @@ public class ArchjunChaupari extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        //   Parent root = FXMLLoader.load(getClass().getResource("/archjunchaupari/BranchAdmin/BranchAdminDash.fxml"));
+        //Parent root = FXMLLoader.load(getClass().getResource("/archjunchaupari/BranchAdmin/BranchAdminDash.fxml"));
         Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
         stage.setTitle("Arjunchaupari Gaupalika");
         stage.getIcons().add(new Image(Icon_path));

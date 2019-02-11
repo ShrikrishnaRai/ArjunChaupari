@@ -21,7 +21,7 @@ public class DartaDto {
     private String to_office;
     private String subject;
     private String image;
-    private String reponsible_person_full_name;
+    private String responsible_person_full_name;
     private String signed_date;
     private String remarks;
 
@@ -81,12 +81,12 @@ public class DartaDto {
         this.image = image;
     }
 
-    public String getReponsible_person_full_name() {
-        return reponsible_person_full_name;
+    public String getResponsible_person_full_name() {
+        return responsible_person_full_name;
     }
 
-    public void setReponsible_person_full_name(String reponsible_person_full_name) {
-        this.reponsible_person_full_name = reponsible_person_full_name;
+    public void setResponsible_person_full_name(String responsible_person_full_name) {
+        this.responsible_person_full_name = responsible_person_full_name;
     }
 
     public String getSigned_date() {
