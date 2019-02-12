@@ -6,6 +6,7 @@
 package archjunchaupari.PatraChalani.PatraChalaniDao;
 
 import archjunchaupari.Inventory.InventoryDAO.InventoryDaoIMPL;
+import archjunchaupari.Login.LoginDAO.LoginDaoIMPL;
 import archjunchaupari.Model.Darta.DartaDto;
 import archjunchaupari.Model.PatraChalani.PatraChalaniDto;
 import archjunchaupari.Utils.RestUrl;
@@ -41,6 +42,9 @@ public class PatraChalaniDaoIMPL implements PatraChalaniDao {
         try {
             HttpClient client = HttpClientBuilder.create().build();
             HttpGet request = new HttpGet(RestUrl.GET_PATRA_CHALANI);
+            request.setHeader("Accept", "application/json");
+            request.setHeader("Content-type", "application/json");
+            request.addHeader("Authorization", "JWT " + LoginDaoIMPL.token);
             HttpResponse response = client.execute(request);
             BufferedReader bufReader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
             int statusCode = response.getStatusLine().getStatusCode();

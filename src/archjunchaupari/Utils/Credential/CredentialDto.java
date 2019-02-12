@@ -11,22 +11,13 @@ package archjunchaupari.Utils.Credential;
  */
 public class CredentialDto {
 
-    public CredentialDto() {
-    }
-
-    public CredentialDto(String token, String email, int user_id, boolean is_super_admin, boolean is_branch_admin) {
-        this.token = token;
-        this.email = email;
-        this.user_id = user_id;
-        this.is_super_admin = is_super_admin;
-        this.is_branch_admin = is_branch_admin;
-    }
-
     private String token;
     private String email;
     private int user_id;
+    private boolean is_super_user;
     private boolean is_super_admin;
     private boolean is_branch_admin;
+    private boolean is_staff;
 
     public String getToken() {
         return token;
@@ -52,6 +43,14 @@ public class CredentialDto {
         this.user_id = user_id;
     }
 
+    public boolean isIs_super_user() {
+        return is_super_user;
+    }
+
+    public void setIs_super_user(boolean is_super_user) {
+        this.is_super_user = is_super_user;
+    }
+
     public boolean isIs_super_admin() {
         return is_super_admin;
     }
@@ -66,6 +65,14 @@ public class CredentialDto {
 
     public void setIs_branch_admin(boolean is_branch_admin) {
         this.is_branch_admin = is_branch_admin;
+    }
+
+    public boolean isIs_staff() {
+        return is_staff;
+    }
+
+    public void setIs_staff(boolean is_staff) {
+        this.is_staff = is_staff;
     }
 
 }

@@ -89,7 +89,7 @@ public class FXMLDocumentController implements Initializable {
             stage.setTitle("ArjunChaupari Gaupalika");
             stage.setScene(new Scene(root1));
             stage.show();
-        } else if ("Staff".equals(roleCombo.getSelectionModel().getSelectedItem().toString()) && loginServices_Ic.login(email.getText(), password.getText())) {
+        } else if ("Branch Admin".equals(roleCombo.getSelectionModel().getSelectedItem().toString()) && loginServices_Ic.login(email.getText(), password.getText())) {
             Stage primary_stage = (Stage) login.getScene().getWindow();
             primary_stage.close();
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/archjunchaupari/BranchAdmin/BranchAdminDash.fxml"));
@@ -112,9 +112,9 @@ public class FXMLDocumentController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         ObservableList<String> roleType = roleCombo.getItems();
-        roleType.add("Admin");
-        roleType.add("Staff");
         roleType.add("Super Admin");
+        roleType.add("Admin");
+        roleType.add("Branch Admin");
         WebEngine webEngine = webView.getEngine();
         webEngine.load("http://www.google.com");
         imageView = ImageViewBuilder.create().image(new Image(path)).build();

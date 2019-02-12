@@ -15,6 +15,8 @@ import javafx.scene.image.Image;
 public class DartaDto {
 
     private int id;
+    private String created_date;
+    private boolean is_deleted;
     private String darta_number;
     private String darta_date;
     private String letter_quantity;
@@ -24,6 +26,7 @@ public class DartaDto {
     private String responsible_person_full_name;
     private String signed_date;
     private String remarks;
+    private int created_by;
 
     public int getId() {
         return id;
@@ -31,6 +34,30 @@ public class DartaDto {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public boolean isIs_deleted() {
+        return is_deleted;
+    }
+
+    public String getCreated_date() {
+        return created_date;
+    }
+
+    public void setCreated_date(String created_date) {
+        this.created_date = created_date;
+    }
+
+    public int getCreated_by() {
+        return created_by;
+    }
+
+    public void setCreated_by(int created_by) {
+        this.created_by = created_by;
+    }
+
+    public void setIs_deleted(boolean is_deleted) {
+        this.is_deleted = is_deleted;
     }
 
     public String getDarta_number() {

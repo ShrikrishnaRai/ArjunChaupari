@@ -44,7 +44,7 @@
                     <children>
                         <TextField fx:id="email" promptText="Email" />
                         <PasswordField fx:id="password" promptText="Password" />
-                        <ComboBox fx:id="roleCombo" prefHeight="26.0" prefWidth="87.0" promptText="Role">
+                        <ComboBox fx:id="roleCombo" prefHeight="26.0" prefWidth="140.0" promptText="Role">
                         </ComboBox>
                         <Region />
                         <Button fx:id="login" mnemonicParsing="false" onAction="#login" text="LOGIN">

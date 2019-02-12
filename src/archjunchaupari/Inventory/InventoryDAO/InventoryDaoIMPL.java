@@ -69,9 +69,20 @@ public class InventoryDaoIMPL implements InventoryDAO {
             client.close();
             statusCode = response.getStatusLine().getStatusCode();
             if (statusCode == 201) {
-                JOptionPane.showMessageDialog(null, "Request Sent for Approval");
+                if (LoginDaoIMPL.is_staff == true) {
+                    JOptionPane.showMessageDialog(null, "Request Sent for Approval");
+                }
+                if (LoginDaoIMPL.is_branch_admin) {
+                    JOptionPane.showMessageDialog(null, "Inventory Saved");
+                }
+                if (LoginDaoIMPL.is_super_admin) {
+                    JOptionPane.showMessageDialog(null, "Inventory Saved");
+                }
+                if (LoginDaoIMPL.is_superuser) {
+                    JOptionPane.showMessageDialog(null, "Inventory Saved");
+                }
             } else {
-                JOptionPane.showMessageDialog(null, "Server Error::"+response);
+                JOptionPane.showMessageDialog(null, "Server Error::" + response);
             }
 
         } catch (UnsupportedEncodingException ex) {
@@ -88,6 +99,9 @@ public class InventoryDaoIMPL implements InventoryDAO {
         try {
             HttpClient client = HttpClientBuilder.create().build();
             HttpGet request = new HttpGet(RestUrl.GET_INVENTORY);
+            request.setHeader("Accept", "application/json");
+            request.setHeader("Content-type", "application/json");
+            request.addHeader("Authorization", "JWT " + LoginDaoIMPL.token);
             HttpResponse response = client.execute(request);
             BufferedReader bufReader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
             int statusCode = response.getStatusLine().getStatusCode();
@@ -106,7 +120,7 @@ public class InventoryDaoIMPL implements InventoryDAO {
         List<ExInventoryDto> inventoryList = new ArrayList<>();
         try {
             HttpClient client = HttpClientBuilder.create().build();
-            HttpGet request = new HttpGet(RestUrl.SEARCH_INVENTORY+inventory);
+            HttpGet request = new HttpGet(RestUrl.SEARCH_INVENTORY + inventory);
             HttpResponse response = client.execute(request);
             BufferedReader bufReader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
             int statusCode = response.getStatusLine().getStatusCode();

@@ -45,10 +45,10 @@ public class StaffDaoIMPL implements StaffDao {
         try {
             HttpClient client = HttpClientBuilder.create().build();
             HttpGet request = new HttpGet(RestUrl.GET_STAFF);
+            request.setHeader("Accept", "application/json");
+            request.setHeader("Content-type", "application/json");
+            request.addHeader("Authorization", "JWT " + LoginDaoIMPL.token);
             HttpResponse response = client.execute(request);
-            response.setHeader("Accept", "application/json");
-            response.setHeader("Content-type", "application/json");
-            response.addHeader("Authorization", "JWT " + LoginDaoIMPL.token);
             BufferedReader bufReader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
             int statusCode = response.getStatusLine().getStatusCode();
             Gson gson = new Gson();

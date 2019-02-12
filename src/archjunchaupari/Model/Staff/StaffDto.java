@@ -11,32 +11,13 @@ package archjunchaupari.Model.Staff;
  */
 public class StaffDto {
 
-    /*"id": 1,
-    "email": "cri_rai@outlook.com",
-    "first_name": "string",
-    "last_name": "string",
-    "date_of_birth": "1995-01-01",
-    "gender": "Male",
-    "salary": "10000",
-    "joined_date": "1995-01-01",
-    "designation": "string"*/
-//    private int id;
-//    private String email;
-//    private String first_name;
-//    private String last_name;
-//    private String date_of_birth;
-//    private String gender;
-//    private String salary;
-//    private String joined_date;
-//    private String designation;
     private String gender;
     private String joined_date;
     private String date_of_birth;
-    private String last_name;
     private int id;
     private String designation;
     private String salary;
-    private String first_name;
+    private String name;
     private String email;
 
     public int getId() {
@@ -55,20 +36,12 @@ public class StaffDto {
         this.email = email;
     }
 
-    public String getFirst_name() {
-        return first_name;
+    public String getName() {
+        return name;
     }
 
-    public void setFirst_name(String first_name) {
-        this.first_name = first_name;
-    }
-
-    public String getLast_name() {
-        return last_name;
-    }
-
-    public void setLast_name(String last_name) {
-        this.last_name = last_name;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDate_of_birth() {

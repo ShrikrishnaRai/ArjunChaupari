@@ -480,7 +480,7 @@
                                                                         <TableColumn fx:id="responsible_person_full_name" prefWidth="75.0" text="Resposible Person" />
                                                                         <TableColumn fx:id="signed_date" prefWidth="75.0" text="Signed Date" />
                                                                         <TableColumn fx:id="remarks" prefWidth="75.0" text="Remarks" />
-                                                                        <TableColumn fx:id="columnDate111" prefWidth="75.0" text="Maintain" />
+                                                                        <TableColumn fx:id="is_deleted" prefWidth="75.0" text="Deleted" />
                                                                     </columns>
                                                                 </TableView>
                                                             </center>

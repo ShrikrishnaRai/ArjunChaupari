@@ -37,6 +37,7 @@ import org.apache.http.impl.client.HttpClients;
  * @author cri
  */
 public class DartaDaoIMPL implements DartaDAO {
+
     int statusCode;
 
     @Override
@@ -57,7 +58,7 @@ public class DartaDaoIMPL implements DartaDAO {
             if (statusCode == 201) {
                 JOptionPane.showMessageDialog(null, "Request Sent for Approval");
             } else {
-                JOptionPane.showMessageDialog(null, ""+response);
+                JOptionPane.showMessageDialog(null, "" + response);
             }
         } catch (UnsupportedEncodingException ex) {
             Logger.getLogger(DartaDaoIMPL.class.getName()).log(Level.SEVERE, null, ex);
@@ -72,6 +73,9 @@ public class DartaDaoIMPL implements DartaDAO {
         try {
             HttpClient client = HttpClientBuilder.create().build();
             HttpGet request = new HttpGet(RestUrl.GET_DARTA);
+            request.setHeader("Accept", "application/json");
+            request.setHeader("Content-type", "application/json");
+            request.addHeader("Authorization", "JWT " + LoginDaoIMPL.token);
             HttpResponse response = client.execute(request);
             BufferedReader bufReader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
             int statusCode = response.getStatusLine().getStatusCode();

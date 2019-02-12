@@ -68,252 +68,270 @@ import javax.swing.JOptionPane;
  * @author cri
  */
 public class DashFXMLController implements Initializable {
-    
+
     @FXML
     private ComboBox typeComboBox;
 
     //patra chalani table 
     @FXML
     private TableColumn<PatraChalaniDto, String> chalaniId;
+
     @FXML
     private TableColumn<PatraChalaniDto, String> chalani_date;
+
     @FXML
     private TableColumn<PatraChalaniDto, String> chalani_number;
+
     @FXML
     private TableColumn<PatraChalaniDto, String> chalaniLetter_quantity;
+
     @FXML
     private TableColumn<PatraChalaniDto, String> chalaniLetter_date;
+
     @FXML
     private TableColumn<PatraChalaniDto, String> chalaniSubject;
+
     @FXML
     private TableColumn<PatraChalaniDto, String> to_office;
+
     @FXML
     private TableColumn<PatraChalaniDto, String> chalaniTicket;
+
     @FXML
     private TableColumn<PatraChalaniDto, String> chalaniRemarks;
 
     //staff table
     @FXML
     private TableColumn<StaffDto, String> staffTableId;
+
     @FXML
     private TableColumn<StaffDto, String> staffTableEmail;
+
     @FXML
     private TableColumn<StaffDto, String> staffTableName;
+
     @FXML
     private TableColumn<StaffDto, String> staffTableDOB;
+
     @FXML
     private TableColumn<StaffDto, String> staffTableGender;
+
     @FXML
     private TableColumn<StaffDto, String> staffTableSalary;
+
     @FXML
     private TableColumn<StaffDto, String> staffTableJoinedDate;
+
     @FXML
     private TableColumn<StaffDto, String> staffTableDesignation;
 
     //staff field
     @FXML
     private ComboBox staffGenderCombo;
-    
+
     @FXML
     private TextField inventoryId;
-    
+
     @FXML
     private TextField staffId;
-    
+
     @FXML
     private TextField dartaId;
-    
+
     @FXML
     private TextField dartaChalaniId;
-    
+
     @FXML
     private Button updateInventory;
-    
+
     @FXML
     private Button updateStaff;
-    
+
     @FXML
     private Button updateDarta;
-    
+
     @FXML
     private Button updateDartaChalani;
-    
+
     @FXML
     private Button uploadImage;
-    
+
     @FXML
     private TextField searchText;
-    
+
     @FXML
     private TabPane tabPane;
-    
+
     @FXML
     private Tab inventoryTab;
-    
+
     @FXML
     private Tab patraTab;
-    
+
     @FXML
     private Tab dartaTab;
-    
+
     @FXML
     private Tab staffTab;
-    
+
     @FXML
     private Button searchButton;
-    
+
     @FXML
     private SplitPane splitPane;
-    
+
     @FXML
     private Button logOut;
-    
+
     @FXML
     private Button b;
-    
+
     @FXML
     private TreeView treeViewDash;
-    
+
     @FXML
     private TableView tableView;
-    
+
     @FXML
     private TableView dartaTable;
-    
+
     @FXML
     private TableView staffTable;
-    
+
     @FXML
     private TableView chalaniTable;
-    
+
     @FXML
     private TableColumn<ExInventoryDto, Hyperlink> columnDelete;
-    
+
     @FXML
     private TableColumn<ExInventoryDto, String> columnName;
-    
+
     @FXML
     private TableColumn<ExInventoryDto, String> columnId;
-    
+
     @FXML
     private TableColumn<ExInventoryDto, String> columnType;
-    
+
     @FXML
     private TextField textName;
-    
+
     @FXML
     private TableColumn<ExInventoryDto, String> columnRegistrationNumber;
-    
+
     @FXML
     private TextField textRegistrationNumber;
-    
+
     @FXML
     private TableColumn<ExInventoryDto, String> columnDate;
-    
+
     @FXML
     private DatePicker textDate;
-    
+
     @FXML
     private TableColumn<ExInventoryDto, String> columnQuantity;
-    
+
     @FXML
     private TextField textQuantity;
-    
+
     @FXML
     private TableColumn<ExInventoryDto, String> columnRate;
-    
+
     @FXML
     private TextField textRate;
-    
+
     @FXML
     private TableColumn<ExInventoryDto, String> columnSpecification;
-    
+
     @FXML
     private TextArea textSpecification;
-    
+
     @FXML
     private TableColumn<ExInventoryDto, String> columnSection;
-    
+
     @FXML
     private TextField textSection;
-    
+
     @FXML
     private TableColumn<ExInventoryDto, String> columnSection_number;
-    
+
     @FXML
     private TextField textSection_number;
-    
+
     @FXML
     private TableColumn<ExInventoryDto, String> columnRemarks;
-    
+
     @FXML
     private TextArea textRemarks;
-    
+
     @FXML
     private TableColumn<ExInventoryDto, String> columnIs_Approved;
 
     //Darta Field
     @FXML
     private TextField dartaNumber;
-    
+
     @FXML
     private TextField letterQuantity;
-    
+
     @FXML
     private TextField reception;
-    
+
     @FXML
     private TextArea dartaSubject;
-    
+
     @FXML
     private TextArea dartaRemarks;
-    
+
     @FXML
     private TextField dartaImage;
-    
+
     @FXML
     private DatePicker dartaDate;
-    
+
     @FXML
     private DatePicker signedDate;
 
     //Darta TableView column
     @FXML
     private TableColumn<DartaDto, String> darta_id;
-    
+
     @FXML
     private TableColumn<DartaDto, String> created_date;
-    
+
     @FXML
     private TableColumn<DartaDto, String> darta_number;
-    
+
     @FXML
     private TableColumn<DartaDto, String> darta_date;
-    
+
     @FXML
     private TableColumn<DartaDto, String> letter_quantity;
-    
+
     @FXML
     private TableColumn<DartaDto, String> to_officee;
-    
+
     @FXML
     private TableColumn<DartaDto, String> subject;
-    
+
     @FXML
     private TableColumn<DartaDto, String> image;
-    
+
     @FXML
     private TableColumn<DartaDto, String> responsible_person_full_name;
-    
+
     @FXML
     private TableColumn<DartaDto, String> signed_date;
-    
+
     @FXML
     private TableColumn<DartaDto, String> remarks;
-    
+
+    @FXML
+    private TableColumn<DartaDto, String> is_deleted;
+
     @FXML
     private TextField textIsApproved;
-    
+
     InventoryDaoService inventoryService;
     DartaServices dartaService;
     ExInventoryDto inventoryDto;
@@ -321,7 +339,7 @@ public class DashFXMLController implements Initializable {
     PatraChalaniService patraChalaniService;
     StaffService staffService;
     int i = 0;
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         splitPane.setDividerPositions(-0.5);
@@ -331,11 +349,11 @@ public class DashFXMLController implements Initializable {
         loadTable();
         loadPatraChalaniTable();
         loadDartaTable();
-        //  loadStaffTable();
+        loadStaffTable();
         Editable();
         loadComboBox();
     }
-    
+
     void loadComboBox() {
         ObservableList<String> Type = typeComboBox.getItems();
         Type.add("Expendable");
@@ -353,12 +371,12 @@ public class DashFXMLController implements Initializable {
         dartaChalaniId.setEditable(false);
         dartaId.setEditable(false);
     }
-    
+
     void loadStaffTable() {
         staffService = new StaffService();
         staffTableId.setCellValueFactory(new PropertyValueFactory<>("id"));
         staffTableEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
-        staffTableName.setCellValueFactory(new PropertyValueFactory<>("first_name"));
+        staffTableName.setCellValueFactory(new PropertyValueFactory<>("name"));
         staffTableDOB.setCellValueFactory(new PropertyValueFactory<>("date_of_birth"));
         staffTableGender.setCellValueFactory(new PropertyValueFactory<>("gender"));
         staffTableSalary.setCellValueFactory(new PropertyValueFactory<>("salary"));
@@ -366,9 +384,9 @@ public class DashFXMLController implements Initializable {
         staffTableDesignation.setCellValueFactory(new PropertyValueFactory<>("designation"));
         staffTable.getItems().setAll(staffService.getStaffList());
     }
-    
+
     void loadPatraChalaniTable() {
-        
+
         patraChalaniService = new PatraChalaniService();
         chalaniId.setCellValueFactory(new PropertyValueFactory<>("id"));
         chalani_date.setCellValueFactory(new PropertyValueFactory<>("chalani_date"));
@@ -418,7 +436,7 @@ public class DashFXMLController implements Initializable {
         columnIs_Approved.setCellValueFactory(new PropertyValueFactory<>("is_approved"));
         tableView.getItems().setAll(inventoryService.getInventory());
     }
-    
+
     public void loadDartaTable() {
         dartaService = new DartaServices();
         darta_id.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -431,7 +449,9 @@ public class DashFXMLController implements Initializable {
         responsible_person_full_name.setCellValueFactory(new PropertyValueFactory<>("responsible_person_full_name"));
         signed_date.setCellValueFactory(new PropertyValueFactory<>("signed_date"));
         remarks.setCellValueFactory(new PropertyValueFactory<>("remarks"));
+        is_deleted.setCellValueFactory(new PropertyValueFactory<>("is_deleted"));
         dartaTable.getItems().setAll(dartaService.getDarta());
+        dartaService.getDarta();
     }
 
     //load item on treeView
@@ -459,27 +479,27 @@ public class DashFXMLController implements Initializable {
         //saved or discarded for unspendable
         TreeItem<String> discardedSpendable = new TreeItem("Discarded Inventory");
         TreeItem<String> savedSpendable = new TreeItem("Saved Inventory");
-        
+
         TreeItem<String> discardedUnspendable = new TreeItem("Discarded Inventory");
         TreeItem<String> savedUnspendable = new TreeItem("Saved Inventory");
-        
+
         root.getChildren().add(spendable);
         root.getChildren().add(unspendable);
         //   inventory.getChildren().add(spendable);
         spendable.getChildren().add(savedSpendable);
         spendable.getChildren().add(discardedSpendable);
-        
+
         unspendable.getChildren().add(savedUnspendable);
         unspendable.getChildren().add(discardedUnspendable);
         //   inventory.getChildren().add(unspendable);
         treeViewDash.setRoot(root);
     }
-    
+
     @FXML
     public void check() {
         JOptionPane.showMessageDialog(null, "hello");
     }
-    
+
     @FXML
     public void saveDarta() {
         dartaDto = new DartaDto();
@@ -496,7 +516,7 @@ public class DashFXMLController implements Initializable {
         dartaDto.setSigned_date(signedValue);
         dartaService.saveDarta(dartaDto);
     }
-    
+
     @FXML
     public void saveInventory() {
         try {
@@ -507,7 +527,6 @@ public class DashFXMLController implements Initializable {
             inventoryDto.setQuantity(Integer.parseInt(textQuantity.getText()));
             inventoryDto.setRate(textRate.getText());
             inventoryDto.setSpecification(textSpecification.getText());
-            inventoryDto.setSection(textSection.getText());
             inventoryDto.setSection_number(textSection_number.getText());
             inventoryDto.setRemarks(textRemarks.getText());
             inventoryDto.setCreated_date(textDate.getValue().toString());
@@ -518,7 +537,7 @@ public class DashFXMLController implements Initializable {
             JOptionPane.showMessageDialog(null, "" + e);
         }
     }
-    
+
     @FXML
     public void logOut() {
         try {
@@ -534,7 +553,7 @@ public class DashFXMLController implements Initializable {
             Logger.getLogger(DashFXMLController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     @FXML
     public void deleteRowDarta() {
         dartaTable.setOnMouseClicked((MouseEvent event) -> {
@@ -578,12 +597,13 @@ public class DashFXMLController implements Initializable {
             }
         });
     }
-    
+
     @FXML
     public void deleteRow() {
         tableView.setOnMouseClicked((MouseEvent event) -> {
             if (event.getButton().equals(MouseButton.PRIMARY)) {
                 if (event.getClickCount() == 2) {
+                    //Dialog to display information and delete and update option
                     final Stage dialog = new Stage();
                     dialog.initModality(Modality.APPLICATION_MODAL);
                     ExInventoryDto inventoryDto1 = (ExInventoryDto) tableView.getSelectionModel().getSelectedItem();
@@ -592,23 +612,12 @@ public class DashFXMLController implements Initializable {
                     Button buttonUpdate = new Button("Update");
                     //Transfers to another update view
                     buttonUpdate.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event2) -> {
-//                        try {
-////                            Stage primary_stage = (Stage) buttonUpdate.getScene().getWindow();
-////                            primary_stage.close();
-////                            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/archjunchaupari/Update/UpdateFXML.fxml"));
-////                            Parent root1 = (Parent) fxmlLoader.load();
-////                            Stage stage = new Stage();
-////                            stage.setTitle("ArjunChaupari Gaupalika");
-////                            stage.setScene(new Scene(root1));
-////                            stage.show();
-//                        } catch (IOException ex) {
-//                            Logger.getLogger(DashFXMLController.class.getName()).log(Level.SEVERE, null, ex);
-//                        }
                         updateInventory.setDisable(false);
                     });
                     button.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event1) -> {
                         int option = JOptionPane.showConfirmDialog(null, "Are You Sure?", "Warning", JOptionPane.YES_NO_OPTION);
                         if (option == JOptionPane.YES_OPTION) {
+                            dialog.close();
                             inventoryService.deleteInventory(inventoryDto1.getId());
                             loadTable();
                         }
@@ -619,19 +628,15 @@ public class DashFXMLController implements Initializable {
                                 inventoryDto1.getName(),
                                 inventoryDto1.getRegistration_number(),
                                 inventoryDto1.getCreated_date(),
-                                inventoryDto1.getQuantity(), 
+                                inventoryDto1.getQuantity(),
                                 inventoryDto1.getRate(),
-                                inventoryDto1.getSpecification(), 
-                                inventoryDto1.getSection(),
+                                inventoryDto1.getSpecification(),
                                 inventoryDto1.getSection_number(),
                                 inventoryDto1.getRemarks(),
                                 inventoryDto1.getIs_approved(),
                                 inventoryDto1.getType());
-                        JOptionPane.showMessageDialog(null, "Hello World");
+                        dialog.close();
                     });
-//                    buttonUpdate.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent,event2) -> {
-//                        
-//                    });
                     dialogVbox.getChildren().add(new Text(inventoryDto1.getName() + "" + inventoryDto1.getId()));
                     dialogVbox.getChildren().add(button);
                     dialogVbox.getChildren().add(buttonUpdate);
@@ -642,7 +647,7 @@ public class DashFXMLController implements Initializable {
             }
         });
     }
-    
+
     public void searchButtonAction() {
         switch (tabPane.getSelectionModel().getSelectedIndex()) {
             case 0:
@@ -661,12 +666,12 @@ public class DashFXMLController implements Initializable {
                 break;
         }
     }
-    
+
     @FXML
     public void close() {
         Platform.exit();
     }
-    
+
     @FXML
     public Image uploadImage() {
         Image image1 = null;
@@ -694,26 +699,26 @@ public class DashFXMLController implements Initializable {
         roleType.add("Female");
     }
 
-    void updateInventoryField(int id,String inventoryName,
+    void updateInventoryField(
+            int id,
+            String name,
             int registration_number,
             String created_date,
             int quantity,
             String rate,
             String specification,
-            String section,
             String section_number,
             String remarks,
-            boolean is_approved,
+            String is_approved,
             String type) {
         inventoryId.setText(String.valueOf(id));
-        textName.setText(inventoryName);
+        textName.setText(name);
         textRegistrationNumber.setText(String.valueOf(registration_number));
         textQuantity.setText(String.valueOf(quantity));
         textRate.setText(rate);
         textSpecification.setText(specification);
-        textSection.setText(section);
         textSection_number.setText(section_number);
         textRemarks.setText(remarks);
     }
-    
+
 }
