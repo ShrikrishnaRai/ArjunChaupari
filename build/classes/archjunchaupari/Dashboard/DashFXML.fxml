@@ -682,7 +682,7 @@
                                                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                                                     </rowConstraints>
                                                                     <children>
-                                                                        <TextField fx:id="" layoutX="107.0" layoutY="30.0" promptText="Salary" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                                                        <TextField fx:id="staffSalary" layoutX="107.0" layoutY="30.0" promptText="Salary" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                                                                         <Label layoutX="10.0" layoutY="13.0" text="Designation" GridPane.rowIndex="3">
                                                                             <GridPane.margin>
                                                                                 <Insets left="10.0" />
@@ -752,12 +752,12 @@
                                                          <font>
                                                             <Font name="System Bold" size="12.0" />
                                                          </font></Button>
-                                                                        <TextField layoutX="68.0" layoutY="25.0" promptText="Address" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                                                                        <TextField layoutX="68.0" layoutY="36.0" promptText="Email" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                                                      <TextField fx:id="1" promptText="Name" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                                      <TextField fx:id="11" promptText="Designation" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                                                        <TextField fx:id="staffAddress" layoutX="68.0" layoutY="25.0" promptText="Address" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                                                        <TextField fx:id="staffEmail" layoutX="68.0" layoutY="36.0" promptText="Email" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                                      <TextField fx:id="staffName" promptText="Name" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                                      <TextField fx:id="staffDesignation" promptText="Designation" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                                       <PasswordField promptText="Password" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-                                                      <PasswordField promptText="Confirm Password" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                                                      <PasswordField fx:id="staffPassword" promptText="Confirm Password" GridPane.columnIndex="3" GridPane.rowIndex="3" />
                                                       <Button fx:id="updateStaff" mnemonicParsing="false" onAction="#saveInventory" prefHeight="26.0" prefWidth="100.0" style="-fx-background-color: blue;" text="Update" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="7">
                                                          <font>
                                                             <Font name="System Bold" size="12.0" />
@@ -779,7 +779,7 @@
                                                             <Insets left="10.0" />
                                                          </GridPane.margin>
                                                       </Label>
-                                                      <DatePicker promptText="Joined Date" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                                                      <DatePicker fx:id="staffJoinedDate" promptText="Joined Date" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                                                       <Label text="Gender" GridPane.columnIndex="2" GridPane.rowIndex="1">
                                                          <font>
                                                             <Font name="System Bold" size="13.0" />

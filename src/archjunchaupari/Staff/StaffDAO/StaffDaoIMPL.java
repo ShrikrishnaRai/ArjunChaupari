@@ -18,6 +18,7 @@ import com.google.gson.reflect.TypeToken;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,8 +27,13 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.impl.client.HttpClients;
 
 /**
  *
@@ -37,6 +43,28 @@ public class StaffDaoIMPL implements StaffDao {
 
     @Override
     public void saveStaff(StaffDto staffDto) {
+        try {
+            CloseableHttpClient client = HttpClients.createDefault();
+            HttpPost httpPost = new HttpPost(RestUrl.SAVE_STAFF);
+            Gson gson = new Gson();
+            String json = gson.toJson(staffDto);
+            JOptionPane.showMessageDialog(null, json);
+            StringEntity entity = new StringEntity(json);
+            httpPost.setEntity(entity);
+            httpPost.setHeader("Accept", "application/json");
+            httpPost.setHeader("Content-type", "application/json");
+            httpPost.addHeader("Authorization", "JWT " + LoginDaoIMPL.token);
+            CloseableHttpResponse response = client.execute(httpPost);
+            int statusCode = response.getStatusLine().getStatusCode();
+            if (statusCode == 201) {
+                JOptionPane.showMessageDialog(null, "Staff Information Saved");
+            }
+            client.close();
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(StaffDaoIMPL.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(StaffDaoIMPL.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override

@@ -267,6 +267,31 @@ public class DashFXMLController implements Initializable {
     @FXML
     private TableColumn<ExInventoryDto, String> columnIs_Approved;
 
+    //staff Field
+    @FXML
+    private TextField staffName;
+
+    @FXML
+    private TextField staffDesignation;
+
+    @FXML
+    private TextField staffAddress;
+
+    @FXML
+    private TextField staffEmail;
+
+    @FXML
+    private TextField staffPassword;
+
+    @FXML
+    private DatePicker staffJoinedDate;
+
+    @FXML
+    private TextField staffGender;
+
+    @FXML
+    private TextField staffSalary;
+
     //Darta Field
     @FXML
     private TextField dartaNumber;
@@ -336,6 +361,7 @@ public class DashFXMLController implements Initializable {
     DartaServices dartaService;
     ExInventoryDto inventoryDto;
     DartaDto dartaDto;
+    StaffDto staffDto;
     PatraChalaniService patraChalaniService;
     StaffService staffService;
     int i = 0;
@@ -352,6 +378,14 @@ public class DashFXMLController implements Initializable {
         loadStaffTable();
         Editable();
         loadComboBox();
+        updateInventory.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                JOptionPane.showMessageDialog(null, "Hello World");
+                updateInventoryDetail(Integer.parseInt(inventoryId.getText()));
+            }
+
+        });
     }
 
     void loadComboBox() {
@@ -501,6 +535,19 @@ public class DashFXMLController implements Initializable {
     }
 
     @FXML
+    public void saveStaff() {
+        staffDto = new StaffDto();
+        staffService = new StaffService();
+        staffDto.setName(staffName.getText());
+        staffDto.setDesignation(staffDesignation.getText());
+        staffDto.setEmail(staffEmail.getText());
+        staffDto.setJoined_date(staffJoinedDate.getValue().toString());
+        staffDto.setGender(staffGenderCombo.getValue().toString());
+        staffDto.setSalary(staffSalary.getText());
+        staffService.saveStaff(staffDto);
+    }
+
+    @FXML
     public void saveDarta() {
         dartaDto = new DartaDto();
         dartaService = new DartaServices();
@@ -611,9 +658,6 @@ public class DashFXMLController implements Initializable {
                     Button button = new Button("Delete");
                     Button buttonUpdate = new Button("Update");
                     //Transfers to another update view
-                    buttonUpdate.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event2) -> {
-                        updateInventory.setDisable(false);
-                    });
                     button.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event1) -> {
                         int option = JOptionPane.showConfirmDialog(null, "Are You Sure?", "Warning", JOptionPane.YES_NO_OPTION);
                         if (option == JOptionPane.YES_OPTION) {
@@ -636,6 +680,7 @@ public class DashFXMLController implements Initializable {
                                 inventoryDto1.getIs_approved(),
                                 inventoryDto1.getType());
                         dialog.close();
+                        updateInventory.setDisable(false);
                     });
                     dialogVbox.getChildren().add(new Text(inventoryDto1.getName() + "" + inventoryDto1.getId()));
                     dialogVbox.getChildren().add(button);
@@ -697,6 +742,22 @@ public class DashFXMLController implements Initializable {
         ObservableList<String> roleType = staffGenderCombo.getItems();
         roleType.add("Male");
         roleType.add("Female");
+    }
+
+    void updateInventoryDetail(int id) {
+        updateInventory.setDisable(false);
+        inventoryService = new InventoryService();
+        inventoryDto = new ExInventoryDto();
+        inventoryDto.setName(textName.getText());
+        inventoryDto.setRegistration_number(Integer.parseInt(textRegistrationNumber.getText()));
+        inventoryDto.setQuantity(Integer.parseInt(textQuantity.getText()));
+        inventoryDto.setRate(textRate.getText());
+        inventoryDto.setSpecification(textSpecification.getText());
+        inventoryDto.setSection_number(textSection_number.getText());
+        inventoryDto.setRemarks(textRemarks.getText());
+        inventoryDto.setCreated_date(textDate.getValue().toString());
+        inventoryDto.setType(typeComboBox.getValue().toString());
+        inventoryService.updateInventory(id);
     }
 
     void updateInventoryField(

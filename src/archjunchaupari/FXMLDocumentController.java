@@ -116,7 +116,7 @@ public class FXMLDocumentController implements Initializable {
         roleType.add("Admin");
         roleType.add("Branch Admin");
         WebEngine webEngine = webView.getEngine();
-        webEngine.load("http://www.google.com");
+        webEngine.load("http://arjunchauparimun.gov.np/");
         imageView = ImageViewBuilder.create().image(new Image(path)).build();
     }
 

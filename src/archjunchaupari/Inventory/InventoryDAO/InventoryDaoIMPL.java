@@ -32,6 +32,7 @@ import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
@@ -153,6 +154,28 @@ public class InventoryDaoIMPL implements InventoryDAO {
             }
         } catch (IOException ex) {
 
+            Logger.getLogger(InventoryDaoIMPL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @Override
+    public void updateInventory(int id) {
+        try {
+            CloseableHttpClient client = HttpClients.createDefault();
+            HttpPut httpPut = new HttpPut(RestUrl.UPDATE_INVENTORY + id + "/");
+            httpPut.setHeader("Accept", "application/json");
+            httpPut.setHeader("Content-type", "application/json");
+            httpPut.addHeader("Authorization", "JWT " + LoginDaoIMPL.token);
+            CloseableHttpResponse response = client.execute(httpPut);
+            client.close();
+            statusCode = response.getStatusLine().getStatusCode();
+            if (statusCode == 204) {
+                JOptionPane.showMessageDialog(null, "Update");
+            } else {
+                JOptionPane.showMessageDialog(null, "" + response);
+                // JOptionPane.showMessageDialog(null, "Server Error");
+            }
+        } catch (IOException ex) {
             Logger.getLogger(InventoryDaoIMPL.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

@@ -17,9 +17,11 @@ public interface InventoryDaoService {
     void saveInventory(ExInventoryDto inventoryDto);
 
     List<ExInventoryDto> getInventory();
-    
+
     void deleteInventory(int id);
-    
+
     List<ExInventoryDto> getSearchInventory(String inventory);
+
+    void updateInventory(int id);
 
 }

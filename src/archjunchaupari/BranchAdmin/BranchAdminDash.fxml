@@ -20,185 +20,188 @@
 <?import javafx.scene.layout.VBox?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="401.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="archjunchaupari.BranchAdmin.BranchAdminDashController">
-   <top>
-      <VBox prefHeight="16.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-         <children>
-            <MenuBar>
-              <menus>
-                <Menu mnemonicParsing="false" text="File">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="Close" />
-                  </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Edit">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="Delete" />
-                  </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Help">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="About" />
-                  </items>
-                </Menu>
-              </menus>
-            </MenuBar>
-            <ToolBar prefHeight="40.0" prefWidth="200.0">
-              <items>
-                <Button mnemonicParsing="false" text="Log Out" />
-                  <Pane HBox.hgrow="ALWAYS" />
-                  <TextField alignment="BASELINE_RIGHT" promptText="Inventory" />
-                  <Button alignment="BOTTOM_RIGHT" mnemonicParsing="false" text="Search" />
-              </items>
-            </ToolBar>
-         </children>
-      </VBox>
-   </top>
-   <center>
-      <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-         <center>
-            <SplitPane orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" BorderPane.alignment="CENTER">
-               <items>
-                  <BorderPane prefHeight="200.0" prefWidth="200.0">
-                     <bottom>
-                        <HBox prefHeight="15.0" prefWidth="478.0" BorderPane.alignment="CENTER" />
-                     </bottom>
-                     <center>
-                        <SplitPane dividerPositions="0.5" prefHeight="160.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                           <items>
-                              <BorderPane fx:id="borderPaneMain" prefHeight="200.0" prefWidth="200.0" />
-                              <BorderPane prefHeight="200.0" prefWidth="200.0">
-                                 <center>
-                                    <TabPane fx:id="tabPane" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
-                                      <tabs>
-                                        <Tab fx:id="inventoryTab" text="Inventory">
-                                             <content>
-                                                <BorderPane prefHeight="200.0" prefWidth="200.0">
-                                                   <center>
-                                                      <TableView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                                                        <columns>
-                                                          <TableColumn prefWidth="75.0" text="SN" />
-                                                          <TableColumn prefWidth="75.0" text="Name" />
-                                                            <TableColumn prefWidth="75.0" text="Registration Number" />
-                                                            <TableColumn prefWidth="75.0" text="Quantity" />
-                                                            <TableColumn prefWidth="75.0" text="Rate" />
-                                                            <TableColumn prefWidth="75.0" text="Specification" />
-                                                            <TableColumn prefWidth="75.0" text="Section" />
-                                                            <TableColumn prefWidth="75.0" text="Section Number" />
-                                                            <TableColumn prefWidth="75.0" text="Remarks" />
-                                                            <TableColumn prefWidth="75.0" text="Date" />
-                                                        </columns>
-                                                      </TableView>
-                                                   </center>
-                                                </BorderPane>
-                                             </content>
-                                        </Tab>
-                                        <Tab fx:id="dartaChalaniTab" text="Darta Chalani">
-                                             <content>
-                                                <BorderPane prefHeight="200.0" prefWidth="200.0">
-                                                   <center>
-                                                      <TableView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                                                        <columns>
-                                                          <TableColumn prefWidth="75.0" text="SN" />
-                                                          <TableColumn prefWidth="75.0" text="Darta Date" />
-                                                            <TableColumn prefWidth="75.0" text="Darta Number" />
-                                                            <TableColumn prefWidth="75.0" text="Letter Quantity" />
-                                                            <TableColumn prefWidth="75.0" text="Reception" />
-                                                            <TableColumn prefWidth="75.0" text="Signed Date" />
-                                                            <TableColumn prefWidth="75.0" text="Responsible Person" />
-                                                            <TableColumn prefWidth="75.0" text="Subject" />
-                                                            <TableColumn prefWidth="75.0" text="Remarks" />
-                                                        </columns>
-                                                      </TableView>
-                                                   </center>
-                                                </BorderPane>
-                                             </content>
-                                        </Tab>
-                                          <Tab fx:id="patraChalaniTab" text="Patra Chalani">
-                                             <content>
-                                                <BorderPane prefHeight="200.0" prefWidth="200.0">
-                                                   <center>
-                                                      <TableView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                                                        <columns>
-                                                          <TableColumn prefWidth="75.0" text="SN" />
-                                                            <TableColumn prefWidth="75.0" text="Chalani Date" />
-                                                            <TableColumn prefWidth="75.0" text="Chalani Number" />
-                                                            <TableColumn prefWidth="75.0" text="Letter Quantity" />
-                                                            <TableColumn prefWidth="75.0" text="Reception" />
-                                                            <TableColumn prefWidth="75.0" text="Ticket" />
-                                                            <TableColumn prefWidth="75.0" text="Subject" />
-                                                            <TableColumn prefWidth="75.0" text="Letter Date" />
-                                                            <TableColumn prefWidth="75.0" text="Remarks" />
-                                                        </columns>
-                                                      </TableView>
-                                                   </center>
-                                                </BorderPane>
-                                             </content>
-                                          </Tab>
-                                          <Tab fx:id="staffTab" text="Staff">
-                                             <content>
-                                                <BorderPane prefHeight="200.0" prefWidth="200.0">
-                                                   <center>
-                                                      <TableView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                                                        <columns>
-                                                          <TableColumn prefWidth="75.0" text="SN" />
-                                                          <TableColumn prefWidth="75.0" text="Name" />
-                                                            <TableColumn prefWidth="75.0" text="Designation" />
-                                                            <TableColumn prefWidth="75.0" text="Joined Date" />
-                                                            <TableColumn prefWidth="75.0" text="Salary" />
-                                                            <TableColumn prefWidth="75.0" text="Email" />
-                                                            <TableColumn prefWidth="75.0" text="Gender" />
-                                                            <TableColumn prefWidth="75.0" text="Date Of Birth" />
-                                                        </columns>
-                                                      </TableView>
-                                                   </center>
-                                                </BorderPane>
-                                             </content></Tab>
-                                      </tabs>
-                                    </TabPane>
-                                 </center>
-                              </BorderPane>
-                           </items>
-                        </SplitPane>
-                     </center>
-                  </BorderPane>
-               </items>
-            </SplitPane>
-         </center>
-      </BorderPane>
-   </center>
-   <left>
-      <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" BorderPane.alignment="CENTER">
-         <items>
-            <VBox prefHeight="200.0" prefWidth="100.0">
-               <children>
-                  <Accordion>
-                    <panes>
-                        <TitledPane animated="false" text="Inventory">
-                          <content>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                          </content>
-                        </TitledPane>
-                      <TitledPane animated="false" text="Darta Chalani">
-                        <content>
-                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                        </content>
-                      </TitledPane>
-                      <TitledPane animated="false" text="Patra Chalani">
-                        <content>
-                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                        </content>
-                      </TitledPane>
-                      <TitledPane animated="false" text="Staff">
-                        <content>
-                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                        </content>
-                      </TitledPane>
-                    </panes>
-                  </Accordion>
-               </children>
-            </VBox>
-            <VBox prefHeight="200.0" prefWidth="100.0" />
-         </items>
-      </SplitPane>
-   </left>
+    <top>
+        <VBox prefHeight="16.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+            <children>
+                <MenuBar>
+                    <menus>
+                        <Menu mnemonicParsing="false" text="File">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="Close" />
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Edit">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="Delete" />
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Help">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="About" />
+                            </items>
+                        </Menu>
+                    </menus>
+                </MenuBar>
+                <ToolBar prefHeight="40.0" prefWidth="200.0">
+                    <items>
+                        <Button mnemonicParsing="false" text="Log Out" />
+                        <Pane HBox.hgrow="ALWAYS" />
+                        <TextField alignment="BASELINE_RIGHT" promptText="Inventory" />
+                        <Button alignment="BOTTOM_RIGHT" mnemonicParsing="false" text="Search" />
+                    </items>
+                </ToolBar>
+            </children>
+        </VBox>
+    </top>
+    <center>
+        <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <center>
+                <SplitPane orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" BorderPane.alignment="CENTER">
+                    <items>
+                        <BorderPane prefHeight="200.0" prefWidth="200.0">
+                            <bottom>
+                                <HBox prefHeight="15.0" prefWidth="478.0" BorderPane.alignment="CENTER" />
+                            </bottom>
+                            <center>
+                                <SplitPane dividerPositions="0.5" prefHeight="160.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                    <items>
+                                        <BorderPane fx:id="borderPaneMain" prefHeight="200.0" prefWidth="200.0" />
+                                        <BorderPane prefHeight="200.0" prefWidth="200.0">
+                                            <center>
+                                                <TabPane fx:id="tabPane" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+                                                    <tabs>
+                                                        <Tab fx:id="inventoryTab" text="Inventory">
+                                                            <content>
+                                                                <BorderPane prefHeight="200.0" prefWidth="200.0">
+                                                                    <center>
+                                                                        <TableView fx:id="tableView"  prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                                                            <columns>
+                                                                                <TableColumn fx:id="columnId" prefWidth="75.0" text="SN" />
+                                                                                <TableColumn fx:id="columnName" prefWidth="75.0" text="Name" />
+                                                                                <TableColumn fx:id="columnRegistrationNumber" prefWidth="75.0" text="Registration Number" />
+                                                                                <TableColumn fx:id="columnQuantity" prefWidth="75.0" text="Quantity" />
+                                                                                <TableColumn fx:id="columnRate" prefWidth="75.0" text="Rate" />
+                                                                                <TableColumn fx:id="columnSpecification" prefWidth="75.0" text="Specification" />
+                                                                                <TableColumn fx:id="columnSection" prefWidth="75.0" text="Section" />
+                                                                                <TableColumn fx:id="columnSection_number" prefWidth="75.0" text="Section Number" />
+                                                                                <TableColumn fx:id="columnRemarks" prefWidth="75.0" text="Remarks" />
+                                                                                <TableColumn fx:id="columnDate" prefWidth="75.0" text="Date" />
+                                                                                <TableColumn fx:id="columnType" prefWidth="75.0" text="Type" />
+                                                                                <TableColumn fx:id="columnIs_Approved" prefWidth="75.0" text="Approved" />
+                                                                            </columns>
+                                                                        </TableView>
+                                                                    </center>
+                                                                </BorderPane>
+                                                            </content>
+                                                        </Tab>
+                                                        <Tab fx:id="dartaChalaniTab" text="Darta Chalani">
+                                                            <content>
+                                                                <BorderPane prefHeight="200.0" prefWidth="200.0">
+                                                                    <center>
+                                                                        <TableView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                                                            <columns>
+                                                                                <TableColumn prefWidth="75.0" text="SN" />
+                                                                                <TableColumn prefWidth="75.0" text="Darta Date" />
+                                                                                <TableColumn prefWidth="75.0" text="Darta Number" />
+                                                                                <TableColumn prefWidth="75.0" text="Letter Quantity" />
+                                                                                <TableColumn prefWidth="75.0" text="Reception" />
+                                                                                <TableColumn prefWidth="75.0" text="Signed Date" />
+                                                                                <TableColumn prefWidth="75.0" text="Responsible Person" />
+                                                                                <TableColumn prefWidth="75.0" text="Subject" />
+                                                                                <TableColumn prefWidth="75.0" text="Remarks" />
+                                                                            </columns>
+                                                                        </TableView>
+                                                                    </center>
+                                                                </BorderPane>
+                                                            </content>
+                                                        </Tab>
+                                                        <Tab fx:id="patraChalaniTab" text="Patra Chalani">
+                                                            <content>
+                                                                <BorderPane prefHeight="200.0" prefWidth="200.0">
+                                                                    <center>
+                                                                        <TableView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                                                            <columns>
+                                                                                <TableColumn prefWidth="75.0" text="SN" />
+                                                                                <TableColumn prefWidth="75.0" text="Chalani Date" />
+                                                                                <TableColumn prefWidth="75.0" text="Chalani Number" />
+                                                                                <TableColumn prefWidth="75.0" text="Letter Quantity" />
+                                                                                <TableColumn prefWidth="75.0" text="Reception" />
+                                                                                <TableColumn prefWidth="75.0" text="Ticket" />
+                                                                                <TableColumn prefWidth="75.0" text="Subject" />
+                                                                                <TableColumn prefWidth="75.0" text="Letter Date" />
+                                                                                <TableColumn prefWidth="75.0" text="Remarks" />
+                                                                            </columns>
+                                                                        </TableView>
+                                                                    </center>
+                                                                </BorderPane>
+                                                            </content>
+                                                        </Tab>
+                                                        <Tab fx:id="staffTab" text="Staff">
+                                                            <content>
+                                                                <BorderPane prefHeight="200.0" prefWidth="200.0">
+                                                                    <center>
+                                                                        <TableView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                                                            <columns>
+                                                                                <TableColumn prefWidth="75.0" text="SN" />
+                                                                                <TableColumn prefWidth="75.0" text="Name" />
+                                                                                <TableColumn prefWidth="75.0" text="Designation" />
+                                                                                <TableColumn prefWidth="75.0" text="Joined Date" />
+                                                                                <TableColumn prefWidth="75.0" text="Salary" />
+                                                                                <TableColumn prefWidth="75.0" text="Email" />
+                                                                                <TableColumn prefWidth="75.0" text="Gender" />
+                                                                                <TableColumn prefWidth="75.0" text="Date Of Birth" />
+                                                                            </columns>
+                                                                        </TableView>
+                                                                    </center>
+                                                                </BorderPane>
+                                                            </content>
+                                                        </Tab>
+                                                    </tabs>
+                                                </TabPane>
+                                            </center>
+                                        </BorderPane>
+                                    </items>
+                                </SplitPane>
+                            </center>
+                        </BorderPane>
+                    </items>
+                </SplitPane>
+            </center>
+        </BorderPane>
+    </center>
+    <left>
+        <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" BorderPane.alignment="CENTER">
+            <items>
+                <VBox prefHeight="200.0" prefWidth="100.0">
+                    <children>
+                        <Accordion>
+                            <panes>
+                                <TitledPane animated="false" text="Inventory">
+                                    <content>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                    </content>
+                                </TitledPane>
+                                <TitledPane animated="false" text="Darta Chalani">
+                                    <content>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                    </content>
+                                </TitledPane>
+                                <TitledPane animated="false" text="Patra Chalani">
+                                    <content>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                    </content>
+                                </TitledPane>
+                                <TitledPane animated="false" text="Staff">
+                                    <content>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                    </content>
+                                </TitledPane>
+                            </panes>
+                        </Accordion>
+                    </children>
+                </VBox>
+                <VBox prefHeight="200.0" prefWidth="100.0" />
+            </items>
+        </SplitPane>
+    </left>
 </BorderPane>

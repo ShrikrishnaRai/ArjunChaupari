@@ -32,6 +32,29 @@ public class ExInventoryDto {
     private String created_by;
     private String section;
 
+    public ExInventoryDto() {
+    }
+
+    public ExInventoryDto(int id, int registration_number, String created_date, String name, String made_in_country, String size, String expected_life, String item_source, int quantity, String rate, String specification, String section_number, String remarks, String is_approved, String type, String created_by, String section) {
+        this.id = id;
+        this.registration_number = registration_number;
+        this.created_date = created_date;
+        this.name = name;
+        this.made_in_country = made_in_country;
+        this.size = size;
+        this.expected_life = expected_life;
+        this.item_source = item_source;
+        this.quantity = quantity;
+        this.rate = rate;
+        this.specification = specification;
+        this.section_number = section_number;
+        this.remarks = remarks;
+        this.is_approved = is_approved;
+        this.type = type;
+        this.created_by = created_by;
+        this.section = section;
+    }
+
     public int getId() {
         return id;
     }

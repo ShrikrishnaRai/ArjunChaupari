@@ -47,8 +47,6 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
                   <Label prefHeight="18.0" prefWidth="104.0" text="Name">
@@ -129,30 +127,17 @@
                         <Insets right="10.0" />
                      </GridPane.margin>
                   </TextField>
-                  <Label prefHeight="18.0" prefWidth="132.0" text="Item Source" GridPane.rowIndex="6">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                     <GridPane.margin>
-                        <Insets left="20.0" />
-                     </GridPane.margin>
-                  </Label>
-                  <TextField fx:id="inventoryItemSource" text="Item Source" GridPane.columnIndex="1" GridPane.rowIndex="6">
-                     <GridPane.margin>
-                        <Insets right="10.0" />
-                     </GridPane.margin>
-                  </TextField>
-                  <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="100.0" text="Allow" GridPane.columnIndex="1" GridPane.rowIndex="10">
+                  <Button fx:id="saveButton" mnemonicParsing="false" onAction="#check" onMouseClicked="#check" prefHeight="26.0" prefWidth="100.0" text="Allow" GridPane.columnIndex="1" GridPane.rowIndex="8">
                      <GridPane.margin>
                         <Insets />
                      </GridPane.margin>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="100.0" text="Discard" GridPane.columnIndex="1" GridPane.rowIndex="11">
+                  <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="100.0" text="Discard" GridPane.columnIndex="1" GridPane.rowIndex="9">
                      <GridPane.margin>
                         <Insets />
                      </GridPane.margin>
                   </Button>
-                  <Label prefHeight="18.0" prefWidth="132.0" text="Expected Life" GridPane.rowIndex="7">
+                  <Label prefHeight="18.0" prefWidth="132.0" text="Specification" GridPane.rowIndex="6">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -160,7 +145,7 @@
                         <Insets left="20.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label prefHeight="18.0" prefWidth="132.0" text="Specialization" GridPane.rowIndex="8">
+                  <Label prefHeight="18.0" prefWidth="132.0" text="Remarks" GridPane.rowIndex="7">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -168,25 +153,12 @@
                         <Insets left="20.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label prefHeight="18.0" prefWidth="132.0" text="Remarks" GridPane.rowIndex="9">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                     <GridPane.margin>
-                        <Insets left="20.0" />
-                     </GridPane.margin>
-                  </Label>
-                  <TextField fx:id="inventoryExpectedLife" text="Expected Life" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                  <TextField fx:id="inventorySpecification" text="Specification" GridPane.columnIndex="1" GridPane.rowIndex="6">
                      <GridPane.margin>
                         <Insets right="10.0" />
                      </GridPane.margin>
                   </TextField>
-                  <TextField fx:id="inventorySpecialization" text="Specialization" GridPane.columnIndex="1" GridPane.rowIndex="8">
-                     <GridPane.margin>
-                        <Insets right="10.0" />
-                     </GridPane.margin>
-                  </TextField>
-                  <TextField fx:id="inventoryRemarks" text="Remarks" GridPane.columnIndex="1" GridPane.rowIndex="9">
+                  <TextField fx:id="inventoryRemarks" text="Remarks" GridPane.columnIndex="1" GridPane.rowIndex="7">
                      <GridPane.margin>
                         <Insets right="10.0" />
                      </GridPane.margin>

@@ -30,8 +30,6 @@ public class InventoryService implements InventoryDaoService {
         //return inventoryDao.getInventory();
         return in.getInventory();
     }
-    
-  
 
     public void check() {
         JOptionPane.showMessageDialog(null, "Hello");
@@ -45,5 +43,10 @@ public class InventoryService implements InventoryDaoService {
     @Override
     public List<ExInventoryDto> getSearchInventory(String inventory) {
         return in.getInventory(inventory);
+    }
+
+    @Override
+    public void updateInventory(int id) {
+        in.deleteInventory(id);
     }
 }
