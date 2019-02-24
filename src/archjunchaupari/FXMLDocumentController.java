@@ -7,9 +7,11 @@
 package archjunchaupari;
 
 import archjunchaupari.Login.Services.LoginServices;
+import archjunchaupari.Utils.LangSts;
 import java.awt.HeadlessException;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
@@ -21,6 +23,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeItem;
@@ -37,12 +40,17 @@ import javax.swing.JOptionPane;
  *
  * @author cri
  */
-public class FXMLDocumentController implements Initializable {
+public class FXMLDocumentController extends LangSts implements Initializable {
 
     LoginServices loginServices_Ic = new LoginServices();
+    private Locale locale;
+    private ResourceBundle resourceBundle;
 
     @FXML
     private ComboBox roleCombo;
+
+    @FXML
+    private Menu file;
 
     @FXML
     private WebView webView;
@@ -111,13 +119,45 @@ public class FXMLDocumentController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        setStatus("English");
         ObservableList<String> roleType = roleCombo.getItems();
         roleType.add("Super Admin");
         roleType.add("Admin");
         roleType.add("Branch Admin");
         WebEngine webEngine = webView.getEngine();
-        webEngine.load("http://arjunchauparimun.gov.np/");
+        //   webEngine.load("http://arjunchauparimun.gov.np/");
         imageView = ImageViewBuilder.create().image(new Image(path)).build();
+    }
+
+    private void loadLang(String lang) {
+        if ("ne_NP".equals(lang)) {
+            locale = new Locale("ne", "NP");
+        }
+        if ("en".equals(lang)) {
+            locale = new Locale("en", "US");
+        }
+        resourceBundle = ResourceBundle.getBundle("archjunchaupari.Utils.lang/Bundle", locale);
+        login.setText(resourceBundle.getString("Login"));
+        email.setPromptText(resourceBundle.getString("Email"));
+        password.setPromptText(resourceBundle.getString("Password"));
+        file.setText(resourceBundle.getString("File"));
+
+    }
+
+    @FXML
+    void setEnglish() {
+        setStatus("English");
+        if (("English").equals(getStatus())) {
+            loadLang("en");
+        }
+    }
+
+    @FXML
+    void setNepali() {
+        setStatus("Nepali");
+        if (("Nepali").equals(getStatus())) {
+            loadLang("ne_NP");
+        }
     }
 
 }

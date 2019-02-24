@@ -42,7 +42,7 @@ public class InventoryService implements InventoryDaoService {
 
     @Override
     public List<ExInventoryDto> getSearchInventory(String inventory) {
-        return in.getInventory(inventory);
+        return in.getSearchedInventory(inventory);
     }
 
     @Override

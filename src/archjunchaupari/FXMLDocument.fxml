@@ -23,14 +23,15 @@
             <children>
                 <MenuBar>
                     <menus>
-                        <Menu mnemonicParsing="false" text="File">
+                        <Menu fx:id="file" mnemonicParsing="false" text="File">
                             <items>
                                 <MenuItem fx:id="close" mnemonicParsing="false" onAction="#close" text="Close" />
                             </items>
                         </Menu>
-                        <Menu mnemonicParsing="false" text="Edit">
+                        <Menu mnemonicParsing="false" text="Language">
                             <items>
-                                <MenuItem mnemonicParsing="false" text="Delete" />
+                                <MenuItem mnemonicParsing="false" onAction="#setNepali" text="Nepali" />
+                        <MenuItem mnemonicParsing="false" onAction="#setEnglish" text="English" />
                             </items>
                         </Menu>
                         <Menu mnemonicParsing="false" text="Help">

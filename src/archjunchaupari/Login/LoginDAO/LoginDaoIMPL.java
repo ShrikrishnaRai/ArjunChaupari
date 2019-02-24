@@ -7,7 +7,6 @@ package archjunchaupari.Login.LoginDAO;
 
 import archjunchaupari.Model.Inventory.ExInventoryDto;
 import archjunchaupari.Utils.Credential.CredentialDto;
-import archjunchaupari.Utils.Credential.HCredential;
 import archjunchaupari.Utils.RestUrl;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -44,7 +43,6 @@ public class LoginDaoIMPL implements LoginDAO {
     public static boolean is_super_admin;
     public static boolean is_branch_admin;
     public static boolean is_staff;
-    HCredential h = new HCredential();
 
     @Override
     public boolean login(String email, String password) throws ClientProtocolException, IOException {
@@ -71,8 +69,6 @@ public class LoginDaoIMPL implements LoginDAO {
                 break;
             }
         }
-        h.saveCredential(token);
-        h.setToken(token);
         if (statusCode == 200) {
             return true;
         } else {

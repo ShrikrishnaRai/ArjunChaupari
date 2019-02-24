@@ -14,6 +14,7 @@ import archjunchaupari.Model.Staff.StaffDto;
 import archjunchaupari.Services.Darta.DartaServices;
 import archjunchaupari.Services.PatraChalani.PatraChalaniService;
 import archjunchaupari.Services.Staff.StaffService;
+import archjunchaupari.Utils.LangSts;
 import archjunchaupari.Utils.RestUrl;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -21,6 +22,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -40,6 +42,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -67,7 +70,141 @@ import javax.swing.JOptionPane;
  *
  * @author cri
  */
-public class DashFXMLController implements Initializable {
+public class DashFXMLController extends LangSts implements Initializable {
+
+    private TreeItem<String> root;
+    TreeItem<String> spendable;
+    TreeItem<String> unspendable;
+    TreeItem<String> discardedSpendable;
+    TreeItem<String> savedSpendable;
+    TreeItem<String> discardedUnspendable;
+    TreeItem<String> savedUnspendable;
+
+    @FXML
+    private Menu File;
+
+    @FXML
+    private Menu Language;
+
+    @FXML
+    private Menu Help;
+
+    //Staff label
+    @FXML
+    private Label Staff_Id;
+    @FXML
+    private Label Staff_Name;
+    @FXML
+    private Label Staff_Designation;
+    @FXML
+    private Label Salary;
+    @FXML
+    private Label Address;
+    @FXML
+    private Label Email;
+    @FXML
+    private Label Joined_Date;
+    @FXML
+    private Label Gender;
+    @FXML
+    private Label Password;
+    @FXML
+    private Label Confirm_Password;
+
+    @FXML
+    private Label EnterDetailsInventory;
+
+    @FXML
+    private Label EnterDetailsChalani;
+
+    @FXML
+    private Label EnterDetailsDarta;
+
+    @FXML
+    private Label EnterDetailsStaff;
+
+    @FXML
+    private Label id_Darta;
+
+    @FXML
+    private Label Darta_Date;
+
+    @FXML
+    private Label Darta_Number;
+
+    @FXML
+    private Label Letter_Quantity_Darta;
+
+    @FXML
+    private Label Reception_Darta;
+
+    @FXML
+    private Label Signed_Date_Darta;
+
+    @FXML
+    private Label Responsible_Person;
+
+    @FXML
+    private Label Subject_Darta;
+
+    @FXML
+    private Label Image;
+
+    @FXML
+    private Label Remarks_Darta;
+    //Patra Chalani Tab label
+    @FXML
+    private Label Chalani_Date;
+    @FXML
+    private Label Chalani_NUmber;
+    @FXML
+    private Label Letter_Quantity;
+    @FXML
+    private Label Receiption;
+    @FXML
+    private Label Ticket;
+    @FXML
+    private Label Subject;
+    @FXML
+    private Label Remarks_Chalani;
+    @FXML
+    private Label Letter_Date;
+    @FXML
+    private Label id;
+
+    //Inventory Tab Label
+    @FXML
+    private Label Id;
+
+    @FXML
+    private Label Name;
+
+    @FXML
+    private Label Registration_Number;
+
+    @FXML
+    private Label Quantity;
+
+    @FXML
+    private Label Rate;
+
+    @FXML
+    private Label Section_Number;
+
+    @FXML
+    private Label Section;
+
+    @FXML
+    private Label Specification;
+
+    @FXML
+    private Label Date;
+
+    @FXML
+    private Label Type;
+
+    @FXML
+    private Label Remarks;
 
     @FXML
     private ComboBox typeComboBox;
@@ -357,21 +494,23 @@ public class DashFXMLController implements Initializable {
     @FXML
     private TextField textIsApproved;
 
-    InventoryDaoService inventoryService;
-    DartaServices dartaService;
-    ExInventoryDto inventoryDto;
-    DartaDto dartaDto;
-    StaffDto staffDto;
-    PatraChalaniService patraChalaniService;
-    StaffService staffService;
+    private InventoryDaoService inventoryService;
+    private DartaServices dartaService;
+    private ExInventoryDto inventoryDto;
+    private DartaDto dartaDto;
+    private StaffDto staffDto;
+    private PatraChalaniService patraChalaniService;
+    private StaffService staffService;
+    private Locale locale;
+    private ResourceBundle resourceBundle;
     int i = 0;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         splitPane.setDividerPositions(-0.5);
+        LoadLang();
         loadStaffGender();
-        //loadInventory("Spendable Item", "UnSpendable Item");
-        loadDarta("Darta", "Chalani", "Staff");
+        loadDarta(resourceBundle.getString("Darta"), resourceBundle.getString("Chalani"), resourceBundle.getString("Staff"));
         loadTable();
         loadPatraChalaniTable();
         loadDartaTable();
@@ -468,7 +607,8 @@ public class DashFXMLController implements Initializable {
         columnRemarks.setCellValueFactory(new PropertyValueFactory<>("remarks"));
         columnDate.setCellValueFactory(new PropertyValueFactory<>("created_date"));
         columnIs_Approved.setCellValueFactory(new PropertyValueFactory<>("is_approved"));
-        tableView.getItems().setAll(inventoryService.getInventory());
+        columnType.setCellValueFactory(new PropertyValueFactory<>("type"));
+        tableView.getItems().setAll(inventoryService.getSearchInventory(String.valueOf(10)));
     }
 
     public void loadDartaTable() {
@@ -500,22 +640,22 @@ public class DashFXMLController implements Initializable {
 
     //load Darta treeView node
     public void loadDarta(String... rootItems) {
-        TreeItem<String> root = new TreeItem<>("Functionality");
+        root = new TreeItem<>(resourceBundle.getString("Functionality"));
         root.setExpanded(true);
         for (String itemString : rootItems) {
             root.getChildren().add(new TreeItem<>(itemString));
         }
         //  TreeItem<String> inventory = new TreeItem<>("Inventory");
 
-        TreeItem<String> spendable = new TreeItem<>("Spendable Inventory");
-        TreeItem<String> unspendable = new TreeItem<>("UnSpendable Inventory");
+        spendable = new TreeItem<>(resourceBundle.getString("Spendable_Inventory"));
+        unspendable = new TreeItem<>(resourceBundle.getString("UnSpendable_Inventory"));
 
         //saved or discarded for unspendable
-        TreeItem<String> discardedSpendable = new TreeItem("Discarded Inventory");
-        TreeItem<String> savedSpendable = new TreeItem("Saved Inventory");
+        discardedSpendable = new TreeItem(resourceBundle.getString("Discarded_Inventory"));
+        savedSpendable = new TreeItem(resourceBundle.getString("Saved_Inventory"));
 
-        TreeItem<String> discardedUnspendable = new TreeItem("Discarded Inventory");
-        TreeItem<String> savedUnspendable = new TreeItem("Saved Inventory");
+        discardedUnspendable = new TreeItem(resourceBundle.getString("Discarded_Inventory"));
+        savedUnspendable = new TreeItem(resourceBundle.getString("Saved_Inventory"));
 
         root.getChildren().add(spendable);
         root.getChildren().add(unspendable);
@@ -612,25 +752,9 @@ public class DashFXMLController implements Initializable {
                     VBox dialogVbox = new VBox(20);
                     Button button = new Button("Delete");
                     Button buttonUpdate = new Button("Update");
-                    //Transfers to another update view
-//                    buttonUpdate.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event2) -> {
-//                        try {
-//                            Stage primary_stage = (Stage) buttonUpdate.getScene().getWindow();
-//                            primary_stage.close();
-//                            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/archjunchaupari/Update/UpdateFXML.fxml"));
-//                            Parent root1 = (Parent) fxmlLoader.load();
-//                            Stage stage = new Stage();
-//                            stage.setTitle("ArjunChaupari Gaupalika");
-//                            stage.setScene(new Scene(root1));
-//                            stage.show();
-//                        } catch (IOException ex) {
-//                            Logger.getLogger(DashFXMLController.class.getName()).log(Level.SEVERE, null, ex);
-//                        }
-//                    });
                     button.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event1) -> {
                         int option = JOptionPane.showConfirmDialog(null, "Are You Sure?", "Warning", JOptionPane.YES_NO_OPTION);
                         if (option == JOptionPane.YES_OPTION) {
-//                            inventoryService.deleteInventory(inventoryDto.getId());
                             loadTable();
                         }
                     });
@@ -781,5 +905,140 @@ public class DashFXMLController implements Initializable {
         textSection_number.setText(section_number);
         textRemarks.setText(remarks);
     }
+
+    void LoadLangInventoryTable() {
+
+    }
+
+    void loadGeneric() {
+        EnterDetailsInventory.setText(resourceBundle.getString("Enter_Detail’s_below"));
+
+        EnterDetailsChalani.setText(resourceBundle.getString("Enter_Detail’s_below"));
+
+        EnterDetailsDarta.setText(resourceBundle.getString("Enter_Detail’s_below"));
+
+        EnterDetailsStaff.setText(resourceBundle.getString("Enter_Detail’s_below"));
+
+        updateInventory.setText(resourceBundle.getString("Update"));
+
+        updateStaff.setText(resourceBundle.getString("Update"));
+
+        updateDarta.setText(resourceBundle.getString("Update"));
+
+        File.setText(resourceBundle.getString("File"));
+
+        Help.setText(resourceBundle.getString("Help"));
+
+        Language.setText(resourceBundle.getString("Language"));
+        searchButton.setText(resourceBundle.getString("Search"));
+    }
+
+    void LoadTextField() {
+        //inventoryId.setPromptText(resourceBundle.getString("Inventory_Id"));
+        textName.setPromptText(resourceBundle.getString("Name"));
+        textRegistrationNumber.setPromptText(resourceBundle.getString("Registration_Number"));
+        textQuantity.setPromptText(resourceBundle.getString("Quantity"));
+        textRate.setPromptText(resourceBundle.getString("Rate"));
+        textSpecification.setPromptText(resourceBundle.getString("Specification"));
+        textSection_number.setPromptText(resourceBundle.getString("Section_Number"));
+        textSection.setPromptText(resourceBundle.getString("Section"));
+        textRemarks.setPromptText(resourceBundle.getString("Remarks"));
+        textDate.setPromptText(resourceBundle.getString("Signed_Date"));
+    }
+
+    void loadChalaniTextField() {
+    }
+
+    void LoadLabel() {
+        Name.setText(resourceBundle.getString("Name"));
+        Registration_Number.setText(resourceBundle.getString("Registration_Number"));
+        Quantity.setText(resourceBundle.getString("Quantity"));
+        Rate.setText(resourceBundle.getString("Rate"));
+        Specification.setText(resourceBundle.getString("Specification"));
+        Section_Number.setText(resourceBundle.getString("Section_Number"));
+        Section.setText(resourceBundle.getString("Section"));
+        Remarks.setText(resourceBundle.getString("Remarks"));
+        Type.setText(resourceBundle.getString("Type"));
+        Date.setText(resourceBundle.getString("Date"));
+    }
+
+    void LoadLabelChalani() {
+        Chalani_Date.setText(resourceBundle.getString("Chalani_Date"));
+        Chalani_NUmber.setText(resourceBundle.getString("Chalani_Number"));
+        Letter_Quantity.setText(resourceBundle.getString("Letter_Quantity"));
+        Receiption.setText(resourceBundle.getString("Reception"));
+        Ticket.setText(resourceBundle.getString("Ticket"));
+        Subject.setText(resourceBundle.getString("Subject"));
+        Remarks_Chalani.setText(resourceBundle.getString("Remarks"));
+        Letter_Date.setText(resourceBundle.getString("Letter_Date"));
+    }
+
+    @FXML
+    void setNepali() {
+        setStatus("Nepali");
+        LoadLang();
+    }
+
+    @FXML
+    void setEnglish() {
+        setStatus("English");
+        LoadLang();
+    }
+
+    void LoadLang() {
+        if (("English").equals(getStatus())) {
+            locale = new Locale("en", "US");
+            resourceBundle = ResourceBundle.getBundle("archjunchaupari.Utils.lang/Bundle", locale);
+        }
+        if (("Nepali").equals(getStatus())) {
+            locale = new Locale("ne", "NP");
+            resourceBundle = ResourceBundle.getBundle("archjunchaupari.Utils.lang/Bundle", locale);
+
+        }
+        loadGeneric();
+        LoadTextField();
+        LoadLabel();
+        LoadLabelChalani();
+        loadLabelDarta();
+        loadLabelStaff();
+        loadFieldStaff();
+        loadDarta(resourceBundle.getString("Darta"), resourceBundle.getString("Chalani"), resourceBundle.getString("Staff"));
+
+    }
+
+    void loadLabelDarta() {
+        Darta_Date.setText(resourceBundle.getString("Darta_Date"));
+        Darta_Number.setText(resourceBundle.getString("Darta_Number"));
+        Letter_Quantity_Darta.setText(resourceBundle.getString("Letter_Quantity"));
+        Reception_Darta.setText(resourceBundle.getString("Reception"));
+        Signed_Date_Darta.setText(resourceBundle.getString("Signed_Date"));
+        Responsible_Person.setText(resourceBundle.getString("Responsible_Person"));
+        Subject_Darta.setText(resourceBundle.getString("Subject"));
+        Image.setText(resourceBundle.getString("Select_Image"));
+        Remarks_Darta.setText(resourceBundle.getString("Remarks"));
+    }
+
+    void loadLabelStaff() {
+        Staff_Name.setText(resourceBundle.getString("Name"));
+        Staff_Designation.setText(resourceBundle.getString("Designation"));
+        Salary.setText(resourceBundle.getString("Salary"));
+        Address.setText(resourceBundle.getString("Address"));
+        Email.setText(resourceBundle.getString("Email"));
+        Joined_Date.setText(resourceBundle.getString("Joined_Date"));
+        Gender.setText(resourceBundle.getString("Gender"));
+        Password.setText(resourceBundle.getString("Password"));
+        Confirm_Password.setText(resourceBundle.getString("Confirm_Password"));
+    }
+
+    void loadFieldStaff() {
+        staffName.setPromptText(resourceBundle.getString("Name"));
+        staffDesignation.setPromptText(resourceBundle.getString("Designation"));
+        staffAddress.setPromptText(resourceBundle.getString("Address"));
+        staffEmail.setPromptText(resourceBundle.getString("Email"));
+        staffPassword.setPromptText(resourceBundle.getString("Password"));
+        staffSalary.setPromptText(resourceBundle.getString("Salary"));
+        staffJoinedDate.setPromptText(resourceBundle.getString("Joined_Date"));
+    }
+    
 
 }

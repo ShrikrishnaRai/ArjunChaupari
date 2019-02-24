@@ -9,7 +9,6 @@ package archjunchaupari.Inventory.InventoryDAO;
 import archjunchaupari.Login.LoginDAO.LoginDaoIMPL;
 import archjunchaupari.Model.Inventory.ExInventoryDto;
 import archjunchaupari.Utils.Credential.CredentialDto;
-import archjunchaupari.Utils.Credential.HCredential;
 import archjunchaupari.Utils.RestUrl;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -49,7 +48,6 @@ public class InventoryDaoIMPL implements InventoryDAO {
     List<ExInventoryDto> inventoryList = new ArrayList<>();
 
     LoginDaoIMPL l = new LoginDaoIMPL();
-    HCredential hCredential_ic = new HCredential();
     int statusCode;
 
     //saves Inventory from view
@@ -117,11 +115,11 @@ public class InventoryDaoIMPL implements InventoryDAO {
     }
 
     //Search inventory with inventory name
-    public List<ExInventoryDto> getInventory(String inventory) {
+    public List<ExInventoryDto> getSearchedInventory(String inventory) {
         List<ExInventoryDto> inventoryList = new ArrayList<>();
         try {
             HttpClient client = HttpClientBuilder.create().build();
-            HttpGet request = new HttpGet(RestUrl.SEARCH_INVENTORY + inventory);
+            HttpGet request = new HttpGet(RestUrl.SEARCH_INVENTORY + inventory + "/");
             HttpResponse response = client.execute(request);
             BufferedReader bufReader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
             int statusCode = response.getStatusLine().getStatusCode();
