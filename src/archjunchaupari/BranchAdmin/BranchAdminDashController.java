@@ -8,6 +8,7 @@ package archjunchaupari.BranchAdmin;
 import archjunchaupari.Dashboard.DashFXMLController;
 import archjunchaupari.Model.Inventory.ExInventoryDto;
 import archjunchaupari.Services.Inventory.InventoryService;
+import com.sun.media.jfxmedia.Media;
 import java.awt.BorderLayout;
 import java.io.IOException;
 import java.net.URL;
@@ -19,8 +20,13 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Hyperlink;
+import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
@@ -31,7 +37,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javax.swing.JOptionPane;
 
 /**
@@ -131,45 +141,56 @@ public class BranchAdminDashController implements Initializable {
     DashFXMLController dashFXMLController = new DashFXMLController();
     InventoryService inventoryService = new InventoryService();
     InventoryBranchController inventoryBranchController = new InventoryBranchController();
-    private ExInventoryDto exInventoryDto;
+    //  private ExInventoryDto exInventoryDto;
+    ExInventoryDto inventoryDto1;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        setPane();
+        //   setPane();
         loadTable();
         // dashFXMLController.loadTable();
         //  test.setEditable(false);
-        tableAction();
+        // tableAction();
     }
 
+    @FXML
     void tableAction() {
         tableView.setOnMouseClicked((MouseEvent event) -> {
             if (event.getButton().equals(MouseButton.PRIMARY)) {
-                ExInventoryDto inventoryDto1 = (ExInventoryDto) tableView.getSelectionModel().getSelectedItem();
-                exInventoryDto = new ExInventoryDto();
-                exInventoryDto.setId(inventoryDto1.getId());
-                exInventoryDto.setCreated_date(inventoryDto1.getCreated_date());
-                exInventoryDto.setName(inventoryDto1.getName());
-                exInventoryDto.setExpected_life(inventoryDto1.getExpected_life());
-                exInventoryDto.setQuantity(inventoryDto1.getQuantity());
-                exInventoryDto.setRate(inventoryDto1.getRate());
-                exInventoryDto.setSpecification(inventoryDto1.getSpecification());
-                exInventoryDto.setSection_number(inventoryDto1.getSection_number());
-                exInventoryDto.setRemarks(inventoryDto1.getRemarks());
-                exInventoryDto.setType(inventoryDto1.getType());
-                exInventoryDto.setSection(inventoryDto1.getSection());
-                
-//                inventoryBranchController.SetField(inventoryDto1.getName(),
-//                        inventoryDto1.getQuantity(),
-//                        inventoryDto1.getType(),
-//                        inventoryDto1.getSpecification(),
-//                        inventoryDto1.getRemarks(),
-//                        inventoryDto1.getRate(),
-//                        inventoryDto1.getSection_number(),
-//                        inventoryDto1.getSection());
-//            }
+                if (event.getClickCount() == 2) {
+                    final Stage dialog = new Stage();
+                    BorderPane borderPane = new BorderPane();
+                    final Scene scene = new Scene(borderPane, 500, 500);
+                    dialog.initModality(Modality.APPLICATION_MODAL);
+                    inventoryDto1 = (ExInventoryDto) tableView.getSelectionModel().getSelectedItem();
+                    VBox dialogVbox = new VBox(5);
+                    HBox main=new HBox(2);
+                    HBox hBox = new HBox(2);
+
+                    Label label = new Label("Name");
+                    HBox nameBox=new HBox(2);
+                    TextField nameTextField=new TextField();
+                    nameTextField.setPromptText("Name");
+                    nameBox.getChildren().add(label);
+                    nameBox.getChildren().add(nameTextField);
+                    Button allowButton = new Button("Allow");
+                    Button discardButton = new Button("Discard");
+                    hBox.getChildren().add(allowButton);
+                    hBox.getChildren().add(discardButton);
+                    dialogVbox.getChildren().add(hBox);
+                    dialogVbox.getChildren().add(nameBox);
+                    dialogVbox.setPadding(new Insets(5,5,5,5));
+                    borderPane.setCenter(dialogVbox);
+//                    dialogVbox.getChildren().add(hBox);
+//                    dialogVbox.getChildren().add(new Text(inventoryDto1.getName() + " "));
+//                    Scene dialogScene = new Scene(dialogVbox, 300, 200);
+                    dialog.setScene(scene);
+                    dialog.show();
+
+                }
             }
         });
+
     }
 
     public void loadTable() {

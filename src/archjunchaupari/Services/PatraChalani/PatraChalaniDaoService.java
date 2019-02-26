@@ -14,7 +14,7 @@ import java.util.List;
  */
 public interface PatraChalaniDaoService {
 
-    void savePatraChalani();
+    void savePatraChalani(PatraChalaniDto patraChalaniDto);
 
     List<PatraChalaniDto> getPatraChalaniList();
 }

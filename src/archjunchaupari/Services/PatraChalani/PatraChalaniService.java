@@ -15,21 +15,23 @@ import java.util.List;
  * @author cri
  */
 public class PatraChalaniService implements PatraChalaniDaoService {
+//
+//    PatraChalaniDao patraChalaniDao;
+//
+//    public PatraChalaniService() {
+//        patraChalaniDao = new PatraChalaniDaoIMPL();
+//    }
 
-    PatraChalaniDao patraChalaniDao;
-
-    public PatraChalaniService() {
-        patraChalaniDao = new PatraChalaniDaoIMPL();
-    }
-
-    @Override
-    public void savePatraChalani() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    PatraChalaniDaoIMPL patraChalaniDao = new PatraChalaniDaoIMPL();
 
     @Override
     public List<PatraChalaniDto> getPatraChalaniList() {
         return patraChalaniDao.getPatraChalaniList();
+    }
+
+    @Override
+    public void savePatraChalani(PatraChalaniDto patraChalaniDto) {
+        patraChalaniDao.savePatraChalani(patraChalaniDto);
     }
 
 }

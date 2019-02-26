@@ -11,21 +11,7 @@ package archjunchaupari.Model.PatraChalani;
  */
 public class PatraChalaniDto {
 
-    /*  "id": 1,
-    "created_date": "2019-02-10T17:00:52.386671Z",
-    "chalani_date": "1995-01-01",
-    "chalani_number": "1",
-    "letter_quantity": "1",
-    "letter_date": "1995-01-01",
-    "subject": "string",
-    "to_office": "string",
-    "ticket": "string",
-    "remarks": "string"*/
-    
-    
-    
     private int id;
-    private String created_date;
     private String chalani_date;
     private String chalani_number;
     private String letter_quantity;
@@ -41,14 +27,6 @@ public class PatraChalaniDto {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getCreated_date() {
-        return created_date;
-    }
-
-    public void setCreated_date(String created_date) {
-        this.created_date = created_date;
     }
 
     public String getChalani_date() {

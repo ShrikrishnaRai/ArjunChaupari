@@ -28,10 +28,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -43,6 +43,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -79,6 +80,9 @@ public class DashFXMLController extends LangSts implements Initializable {
     TreeItem<String> savedSpendable;
     TreeItem<String> discardedUnspendable;
     TreeItem<String> savedUnspendable;
+
+    @FXML
+    private ProgressBar progressBar;
 
     @FXML
     private Menu File;
@@ -214,29 +218,55 @@ public class DashFXMLController extends LangSts implements Initializable {
     private TableColumn<PatraChalaniDto, String> chalaniId;
 
     @FXML
+    private TextField chalaniId_t;
+
+    @FXML
     private TableColumn<PatraChalaniDto, String> chalani_date;
+
+    @FXML
+    private DatePicker chalani_date_t;
 
     @FXML
     private TableColumn<PatraChalaniDto, String> chalani_number;
 
     @FXML
+    private TextField chalani_number_t;
+
+    @FXML
     private TableColumn<PatraChalaniDto, String> chalaniLetter_quantity;
+
+    @FXML
+    private TextField chalaniLetter_quantity_t;
 
     @FXML
     private TableColumn<PatraChalaniDto, String> chalaniLetter_date;
 
     @FXML
+    private DatePicker chalaniLetter_date_t;
+
+    @FXML
     private TableColumn<PatraChalaniDto, String> chalaniSubject;
+
+    @FXML
+    private TextArea chalaniSubject_t;
 
     @FXML
     private TableColumn<PatraChalaniDto, String> to_office;
 
     @FXML
+    private TextField to_office_t;
+
+    @FXML
     private TableColumn<PatraChalaniDto, String> chalaniTicket;
+
+    @FXML
+    private TextField chalaniTicket_t;
 
     @FXML
     private TableColumn<PatraChalaniDto, String> chalaniRemarks;
 
+    @FXML
+    private TextArea chalaniRemarks_t;
     //staff table
     @FXML
     private TableColumn<StaffDto, String> staffTableId;
@@ -499,6 +529,7 @@ public class DashFXMLController extends LangSts implements Initializable {
     private ExInventoryDto inventoryDto;
     private DartaDto dartaDto;
     private StaffDto staffDto;
+    private PatraChalaniDto patraChalaniDto;
     private PatraChalaniService patraChalaniService;
     private StaffService staffService;
     private Locale locale;
@@ -525,6 +556,7 @@ public class DashFXMLController extends LangSts implements Initializable {
             }
 
         });
+        progressBar.setProgress(0.0);
     }
 
     void loadComboBox() {
@@ -541,7 +573,7 @@ public class DashFXMLController extends LangSts implements Initializable {
         updateStaff.setDisable(true);
         inventoryId.setEditable(false);
         staffId.setEditable(false);
-        dartaChalaniId.setEditable(false);
+        chalaniId_t.setEditable(false);
         dartaId.setEditable(false);
     }
 
@@ -608,7 +640,7 @@ public class DashFXMLController extends LangSts implements Initializable {
         columnDate.setCellValueFactory(new PropertyValueFactory<>("created_date"));
         columnIs_Approved.setCellValueFactory(new PropertyValueFactory<>("is_approved"));
         columnType.setCellValueFactory(new PropertyValueFactory<>("type"));
-        tableView.getItems().setAll(inventoryService.getSearchInventory(String.valueOf(10)));
+        tableView.getItems().setAll(inventoryService.getSearchInventory(inventory));
     }
 
     public void loadDartaTable() {
@@ -676,15 +708,20 @@ public class DashFXMLController extends LangSts implements Initializable {
 
     @FXML
     public void saveStaff() {
-        staffDto = new StaffDto();
-        staffService = new StaffService();
-        staffDto.setName(staffName.getText());
-        staffDto.setDesignation(staffDesignation.getText());
-        staffDto.setEmail(staffEmail.getText());
-        staffDto.setJoined_date(staffJoinedDate.getValue().toString());
-        staffDto.setGender(staffGenderCombo.getValue().toString());
-        staffDto.setSalary(staffSalary.getText());
-        staffService.saveStaff(staffDto);
+        try {
+            staffDto = new StaffDto();
+            staffService = new StaffService();
+            staffDto.setName(staffName.getText());
+            staffDto.setDesignation(staffDesignation.getText());
+            staffDto.setEmail(staffEmail.getText());
+            staffDto.setJoined_date(staffJoinedDate.getValue().toString());
+            staffDto.setGender(staffGenderCombo.getValue().toString());
+            staffDto.setSalary(staffSalary.getText());
+            staffService.saveStaff(staffDto);
+            loadStaffTable();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
     }
 
     @FXML
@@ -705,7 +742,7 @@ public class DashFXMLController extends LangSts implements Initializable {
     }
 
     @FXML
-    public void saveInventory() {
+    public void saveInventory(ActionEvent event) {
         try {
             inventoryService = new InventoryService();
             inventoryDto = new ExInventoryDto();
@@ -719,10 +756,17 @@ public class DashFXMLController extends LangSts implements Initializable {
             inventoryDto.setCreated_date(textDate.getValue().toString());
             inventoryDto.setType(typeComboBox.getValue().toString());
             inventoryService.saveInventory(inventoryDto);
-            loadTable();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "" + e);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex);
         }
+
+    }
+
+    @FXML
+    private void saveChalani() {
+        patraChalaniService = new PatraChalaniService();
+        patraChalaniDto = new PatraChalaniDto();
+
     }
 
     @FXML
@@ -736,13 +780,58 @@ public class DashFXMLController extends LangSts implements Initializable {
             stage.setTitle("ArjunChaupari Gaupalika");
             stage.setScene(new Scene(root1));
             stage.show();
+
         } catch (IOException ex) {
-            Logger.getLogger(DashFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DashFXMLController.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     @FXML
-    public void deleteRowDarta() {
+    private void deleteRowStaff() {
+        staffTable.setOnMouseClicked((MouseEvent event) -> {
+            if (event.getButton().equals(MouseButton.PRIMARY)) {
+                if (event.getClickCount() == 2) {
+                    final Stage dialog = new Stage();
+                    dialog.initModality(Modality.APPLICATION_MODAL);
+                    StaffDto staffDto = (StaffDto) staffTable.getSelectionModel().getSelectedItem();
+                    VBox dialogVbox = new VBox(20);
+                    Button button = new Button("Delete");
+                    Button buttonUpdate = new Button("Update");
+                    button.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event1) -> {
+                        int option = JOptionPane.showConfirmDialog(null, "Are You Sure?", "Warning", JOptionPane.YES_NO_OPTION);
+                        if (option == JOptionPane.YES_OPTION) {
+                            dialog.close();
+                            staffService.deleteStaff(staffDto.getId());
+                            loadStaffTable();
+                        }
+                    });
+                    buttonUpdate.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event1) -> {
+                        updateStaffField(staffDto.getId(),
+                                staffDto.getDate_of_birth(),
+                                staffDto.getJoined_date(),
+                                staffDto.getEmail(),
+                                staffDto.getName(),
+                                staffDto.getDate_of_birth(),
+                                staffDto.getGender(),
+                                staffDto.getDesignation(),
+                                staffDto.getSalary());
+                        dialog.close();
+                        updateStaff.setDisable(false);
+                    });
+                    dialogVbox.getChildren().add(new Text(staffDto.getName() + " " + staffDto.getDesignation()));
+                    dialogVbox.getChildren().add(button);
+                    dialogVbox.getChildren().add(buttonUpdate);
+                    Scene dialogScene = new Scene(dialogVbox, 300, 200);
+                    dialog.setScene(dialogScene);
+                    dialog.show();
+                }
+            }
+        });
+    }
+
+    @FXML
+    private void deleteRowDarta() {
         dartaTable.setOnMouseClicked((MouseEvent event) -> {
             if (event.getButton().equals(MouseButton.PRIMARY)) {
                 if (event.getClickCount() == 2) {
@@ -755,7 +844,6 @@ public class DashFXMLController extends LangSts implements Initializable {
                     button.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event1) -> {
                         int option = JOptionPane.showConfirmDialog(null, "Are You Sure?", "Warning", JOptionPane.YES_NO_OPTION);
                         if (option == JOptionPane.YES_OPTION) {
-                            loadTable();
                         }
                     });
                     dialogVbox.getChildren().add(new Text(dartaDto.getDarta_date() + " " + dartaDto.getId()));
@@ -820,7 +908,6 @@ public class DashFXMLController extends LangSts implements Initializable {
     public void searchButtonAction() {
         switch (tabPane.getSelectionModel().getSelectedIndex()) {
             case 0:
-                JOptionPane.showMessageDialog(null, "Hello");
                 loadSearchTable(searchText.getText());
                 break;
             case 1:
@@ -882,6 +969,29 @@ public class DashFXMLController extends LangSts implements Initializable {
         inventoryDto.setCreated_date(textDate.getValue().toString());
         inventoryDto.setType(typeComboBox.getValue().toString());
         inventoryService.updateInventory(id);
+    }
+
+    void updateStaffField(int id,
+            String date,
+            String created_date,
+            String email,
+            String name,
+            String dob,
+            String gender,
+            String designation,
+            String salary) {
+        /*   staffDto.setName(staffName.getText());
+            staffDto.setDesignation(staffDesignation.getText());
+            staffDto.setEmail(staffEmail.getText());
+            staffDto.setJoined_date(staffJoinedDate.getValue().toString());
+            staffDto.setGender(staffGenderCombo.getValue().toString());
+            staffDto.setSalary(staffSalary.getText());
+            staffService.saveStaff(staffDto);*/
+        staffId.setText(String.valueOf(id));
+        staffName.setText(name);
+        staffDesignation.setText(designation);
+        staffEmail.setText(email);
+        staffSalary.setText(salary);
     }
 
     void updateInventoryField(
@@ -947,6 +1057,7 @@ public class DashFXMLController extends LangSts implements Initializable {
     }
 
     void loadChalaniTextField() {
+
     }
 
     void LoadLabel() {
@@ -999,14 +1110,16 @@ public class DashFXMLController extends LangSts implements Initializable {
         LoadTextField();
         LoadLabel();
         LoadLabelChalani();
-        loadLabelDarta();
-        loadLabelStaff();
-        loadFieldStaff();
+        loadLangLabelDarta();
+        loadLangLabelStaff();
+        loadLangFieldStaff();
+        loadLangFieldChalani();
         loadDarta(resourceBundle.getString("Darta"), resourceBundle.getString("Chalani"), resourceBundle.getString("Staff"));
 
     }
 
-    void loadLabelDarta() {
+    //Loads language from resourceBundle on click either nepali or english
+    void loadLangLabelDarta() {
         Darta_Date.setText(resourceBundle.getString("Darta_Date"));
         Darta_Number.setText(resourceBundle.getString("Darta_Number"));
         Letter_Quantity_Darta.setText(resourceBundle.getString("Letter_Quantity"));
@@ -1018,7 +1131,8 @@ public class DashFXMLController extends LangSts implements Initializable {
         Remarks_Darta.setText(resourceBundle.getString("Remarks"));
     }
 
-    void loadLabelStaff() {
+    //Loads language from resourceBundle on click either nepali or english
+    void loadLangLabelStaff() {
         Staff_Name.setText(resourceBundle.getString("Name"));
         Staff_Designation.setText(resourceBundle.getString("Designation"));
         Salary.setText(resourceBundle.getString("Salary"));
@@ -1030,7 +1144,8 @@ public class DashFXMLController extends LangSts implements Initializable {
         Confirm_Password.setText(resourceBundle.getString("Confirm_Password"));
     }
 
-    void loadFieldStaff() {
+    //Loads language from resourceBundle on click either nepali or english
+    void loadLangFieldStaff() {
         staffName.setPromptText(resourceBundle.getString("Name"));
         staffDesignation.setPromptText(resourceBundle.getString("Designation"));
         staffAddress.setPromptText(resourceBundle.getString("Address"));
@@ -1038,7 +1153,46 @@ public class DashFXMLController extends LangSts implements Initializable {
         staffPassword.setPromptText(resourceBundle.getString("Password"));
         staffSalary.setPromptText(resourceBundle.getString("Salary"));
         staffJoinedDate.setPromptText(resourceBundle.getString("Joined_Date"));
+
     }
-    
+
+    void loadLangFieldChalani() {
+        chalaniId_t.setPromptText(resourceBundle.getString("Id"));
+        chalani_number_t.setPromptText(resourceBundle.getString("Chalani_Number"));
+        chalaniRemarks_t.setPromptText(resourceBundle.getString("Remarks"));
+        chalaniTicket_t.setPromptText(resourceBundle.getString("Ticket"));
+        chalaniSubject_t.setPromptText(resourceBundle.getString("Subject"));
+        chalaniLetter_quantity_t.setPromptText(resourceBundle.getString("Letter_Quantity"));
+        chalani_date_t.setPromptText(resourceBundle.getString("Chalani_Date"));
+        chalaniLetter_date_t.setPromptText(resourceBundle.getString("Chalani_Letter_Date"));
+    }
+
+    @FXML
+    void savePatraChalani() {
+        patraChalaniService = new PatraChalaniService();
+        patraChalaniDto = new PatraChalaniDto();
+        try {
+            /*"chalani_date": "string",
+  "chalani_number": "string",
+  "letter_quantity": "string",
+  "letter_date": "string",
+  "subject": "string",
+  "to_office": "string",
+  "ticket": "string",
+  "remarks": "string"*/
+            patraChalaniDto.setChalani_number(chalani_number_t.getText());
+            patraChalaniDto.setRemarks(chalaniRemarks_t.getText());
+            patraChalaniDto.setTicket(chalaniTicket_t.getText());
+            patraChalaniDto.setSubject(chalaniSubject_t.getText());
+            patraChalaniDto.setLetter_quantity(chalaniLetter_quantity_t.getText());
+            // patraChalaniDto.setChalani_date(chalani_date_t.getValue().toString());
+            patraChalaniDto.setLetter_date(chalaniLetter_date_t.getValue().toString());
+            patraChalaniService.savePatraChalani(patraChalaniDto);
+            loadPatraChalaniTable();
+            JOptionPane.showMessageDialog(null, "Informatio Saved");
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+    }
 
 }

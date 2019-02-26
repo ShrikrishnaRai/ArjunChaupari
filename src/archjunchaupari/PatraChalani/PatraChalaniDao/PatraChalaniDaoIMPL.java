@@ -15,15 +15,22 @@ import com.google.gson.reflect.TypeToken;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.impl.client.HttpClients;
 
 /**
  *
@@ -31,9 +38,33 @@ import org.apache.http.impl.client.HttpClientBuilder;
  */
 public class PatraChalaniDaoIMPL implements PatraChalaniDao {
 
+    int statusCode;
+
     @Override
-    public void savePatraChalani() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void savePatraChalani(PatraChalaniDto patraChalaniDto) {
+        try {
+            CloseableHttpClient client = HttpClients.createDefault();
+            HttpPost httpPost = new HttpPost(RestUrl.SAVE_PATRA_CHALANI);
+            Gson gson = new Gson();
+            String json = gson.toJson(patraChalaniDto);
+            StringEntity entity = new StringEntity(json);
+            JOptionPane.showMessageDialog(null, "" + json);
+            httpPost.setEntity(entity);
+            httpPost.setHeader("Accept", "application/json");
+            httpPost.setHeader("Content-type", "application/json");
+            httpPost.addHeader("Authorization", "JWT " + LoginDaoIMPL.token);
+            CloseableHttpResponse response = client.execute(httpPost);
+            client.close();
+            JOptionPane.showMessageDialog(null, response);
+            statusCode = response.getStatusLine().getStatusCode();
+            if (statusCode == 201) {
+                JOptionPane.showMessageDialog(null, "Patra Chalani Information Saved");
+            }
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(PatraChalaniDaoIMPL.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(PatraChalaniDaoIMPL.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override

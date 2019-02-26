@@ -58,7 +58,6 @@ public class InventoryDaoIMPL implements InventoryDAO {
             HttpPost httpPost = new HttpPost(RestUrl.SAVE_INVENTORY);
             Gson gson = new Gson();
             String json = gson.toJson(inventoryDto);
-            JOptionPane.showMessageDialog(null, json);
             StringEntity entity = new StringEntity(json);
             httpPost.setEntity(entity);
             httpPost.setHeader("Accept", "application/json");
@@ -71,13 +70,13 @@ public class InventoryDaoIMPL implements InventoryDAO {
                 if (LoginDaoIMPL.is_staff == true) {
                     JOptionPane.showMessageDialog(null, "Request Sent for Approval");
                 }
-                if (LoginDaoIMPL.is_branch_admin) {
+                if (LoginDaoIMPL.is_branch_admin==true) {
                     JOptionPane.showMessageDialog(null, "Inventory Saved");
                 }
-                if (LoginDaoIMPL.is_super_admin) {
+                if (LoginDaoIMPL.is_super_admin==true) {
                     JOptionPane.showMessageDialog(null, "Inventory Saved");
                 }
-                if (LoginDaoIMPL.is_superuser) {
+                if (LoginDaoIMPL.is_superuser==true) {
                     JOptionPane.showMessageDialog(null, "Inventory Saved");
                 }
             } else {
@@ -119,7 +118,10 @@ public class InventoryDaoIMPL implements InventoryDAO {
         List<ExInventoryDto> inventoryList = new ArrayList<>();
         try {
             HttpClient client = HttpClientBuilder.create().build();
-            HttpGet request = new HttpGet(RestUrl.SEARCH_INVENTORY + inventory + "/");
+            HttpGet request = new HttpGet(RestUrl.SEARCH_INVENTORY + "/?search=" + inventory);
+            request.setHeader("Accept", "application/json");
+            request.setHeader("Content-type", "application/json");
+            request.addHeader("Authorization", "JWT " + LoginDaoIMPL.token);
             HttpResponse response = client.execute(request);
             BufferedReader bufReader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
             int statusCode = response.getStatusLine().getStatusCode();

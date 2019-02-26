@@ -28,6 +28,7 @@ import javax.swing.JOptionPane;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -61,9 +62,9 @@ public class StaffDaoIMPL implements StaffDao {
             }
             client.close();
         } catch (UnsupportedEncodingException ex) {
-            Logger.getLogger(StaffDaoIMPL.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(StaffDaoIMPL.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex);
         }
     }
 
@@ -87,6 +88,29 @@ public class StaffDaoIMPL implements StaffDao {
             Logger.getLogger(InventoryDaoIMPL.class.getName()).log(Level.SEVERE, null, ex);
         }
         return staffList;
+    }
+
+    @Override
+    public void deleteStaff(int id) {
+        try {
+            CloseableHttpClient client = HttpClients.createDefault();
+            HttpDelete httpDelete = new HttpDelete(RestUrl.DELETE_STAFF + id + "/");
+            httpDelete.setHeader("Accept", "application/json");
+            httpDelete.setHeader("Content-type", "application/json");
+            httpDelete.addHeader("Authorization", "JWT " + LoginDaoIMPL.token);
+            CloseableHttpResponse response = client.execute(httpDelete);
+            client.close();
+            int statusCode = response.getStatusLine().getStatusCode();
+            if (statusCode == 204) {
+                JOptionPane.showMessageDialog(null, "Deleted");
+            } else {
+                JOptionPane.showMessageDialog(null, "" + response);
+                // JOptionPane.showMessageDialog(null, "Server Error");
+            }
+        } catch (IOException ex) {
+
+            Logger.getLogger(InventoryDaoIMPL.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }

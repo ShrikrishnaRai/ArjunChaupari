@@ -82,6 +82,7 @@ public class FXMLDocumentController extends LangSts implements Initializable {
             Stage primary_stage = (Stage) login.getScene().getWindow();
             primary_stage.close();
             primary_stage.setResizable(false);
+          
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/archjunchaupari/Dashboard/DashFXML.fxml"));
             Parent root1 = (Parent) fxmlLoader.load();
             Stage stage = new Stage();

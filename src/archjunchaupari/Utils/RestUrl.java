@@ -27,4 +27,5 @@ public class RestUrl {
 
     public static String GET_STAFF = "http://aavash.pythonanywhere.com/api/v1/accounts/staff-detail/";
     public static String SAVE_STAFF = "http://aavash.pythonanywhere.com/api/v1/accounts/staff-detail/";
+    public static String DELETE_STAFF="http://aavash.pythonanywhere.com/api/v1/accounts/staff-detail/";
 }

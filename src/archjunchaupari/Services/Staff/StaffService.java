@@ -17,6 +17,7 @@ import java.util.List;
 public class StaffService implements StaffDaoService {
 
     private final StaffDao staffDaoIMPL;
+    StaffDaoIMPL staffDaoIMPLl=new StaffDaoIMPL();
 
     public StaffService() {
         staffDaoIMPL = new StaffDaoIMPL();
@@ -24,12 +25,17 @@ public class StaffService implements StaffDaoService {
 
     @Override
     public void saveStaff(StaffDto staffDto) {
-        staffDaoIMPL.saveStaff(staffDto);
+        staffDaoIMPLl.saveStaff(staffDto);
     }
 
     @Override
     public List<StaffDto> getStaffList() {
         return staffDaoIMPL.getStaffList();
+    }
+
+    @Override
+    public void deleteStaff(int id) {
+        staffDaoIMPL.deleteStaff(id);
     }
 
 }

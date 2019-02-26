@@ -46,7 +46,7 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Label prefHeight="18.0" prefWidth="115.0" text="Darta Date">
+                  <Label fx:id="dartaDate_Label" prefHeight="18.0" prefWidth="115.0" text="Darta Date">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -59,7 +59,7 @@
                         <Insets right="10.0" />
                      </GridPane.margin>
                   </TextField>
-                  <Label prefHeight="18.0" prefWidth="104.0" text="Darta Number" GridPane.rowIndex="1">
+                  <Label fx:id="dartaNumber_Label" prefHeight="18.0" prefWidth="104.0" text="Darta Number" GridPane.rowIndex="1">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -72,7 +72,7 @@
                         <Insets right="10.0" />
                      </GridPane.margin>
                   </TextField>
-                  <Label prefHeight="18.0" prefWidth="104.0" text="Letter Quantity" GridPane.rowIndex="2">
+                  <Label fx:id="letterQuantity_Label" prefHeight="18.0" prefWidth="104.0" text="Letter Quantity" GridPane.rowIndex="2">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -85,7 +85,7 @@
                         <Insets right="10.0" />
                      </GridPane.margin>
                   </TextField>
-                  <Label prefHeight="18.0" prefWidth="104.0" text="Receiption" GridPane.rowIndex="3">
+                  <Label fx:id="reception_Label" prefHeight="18.0" prefWidth="104.0" text="Receiption" GridPane.rowIndex="3">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -98,7 +98,7 @@
                         <Insets right="10.0" />
                      </GridPane.margin>
                   </TextField>
-                  <Label prefHeight="18.0" prefWidth="115.0" text="Signed Date" GridPane.rowIndex="4">
+                  <Label fx:id="signedDate_Label" prefHeight="18.0" prefWidth="115.0" text="Signed Date" GridPane.rowIndex="4">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -111,7 +111,7 @@
                         <Insets right="10.0" />
                      </GridPane.margin>
                   </TextField>
-                  <Label prefHeight="18.0" prefWidth="132.0" text="Responsible Person" GridPane.rowIndex="5">
+                  <Label fx:id="responsiblePerson_Label" prefHeight="18.0" prefWidth="132.0" text="Responsible Person" GridPane.rowIndex="5">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -134,7 +134,7 @@
                         <Insets />
                      </GridPane.margin>
                   </Button>
-                  <Label prefHeight="18.0" prefWidth="132.0" text="Subject" GridPane.rowIndex="6">
+                  <Label fx:id="subject_Label" prefHeight="18.0" prefWidth="132.0" text="Subject" GridPane.rowIndex="6">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -142,7 +142,7 @@
                         <Insets left="20.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label prefHeight="18.0" prefWidth="132.0" text="Remarks" GridPane.rowIndex="7">
+                  <Label fx:id="remarks_Label" prefHeight="18.0" prefWidth="132.0" text="Remarks" GridPane.rowIndex="7">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
