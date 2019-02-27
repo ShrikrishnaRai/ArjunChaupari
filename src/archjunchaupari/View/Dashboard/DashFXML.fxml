@@ -30,7 +30,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="archjunchaupari.Dashboard.DashFXMLController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="archjunchaupari.View.Dashboard.DashFXMLController">
     <top>
         <VBox prefHeight="58.0" prefWidth="600.0" BorderPane.alignment="CENTER">
             <children>
@@ -307,7 +307,7 @@
                                                     <items>
                                                         <BorderPane prefHeight="200.0" prefWidth="200.0">
                                                             <center>
-                                                                <TableView fx:id="chalaniTable" onMouseClicked="#deleteRow" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                                                <TableView fx:id="chalaniTable" onMouseClicked="#deleteRowChalani" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                                                     <columns>
                                                                         <TableColumn fx:id="chalaniId" prefWidth="75.0" text="SN" />
                                                                         <TableColumn fx:id="chalani_date" prefWidth="75.0" text="Chalani Date" />
@@ -440,7 +440,7 @@
                                                                             </GridPane.margin>
                                                                         </Label>
                                                                         <TextField fx:id="chalaniId_t" promptText="Auto Generated" GridPane.columnIndex="1" />
-                                                                        <Button fx:id="updateDartaChalani" mnemonicParsing="false" prefHeight="26.0" prefWidth="100.0" style="-fx-background-color: blue;" text="Update" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="5">
+                                                                        <Button fx:id="updateDartaChalani" mnemonicParsing="false" onAction="#updateChalani" prefHeight="26.0" prefWidth="100.0" style="-fx-background-color: blue;" text="Update" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="5">
                                                                             <font>
                                                                                 <Font name="System Bold" size="12.0" />
                                                                             </font>

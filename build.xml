@@ -50,24 +50,19 @@
     nbproject/build-impl.xml and nbproject/jfx-impl.xml.
 
     -->
-    <target name="package-for-store" depends="jar">
-        <property name="store.jar.name" value="ArjchjunChaupari"/>
-        <property name="store.dir" value="store"/>
-        <property name="store.jar" value="${store.dir}/${store.jar.name}.jar"/>
-        <echo message="Packaging ${application.title} into a single JAR at ${store.jar}"/>
-        <delete dir="${store.dir}"/>
-        <mkdir dir="${store.dir}"/>
-        <jar destfile="${store.dir}/temp_final.jar" filesetmanifest="skip">
-            <zipgroupfileset dir="dist" includes="*.jar"/>
-            <zipgroupfileset dir="dist/lib" includes="*.jar"/>
+<!--    <target name="-post-jar">
+        <jar jarfile="dist/ArjunChaupari.jar">
+            <zipfileset src="${dist.jar}" excludes="META-INF/*" />
+            <zipfileset src="dist/lib/commons-logging-1.1.2.jar" excludes="META-INF/*"/>
+            <zipfileset src="dist/lib/gson-2.8.5.jar" excludes="META-INF/*"/>
+            <zipfileset src="dist/lib/httpclient-4.4.1.jar" excludes="META-INF/*"/>
+            <zipfileset src="dist/lib/httpcore-4.4.10.jar" excludes="META-INF/*"/>
+            <zipfileset src="dist/lib/jackson-core-2.9.8.jar" excludes="META-INF/*"/>
             <manifest>
-                <attribute name="Main-Class" value="${main.class}"/>
+                <attribute name="Main-Class" value="archjunchaupari.ArchjunChaupari"/>
             </manifest>
         </jar>
-        <zip destfile="${store.jar}">
-            <zipfileset src="${store.dir}/temp_final.jar"
-                        excludes="META-INF/*.SF, META-INF/*.DSA, META-INF/*.RSA"/>
-        </zip>
-        <delete file="${store.dir}/temp_final.jar"/>
-    </target>
+    </target>-->
+
+
 </project>

@@ -19,7 +19,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="401.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="archjunchaupari.BranchAdmin.BranchAdminDashController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="401.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="archjunchaupari.View.BranchAdmin.BranchAdminDashController">
     <top>
         <VBox prefHeight="16.0" prefWidth="600.0" BorderPane.alignment="CENTER">
             <children>
@@ -46,8 +46,8 @@
                     <items>
                         <Button mnemonicParsing="false" text="Log Out" />
                         <Pane HBox.hgrow="ALWAYS" />
-                        <TextField alignment="BASELINE_RIGHT" promptText="Inventory" />
-                        <Button alignment="BOTTOM_RIGHT" mnemonicParsing="false" text="Search" />
+                        <TextField fx:id="searchText" alignment="BASELINE_RIGHT" promptText="Inventory" />
+                        <Button alignment="BOTTOM_RIGHT" mnemonicParsing="false" onAction="#loadSearchInventory" text="Search" />
                     </items>
                 </ToolBar>
             </children>
@@ -89,21 +89,21 @@
                                                     </BorderPane>
                                                 </content>
                                             </Tab>
-                                            <Tab fx:id="dartaChalaniTab" text="Darta Chalani">
+                                            <Tab fx:id="dartaChalaniTab" text="Patra Darta">
                                                 <content>
                                                     <BorderPane prefHeight="200.0" prefWidth="200.0">
                                                         <center>
-                                                            <TableView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                                            <TableView fx:id="dartaTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                                                 <columns>
-                                                                    <TableColumn prefWidth="75.0" text="SN" />
-                                                                    <TableColumn prefWidth="75.0" text="Darta Date" />
-                                                                    <TableColumn prefWidth="75.0" text="Darta Number" />
-                                                                    <TableColumn prefWidth="75.0" text="Letter Quantity" />
-                                                                    <TableColumn prefWidth="75.0" text="Reception" />
-                                                                    <TableColumn prefWidth="75.0" text="Signed Date" />
-                                                                    <TableColumn prefWidth="75.0" text="Responsible Person" />
-                                                                    <TableColumn prefWidth="75.0" text="Subject" />
-                                                                    <TableColumn prefWidth="75.0" text="Remarks" />
+                                                                    <TableColumn fx:id="darta_id" prefWidth="75.0" text="SN" />
+                                                                    <TableColumn fx:id="darta_date" prefWidth="75.0" text="Darta Date" />
+                                                                    <TableColumn fx:id="darta_number" prefWidth="75.0" text="Darta Number" />
+                                                                    <TableColumn fx:id="letter_quantity" prefWidth="75.0" text="Letter Quantity" />
+                                                                    <TableColumn fx:id="to_officee" prefWidth="75.0" text="Reception" />
+                                                                    <TableColumn fx:id="signed_date" prefWidth="75.0" text="Signed Date" />
+                                                                    <TableColumn fx:id="responsible_person_full_name" prefWidth="75.0" text="Responsible Person" />
+                                                                    <TableColumn fx:id="subject" prefWidth="75.0" text="Subject" />
+                                                                    <TableColumn fx:id="remarks" prefWidth="75.0" text="Remarks" />
                                                                 </columns>
                                                             </TableView>
                                                         </center>
@@ -114,17 +114,17 @@
                                                 <content>
                                                     <BorderPane prefHeight="200.0" prefWidth="200.0">
                                                         <center>
-                                                            <TableView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                                            <TableView fx:id="chalaniTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                                                 <columns>
-                                                                    <TableColumn prefWidth="75.0" text="SN" />
-                                                                    <TableColumn prefWidth="75.0" text="Chalani Date" />
-                                                                    <TableColumn prefWidth="75.0" text="Chalani Number" />
-                                                                    <TableColumn prefWidth="75.0" text="Letter Quantity" />
-                                                                    <TableColumn prefWidth="75.0" text="Reception" />
-                                                                    <TableColumn prefWidth="75.0" text="Ticket" />
-                                                                    <TableColumn prefWidth="75.0" text="Subject" />
-                                                                    <TableColumn prefWidth="75.0" text="Letter Date" />
-                                                                    <TableColumn prefWidth="75.0" text="Remarks" />
+                                                                    <TableColumn fx:id="chalaniId" prefWidth="75.0" text="SN" />
+                                                                    <TableColumn fx:id="chalani_date" prefWidth="75.0" text="Chalani Date" />
+                                                                    <TableColumn fx:id="chalani_number" prefWidth="75.0" text="Chalani Number" />
+                                                                    <TableColumn fx:id="chalaniLetter_quantity" prefWidth="75.0" text="Letter Quantity" />
+                                                                    <TableColumn fx:id="to_office" prefWidth="75.0" text="Reception" />
+                                                                    <TableColumn fx:id="chalaniTicket" prefWidth="75.0" text="Ticket" />
+                                                                    <TableColumn fx:id="chalaniSubject" prefWidth="75.0" text="Subject" />
+                                                                    <TableColumn fx:id="chalaniLetter_date" prefWidth="75.0" text="Letter Date" />
+                                                                    <TableColumn fx:id="chalaniRemarks" prefWidth="75.0" text="Remarks" />
                                                                 </columns>
                                                             </TableView>
                                                         </center>
@@ -135,16 +135,16 @@
                                                 <content>
                                                     <BorderPane prefHeight="200.0" prefWidth="200.0">
                                                         <center>
-                                                            <TableView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                                            <TableView fx:id="staffTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                                                 <columns>
-                                                                    <TableColumn prefWidth="75.0" text="SN" />
-                                                                    <TableColumn prefWidth="75.0" text="Name" />
-                                                                    <TableColumn prefWidth="75.0" text="Designation" />
-                                                                    <TableColumn prefWidth="75.0" text="Joined Date" />
-                                                                    <TableColumn prefWidth="75.0" text="Salary" />
-                                                                    <TableColumn prefWidth="75.0" text="Email" />
-                                                                    <TableColumn prefWidth="75.0" text="Gender" />
-                                                                    <TableColumn prefWidth="75.0" text="Date Of Birth" />
+                                                                    <TableColumn fx:id="staffTableId" prefWidth="75.0" text="SN" />
+                                                                    <TableColumn fx:id="staffTableName" prefWidth="75.0" text="Name" />
+                                                                    <TableColumn fx:id="staffTableDesignation" prefWidth="75.0" text="Designation" />
+                                                                    <TableColumn fx:id="staffTableJoinedDate" prefWidth="75.0" text="Joined Date" />
+                                                                    <TableColumn fx:id="staffTableSalary" prefWidth="75.0" text="Salary" />
+                                                                    <TableColumn fx:id="staffTableEmail" prefWidth="75.0" text="Email" />
+                                                                    <TableColumn fx:id="staffTableGender" prefWidth="75.0" text="Gender" />
+                                                                    <TableColumn fx:id="staffTableDOB" prefWidth="75.0" text="Date Of Birth" />
                                                                 </columns>
                                                             </TableView>
                                                         </center>

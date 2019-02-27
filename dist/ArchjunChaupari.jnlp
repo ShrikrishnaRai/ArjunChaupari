@@ -8,7 +8,7 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="ArchjunChaupari.jar" size="94599" download="eager" />
+    <jar href="ArchjunChaupari.jar" size="97691" download="eager" />
     <jar href="lib/commons-logging-1.1.2.jar" size="62051" download="eager" />
     <jar href="lib/gson-2.8.5.jar" size="241622" download="eager" />
     <jar href="lib/httpclient-4.4.1.jar" size="720931" download="eager" />

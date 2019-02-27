@@ -5,9 +5,15 @@
  */
 package archjunchaupari.View.BranchAdmin;
 
+import archjunchaupari.Model.Darta.DartaDto;
 import archjunchaupari.View.Dashboard.DashFXMLController;
 import archjunchaupari.Model.Inventory.ExInventoryDto;
+import archjunchaupari.Model.PatraChalani.PatraChalaniDto;
+import archjunchaupari.Model.Staff.StaffDto;
+import archjunchaupari.Services.Darta.DartaServices;
 import archjunchaupari.Services.Inventory.InventoryService;
+import archjunchaupari.Services.PatraChalani.PatraChalaniService;
+import archjunchaupari.Services.Staff.StaffService;
 import com.sun.media.jfxmedia.Media;
 import java.awt.BorderLayout;
 import java.io.IOException;
@@ -50,6 +56,9 @@ import javax.swing.JOptionPane;
  * @author cri
  */
 public class BranchAdminDashController implements Initializable {
+
+    @FXML
+    private TextField searchText;
 
     @FXML
     private BorderPane borderPaneMain;
@@ -136,18 +145,93 @@ public class BranchAdminDashController implements Initializable {
     private TableView tableView;
 
     @FXML
-    private TextArea textRemarks;
+    private TableView chalaniTable;
+
+    @FXML
+    private TableView staffTable;
+
+    @FXML
+    private TableView dartaTable;
+
+    //load Chalani table
+    @FXML
+    private TableColumn<PatraChalaniDto, String> chalaniId;
+    @FXML
+    private TableColumn<PatraChalaniDto, String> chalani_date;
+    @FXML
+    private TableColumn<PatraChalaniDto, String> chalani_number;
+    @FXML
+    private TableColumn<PatraChalaniDto, String> chalaniLetter_quantity;
+    @FXML
+    private TableColumn<PatraChalaniDto, String> chalaniLetter_date;
+    @FXML
+    private TableColumn<PatraChalaniDto, String> chalaniSubject;
+    @FXML
+    private TableColumn<PatraChalaniDto, String> to_office;
+    @FXML
+    private TableColumn<PatraChalaniDto, String> chalaniTicket;
+    @FXML
+    private TableColumn<PatraChalaniDto, String> chalaniRemarks;
+
+    //Load Staff Table
+    @FXML
+    private TableColumn<StaffDto, String> staffTableId;
+    @FXML
+    private TableColumn<StaffDto, String> staffTableEmail;
+    @FXML
+    private TableColumn<StaffDto, String> staffTableName;
+    @FXML
+    private TableColumn<StaffDto, String> staffTableDOB;
+    @FXML
+    private TableColumn<StaffDto, String> staffTableGender;
+    @FXML
+    private TableColumn<StaffDto, String> staffTableSalary;
+    @FXML
+    private TableColumn<StaffDto, String> staffTableJoinedDate;
+    @FXML
+    private TableColumn<StaffDto, String> staffTableDesignation;
+
+    @FXML
+    private TableColumn<DartaDto, String> darta_id;
+    @FXML
+    private TableColumn<DartaDto, String> created_date;
+    @FXML
+    private TableColumn<DartaDto, String> darta_number;
+    @FXML
+    private TableColumn<DartaDto, String> darta_date;
+    @FXML
+    private TableColumn<DartaDto, String> letter_quantity;
+    @FXML
+    private TableColumn<DartaDto, String> to_officee;
+    @FXML
+    private TableColumn<DartaDto, String> subject;
+    @FXML
+    private TableColumn<DartaDto, String> image;
+    @FXML
+    private TableColumn<DartaDto, String> responsible_person_full_name;
+    @FXML
+    private TableColumn<DartaDto, String> signed_date;
+    @FXML
+    private TableColumn<DartaDto, String> remarks;
+    @FXML
+    private TableColumn<DartaDto, String> is_deleted;
 
     DashFXMLController dashFXMLController = new DashFXMLController();
     InventoryService inventoryService = new InventoryService();
+    PatraChalaniService patraChalaniService = new PatraChalaniService();
     InventoryBranchController inventoryBranchController = new InventoryBranchController();
     //  private ExInventoryDto exInventoryDto;
     ExInventoryDto inventoryDto1;
+    StaffService staffService = new StaffService();
+    private DartaServices dartaService;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         //   setPane();
         loadTable();
+        loadChalaniTable();
+        loadStaffTable();
+        loadDartaTable();
         // dashFXMLController.loadTable();
         //  test.setEditable(false);
         // tableAction();
@@ -276,6 +360,7 @@ public class BranchAdminDashController implements Initializable {
 
     }
 
+    //loads data to inventory table
     public void loadTable() {
         inventoryService = new InventoryService();
         //load item on tableview from pojo class 
@@ -291,6 +376,69 @@ public class BranchAdminDashController implements Initializable {
         columnDate.setCellValueFactory(new PropertyValueFactory<>("created_date"));
         columnType.setCellValueFactory(new PropertyValueFactory<>("type"));
         tableView.getItems().setAll(inventoryService.getInventory());
+    }
+
+    void loadStaffTable() {
+        staffService = new StaffService();
+        staffTableId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        staffTableEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
+        staffTableName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        staffTableDOB.setCellValueFactory(new PropertyValueFactory<>("date_of_birth"));
+        staffTableGender.setCellValueFactory(new PropertyValueFactory<>("gender"));
+        staffTableSalary.setCellValueFactory(new PropertyValueFactory<>("salary"));
+        staffTableJoinedDate.setCellValueFactory(new PropertyValueFactory<>("joined_date"));
+        staffTableDesignation.setCellValueFactory(new PropertyValueFactory<>("designation"));
+        staffTable.getItems().setAll(staffService.getStaffList());
+    }
+
+    //load data to chalani table
+    void loadChalaniTable() {
+        patraChalaniService = new PatraChalaniService();
+        chalaniId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        chalani_date.setCellValueFactory(new PropertyValueFactory<>("chalani_date"));
+        chalani_number.setCellValueFactory(new PropertyValueFactory<>("chalani_number"));
+        chalaniLetter_quantity.setCellValueFactory(new PropertyValueFactory<>("letter_quantity"));
+        chalaniLetter_date.setCellValueFactory(new PropertyValueFactory<>("letter_date"));
+        chalaniSubject.setCellValueFactory(new PropertyValueFactory<>("subject"));
+        to_office.setCellValueFactory(new PropertyValueFactory<>("to_office"));
+        chalaniTicket.setCellValueFactory(new PropertyValueFactory<>("ticket"));
+        chalaniRemarks.setCellValueFactory(new PropertyValueFactory<>("remarks"));
+        chalaniTable.getItems().setAll(patraChalaniService.getPatraChalaniList());
+    }
+
+    void loadDartaTable() {
+        dartaService = new DartaServices();
+        darta_id.setCellValueFactory(new PropertyValueFactory<>("id"));
+        darta_number.setCellValueFactory(new PropertyValueFactory<>("darta_number"));
+        darta_date.setCellValueFactory(new PropertyValueFactory<>("darta_date"));
+        letter_quantity.setCellValueFactory(new PropertyValueFactory<>("letter_quantity"));
+        to_officee.setCellValueFactory(new PropertyValueFactory<>("to_office"));
+        subject.setCellValueFactory(new PropertyValueFactory<>("subject"));
+        // image.setCellValueFactory(new PropertyValueFactory<>("image"));
+        responsible_person_full_name.setCellValueFactory(new PropertyValueFactory<>("responsible_person_full_name"));
+        signed_date.setCellValueFactory(new PropertyValueFactory<>("signed_date"));
+        remarks.setCellValueFactory(new PropertyValueFactory<>("remarks"));
+//        is_deleted.setCellValueFactory(new PropertyValueFactory<>("is_deleted"));
+        dartaTable.getItems().setAll(dartaService.getDarta());
+        dartaService.getDarta();
+    }
+
+    @FXML
+    void loadSearchInventory() {
+        inventoryService = new InventoryService();
+        //load item on tableview from pojo class 
+        columnId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        columnName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        columnRegistrationNumber.setCellValueFactory(new PropertyValueFactory<>("registration_number"));
+        columnQuantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+        columnRate.setCellValueFactory(new PropertyValueFactory<>("rate"));
+        columnSpecification.setCellValueFactory(new PropertyValueFactory<>("specification"));
+        columnSection.setCellValueFactory(new PropertyValueFactory<>("section"));
+        columnSection_number.setCellValueFactory(new PropertyValueFactory<>("section_number"));
+        columnRemarks.setCellValueFactory(new PropertyValueFactory<>("remarks"));
+        columnDate.setCellValueFactory(new PropertyValueFactory<>("created_date"));
+        columnType.setCellValueFactory(new PropertyValueFactory<>("type"));
+        tableView.getItems().setAll(inventoryService.getSearchInventory(searchText.getText()));
     }
 
     void setPane() {

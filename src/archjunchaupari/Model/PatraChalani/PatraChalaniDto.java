@@ -20,6 +20,23 @@ public class PatraChalaniDto {
     private String to_office;
     private String ticket;
     private String remarks;
+
+    public PatraChalaniDto(int id, String chalani_date, String chalani_number, String letter_quantity, String letter_date, String subject, String to_office, String ticket, String remarks) {
+        this.id = id;
+        this.chalani_date = chalani_date;
+        this.chalani_number = chalani_number;
+        this.letter_quantity = letter_quantity;
+        this.letter_date = letter_date;
+        this.subject = subject;
+        this.to_office = to_office;
+        this.ticket = ticket;
+        this.remarks = remarks;
+    }
+
+    public PatraChalaniDto() {
+    }
+    
+    
     
 
     public int getId() {

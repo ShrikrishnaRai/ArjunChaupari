@@ -17,4 +17,8 @@ public interface PatraChalaniDao {
     void savePatraChalani(PatraChalaniDto patraChalaniDto);
 
     List<PatraChalaniDto> getPatraChalaniList();
+
+    void deletePatraChalani(int id);
+    
+    void updatePatraChalani(PatraChalaniDto patraChalaniDto);
 }

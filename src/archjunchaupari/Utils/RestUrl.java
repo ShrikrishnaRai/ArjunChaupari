@@ -24,8 +24,10 @@ public class RestUrl {
 
     public static String GET_PATRA_CHALANI = "http://aavash.pythonanywhere.com/api/v1/inventory/patra-chalani/";
     public static String SAVE_PATRA_CHALANI = "http://aavash.pythonanywhere.com/api/v1/inventory/patra-chalani/";
+    public static String DELTE_CHALANI = "http://aavash.pythonanywhere.com/api/v1/inventory/patra-chalani/";
+    public static String UPDATE_CHALANI = "http://aavash.pythonanywhere.com/api/v1/inventory/patra-chalani/";
 
     public static String GET_STAFF = "http://aavash.pythonanywhere.com/api/v1/accounts/staff-detail/";
     public static String SAVE_STAFF = "http://aavash.pythonanywhere.com/api/v1/accounts/staff-detail/";
-    public static String DELETE_STAFF="http://aavash.pythonanywhere.com/api/v1/accounts/staff-detail/";
+    public static String DELETE_STAFF = "http://aavash.pythonanywhere.com/api/v1/accounts/staff-detail/";
 }

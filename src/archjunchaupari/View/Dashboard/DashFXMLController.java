@@ -785,6 +785,49 @@ public class DashFXMLController extends LangSts implements Initializable {
 
     //Delete Staff Record from tableView when double click
     @FXML
+    private void deleteRowChalani() {
+        chalaniTable.setOnMouseClicked((MouseEvent event) -> {
+            if (event.getButton().equals(MouseButton.PRIMARY)) {
+                if (event.getClickCount() == 2) {
+                    final Stage dialog = new Stage();
+                    dialog.setTitle("Chalani Information");
+                    dialog.initModality(Modality.APPLICATION_MODAL);
+                    PatraChalaniDto patraChalaniDto = (PatraChalaniDto) chalaniTable.getSelectionModel().getSelectedItem();
+                    VBox dialogVbox = new VBox(20);
+                    Button button = new Button("Delete");
+                    Button buttonUpdate = new Button("Update");
+                    button.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event1) -> {
+                        int option = JOptionPane.showConfirmDialog(null, "Are You Sure?", "Warning", JOptionPane.YES_NO_OPTION);
+                        if (option == JOptionPane.YES_OPTION) {
+                            dialog.close();
+                            patraChalaniService.deletePatraChalani(patraChalaniDto.getId());
+                            loadPatraChalaniTable();
+                        }
+                    });
+                    buttonUpdate.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event1) -> {
+                        dialog.close();
+                        updateDartaChalani.setDisable(false);
+                        updateChalaniField(patraChalaniDto.getId(),
+                                patraChalaniDto.getChalani_number(),
+                                patraChalaniDto.getLetter_quantity(),
+                                patraChalaniDto.getSubject(),
+                                patraChalaniDto.getTo_office(),
+                                patraChalaniDto.getTicket(),
+                                patraChalaniDto.getRemarks());
+                    });
+                    dialogVbox.getChildren().add(new Text(patraChalaniDto.getId() + " "));
+                    dialogVbox.getChildren().add(button);
+                    dialogVbox.getChildren().add(buttonUpdate);
+                    Scene dialogScene = new Scene(dialogVbox, 300, 200);
+                    dialog.setScene(dialogScene);
+                    dialog.show();
+                }
+            }
+        });
+    }
+
+    //Delete Staff Record from tableView when double click
+    @FXML
     private void deleteRowStaff() {
         staffTable.setOnMouseClicked((MouseEvent event) -> {
             if (event.getButton().equals(MouseButton.PRIMARY)) {
@@ -906,6 +949,7 @@ public class DashFXMLController extends LangSts implements Initializable {
         });
     }
 
+    //Search when search button is clicked it first checks which tab currently is on
     public void searchButtonAction() {
         switch (tabPane.getSelectionModel().getSelectedIndex()) {
             case 0:
@@ -1012,6 +1056,29 @@ public class DashFXMLController extends LangSts implements Initializable {
         staffSalary.setText(salary);
     }
 
+    /**
+     * Update chalani field when table is clicked It is called from chalani
+     * table when upadate button is clicked
+     *
+     */
+    void updateChalaniField(int id,
+            String number,
+            String letterQuantity,
+            String subject,
+            String toOffice,
+            String ticket,
+            String remarks
+    ) {
+        chalaniId_t.setText(String.valueOf(id));
+        chalani_number_t.setText(number);
+        chalaniLetter_quantity_t.setText(letterQuantity);
+        chalaniSubject_t.setText(subject);
+        to_office_t.setText(toOffice);
+        chalaniTicket_t.setText(ticket);
+        chalaniRemarks_t.setText(remarks);
+    }
+
+    //update inventory field when table is clicked
     void updateInventoryField(
             int id,
             String name,
@@ -1074,10 +1141,6 @@ public class DashFXMLController extends LangSts implements Initializable {
         textSection.setPromptText(resourceBundle.getString("Section"));
         textRemarks.setPromptText(resourceBundle.getString("Remarks"));
         textDate.setPromptText(resourceBundle.getString("Signed_Date"));
-    }
-
-    void loadChalaniTextField() {
-
     }
 
     void LoadLabel() {
@@ -1176,6 +1239,7 @@ public class DashFXMLController extends LangSts implements Initializable {
 
     }
 
+    //Loads language from resourceBundle on click either nepali or english
     void loadLangFieldChalani() {
         chalaniId_t.setPromptText(resourceBundle.getString("Id"));
         chalani_number_t.setPromptText(resourceBundle.getString("Chalani_Number"));
@@ -1183,10 +1247,28 @@ public class DashFXMLController extends LangSts implements Initializable {
         chalaniTicket_t.setPromptText(resourceBundle.getString("Ticket"));
         chalaniSubject_t.setPromptText(resourceBundle.getString("Subject"));
         chalaniLetter_quantity_t.setPromptText(resourceBundle.getString("Letter_Quantity"));
+        to_office_t.setPromptText(resourceBundle.getString("Reception"));
         chalani_date_t.setPromptText(resourceBundle.getString("Chalani_Date"));
         chalaniLetter_date_t.setPromptText(resourceBundle.getString("Chalani_Letter_Date"));
     }
 
+    //Update chalani from textfield to database when update button is clicked
+    @FXML
+    void updateChalani() {
+        patraChalaniDto = new PatraChalaniDto(Integer.parseInt(chalaniId_t.getText()),
+                chalani_date_t.getValue().toString(),
+                chalani_number_t.getText(),
+                chalaniLetter_quantity_t.getText(),
+                chalaniLetter_date_t.getValue().toString(),
+                chalaniSubject_t.getText(),
+                to_office_t.getText(),
+                chalaniTicket_t.getText(),
+                chalaniRemarks_t.getText());
+        patraChalaniService.updatePatraChalani(patraChalaniDto);
+        loadPatraChalaniTable();
+    }
+
+    //Saves patraChalani to database
     @FXML
     void savePatraChalani() {
         patraChalaniService = new PatraChalaniService();

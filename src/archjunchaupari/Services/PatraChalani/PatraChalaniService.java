@@ -15,12 +15,6 @@ import java.util.List;
  * @author cri
  */
 public class PatraChalaniService implements PatraChalaniDaoService {
-//
-//    PatraChalaniDao patraChalaniDao;
-//
-//    public PatraChalaniService() {
-//        patraChalaniDao = new PatraChalaniDaoIMPL();
-//    }
 
     PatraChalaniDaoIMPL patraChalaniDao = new PatraChalaniDaoIMPL();
 
@@ -32,6 +26,16 @@ public class PatraChalaniService implements PatraChalaniDaoService {
     @Override
     public void savePatraChalani(PatraChalaniDto patraChalaniDto) {
         patraChalaniDao.savePatraChalani(patraChalaniDto);
+    }
+
+    @Override
+    public void deletePatraChalani(int id) {
+        patraChalaniDao.deletePatraChalani(id);
+    }
+
+    @Override
+    public void updatePatraChalani(PatraChalaniDto patraChalaniDto) {
+        patraChalaniDao.updatePatraChalani(patraChalaniDto);
     }
 
 }

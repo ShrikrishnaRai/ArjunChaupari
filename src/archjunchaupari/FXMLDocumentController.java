@@ -96,7 +96,7 @@ public class FXMLDocumentController extends LangSts implements Initializable {
             primary_stage.close();
             primary_stage.setResizable(false);
 
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/archjunchaupari/Dashboard/DashFXML.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/archjunchaupari/View/Dashboard/DashFXML.fxml"));
             Parent root1 = (Parent) fxmlLoader.load();
             Stage stage = new Stage();
             stage.setTitle("ArjunChaupari Gaupalika");
@@ -106,7 +106,7 @@ public class FXMLDocumentController extends LangSts implements Initializable {
         } else if ("Super Admin".equals(roleCombo.getSelectionModel().getSelectedItem().toString()) && loginServices_Ic.login(email.getText(), password.getText())) {
             Stage primary_stage = (Stage) login.getScene().getWindow();
             primary_stage.close();
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/archjunchaupari/SuperAdmin/SuperAdmin.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/archjunchaupari/View/SuperAdmin/SuperAdmin.fxml"));
             Parent root1 = (Parent) fxmlLoader.load();
             Stage stage = new Stage();
             stage.setTitle("ArjunChaupari Gaupalika");
@@ -115,7 +115,7 @@ public class FXMLDocumentController extends LangSts implements Initializable {
         } else if ("Branch Admin".equals(roleCombo.getSelectionModel().getSelectedItem().toString()) && loginServices_Ic.login(email.getText(), password.getText())) {
             Stage primary_stage = (Stage) login.getScene().getWindow();
             primary_stage.close();
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/archjunchaupari/BranchAdmin/BranchAdminDash.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/archjunchaupari/View/BranchAdmin/BranchAdminDash.fxml"));
             Parent root1 = (Parent) fxmlLoader.load();
             Stage stage = new Stage();
             stage.setTitle("ArjunChaupari Gaupalika");

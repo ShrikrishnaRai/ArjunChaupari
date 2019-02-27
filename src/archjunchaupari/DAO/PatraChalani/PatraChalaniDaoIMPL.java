@@ -25,8 +25,10 @@ import javax.swing.JOptionPane;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
@@ -85,6 +87,54 @@ public class PatraChalaniDaoIMPL implements PatraChalaniDao {
             Logger.getLogger(InventoryDaoIMPL.class.getName()).log(Level.SEVERE, null, ex);
         }
         return patraList;
+    }
+
+    @Override
+    public void deletePatraChalani(int id) {
+        try {
+            CloseableHttpClient client = HttpClients.createDefault();
+            HttpDelete httpDelete = new HttpDelete(RestUrl.DELTE_CHALANI + id + "/");
+            httpDelete.setHeader("Accept", "application/json");
+            httpDelete.setHeader("Content-type", "application/json");
+            httpDelete.addHeader("Authorization", "JWT " + LoginDaoIMPL.token);
+            CloseableHttpResponse response = client.execute(httpDelete);
+            client.close();
+            statusCode = response.getStatusLine().getStatusCode();
+            if (statusCode == 204) {
+                JOptionPane.showMessageDialog(null, "Deleted");
+            } else {
+                JOptionPane.showMessageDialog(null, "" + response);
+                // JOptionPane.showMessageDialog(null, "Server Error");
+            }
+        } catch (IOException ex) {
+
+            Logger.getLogger(InventoryDaoIMPL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @Override
+    public void updatePatraChalani(PatraChalaniDto patraChalaniDto) {
+        try {
+            CloseableHttpClient client = HttpClients.createDefault();
+            Gson gson = new Gson();
+            String json = gson.toJson(patraChalaniDto);
+            StringEntity entity = new StringEntity(json);
+            HttpPut httpPut = new HttpPut(RestUrl.UPDATE_CHALANI + patraChalaniDto.getId() + "/");
+            httpPut.setEntity(entity);
+            httpPut.setHeader("Accept", "application/json");
+            httpPut.setHeader("Content-type", "application/json");
+            httpPut.addHeader("Authorization", "JWT " + LoginDaoIMPL.token);
+            CloseableHttpResponse response = client.execute(httpPut);
+            client.close();
+            statusCode = response.getStatusLine().getStatusCode();
+            if (statusCode == 204 || statusCode == 200 || statusCode == 201) {
+                JOptionPane.showMessageDialog(null, "Updated");
+            } else {
+                JOptionPane.showMessageDialog(null, "" + response);
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(InventoryDaoIMPL.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }
