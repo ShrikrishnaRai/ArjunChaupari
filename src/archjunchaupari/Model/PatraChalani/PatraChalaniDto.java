@@ -20,6 +20,7 @@ public class PatraChalaniDto {
     private String to_office;
     private String ticket;
     private String remarks;
+    
 
     public int getId() {
         return id;

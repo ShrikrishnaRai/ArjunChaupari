@@ -22,6 +22,6 @@ public interface InventoryDaoService {
 
     List<ExInventoryDto> getSearchInventory(String inventory);
 
-    void updateInventory(int id);
+    void updateInventory(ExInventoryDto inventoryDto);
 
 }

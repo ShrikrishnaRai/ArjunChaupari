@@ -19,4 +19,6 @@ public interface StaffDaoService {
     List<StaffDto> getStaffList();
     
     void deleteStaff(int id);
+    
+    void updateStaff(StaffDto staffDto);
 }

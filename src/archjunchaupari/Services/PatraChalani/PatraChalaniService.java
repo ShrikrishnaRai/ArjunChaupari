@@ -6,8 +6,8 @@
 package archjunchaupari.Services.PatraChalani;
 
 import archjunchaupari.Model.PatraChalani.PatraChalaniDto;
-import archjunchaupari.PatraChalani.PatraChalaniDao.PatraChalaniDao;
-import archjunchaupari.PatraChalani.PatraChalaniDao.PatraChalaniDaoIMPL;
+import archjunchaupari.DAO.PatraChalani.PatraChalaniDao;
+import archjunchaupari.DAO.PatraChalani.PatraChalaniDaoIMPL;
 import java.util.List;
 
 /**

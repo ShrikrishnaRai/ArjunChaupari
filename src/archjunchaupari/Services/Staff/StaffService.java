@@ -6,8 +6,8 @@
 package archjunchaupari.Services.Staff;
 
 import archjunchaupari.Model.Staff.StaffDto;
-import archjunchaupari.Staff.StaffDAO.StaffDao;
-import archjunchaupari.Staff.StaffDAO.StaffDaoIMPL;
+import archjunchaupari.DAO.Staff.StaffDao;
+import archjunchaupari.DAO.Staff.StaffDaoIMPL;
 import java.util.List;
 
 /**
@@ -38,4 +38,9 @@ public class StaffService implements StaffDaoService {
         staffDaoIMPL.deleteStaff(id);
     }
 
+    @Override
+    public void updateStaff(StaffDto staffDto) {
+        staffDaoIMPL.updateStaff(staffDto);
+    }
+    
 }

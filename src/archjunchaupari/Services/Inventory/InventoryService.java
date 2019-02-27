@@ -5,8 +5,8 @@
  */
 package archjunchaupari.Services.Inventory;
 
-import archjunchaupari.Inventory.InventoryDAO.InventoryDAO;
-import archjunchaupari.Inventory.InventoryDAO.InventoryDaoIMPL;
+import archjunchaupari.DAO.Inventory.InventoryDAO;
+import archjunchaupari.DAO.Inventory.InventoryDaoIMPL;
 import archjunchaupari.Model.Inventory.ExInventoryDto;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -46,7 +46,7 @@ public class InventoryService implements InventoryDaoService {
     }
 
     @Override
-    public void updateInventory(int id) {
-        in.deleteInventory(id);
+    public void updateInventory(ExInventoryDto inventoryDto) {
+        in.updateInventory(inventoryDto);
     }
 }

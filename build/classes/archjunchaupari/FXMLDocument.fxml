@@ -8,6 +8,7 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -61,14 +62,11 @@
     <bottom>
         <VBox prefHeight="15.0" prefWidth="600.0" BorderPane.alignment="CENTER">
             <children>
-                <HBox alignment="BASELINE_RIGHT" prefHeight="100.0" prefWidth="200.0">
-                    <children>
-                        <Label text="Design and Developed by Seven Tech">
-                            <HBox.margin>
-                                <Insets bottom="5.0" right="10.0" />
-                            </HBox.margin>
-                        </Label>
-                    </children>
+                <HBox alignment="BASELINE_RIGHT" prefHeight="28.0" prefWidth="600.0">
+               <children>
+                  <Label prefHeight="16.0" prefWidth="94.0" text="Running..." />
+                  <ProgressBar fx:id="progressBar" prefHeight="54.0" prefWidth="200.0" progress="0.0" />
+               </children>
                 </HBox>
             </children>
         </VBox>

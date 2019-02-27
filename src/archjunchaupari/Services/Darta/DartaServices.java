@@ -5,8 +5,8 @@
  */
 package archjunchaupari.Services.Darta;
 
-import archjunchaupari.Darta.DartaDao.DartaDAO;
-import archjunchaupari.Darta.DartaDao.DartaDaoIMPL;
+import archjunchaupari.DAO.Darta.DartaDAO;
+import archjunchaupari.DAO.Darta.DartaDaoIMPL;
 import archjunchaupari.Model.Darta.DartaDto;
 import java.util.List;
 

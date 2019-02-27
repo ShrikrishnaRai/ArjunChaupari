@@ -1,5 +1,5 @@
 
-import archjunchaupari.Inventory.InventoryDAO.InventoryDaoIMPL;
+import archjunchaupari.DAO.Inventory.InventoryDaoIMPL;
 import archjunchaupari.Model.Darta.DartaDto;
 import archjunchaupari.Model.Inventory.ExInventoryDto;
 import archjunchaupari.Utils.RestUrl;

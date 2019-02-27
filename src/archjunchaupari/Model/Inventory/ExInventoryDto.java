@@ -34,7 +34,34 @@ public class ExInventoryDto {
 
     public ExInventoryDto() {
     }
+//       inventoryDto = new ExInventoryDto(inventoryId.getText(),
+//                textRegistrationNumber.getText(),
+//                textDate.getValue().toString(),
+//                textName.getText(),
+//                textQuantity.getText(),
+//                textRate.getText(),
+//                textSpecification.getText(),
+//                textSection_number.getText(),
+//                textRemarks.getText(),
+//                typeComboBox.getSelectionModel().getSelectedItem(),
 
+    public ExInventoryDto(int id, int registration_number, String created_date, String name, int quantity, String rate, String specification, String section_number, String remarks, String type, String section) {
+        this.id = id;
+        this.registration_number = registration_number;
+        this.created_date = created_date;
+        this.name = name;
+        this.quantity = quantity;
+        this.rate = rate;
+        this.specification = specification;
+        this.section_number = section_number;
+        this.remarks = remarks;
+        this.type = type;
+        this.section = section;
+    }
+
+    
+    
+    
     public ExInventoryDto(int id, int registration_number, String created_date, String name, String made_in_country, String size, String expected_life, String item_source, int quantity, String rate, String specification, String section_number, String remarks, String is_approved, String type, String created_by, String section) {
         this.id = id;
         this.registration_number = registration_number;

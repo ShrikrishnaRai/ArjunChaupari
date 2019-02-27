@@ -20,6 +20,19 @@ public class StaffDto {
     private String name;
     private String email;
 
+    public StaffDto(int id, String designation, String salary, String name, String email) {
+        this.id = id;
+        this.designation = designation;
+        this.salary = salary;
+        this.name = name;
+        this.email = email;
+    }
+
+    public StaffDto() {
+    }
+    
+    
+
     public int getId() {
         return id;
     }
