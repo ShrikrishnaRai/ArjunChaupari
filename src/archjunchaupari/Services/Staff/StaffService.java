@@ -8,6 +8,7 @@ package archjunchaupari.Services.Staff;
 import archjunchaupari.Model.Staff.StaffDto;
 import archjunchaupari.DAO.Staff.StaffDao;
 import archjunchaupari.DAO.Staff.StaffDaoIMPL;
+import archjunchaupari.Model.Inventory.ExInventoryDto;
 import java.util.List;
 
 /**
@@ -17,7 +18,7 @@ import java.util.List;
 public class StaffService implements StaffDaoService {
 
     private final StaffDao staffDaoIMPL;
-    StaffDaoIMPL staffDaoIMPLl=new StaffDaoIMPL();
+    StaffDaoIMPL staffDaoIMPLl = new StaffDaoIMPL();
 
     public StaffService() {
         staffDaoIMPL = new StaffDaoIMPL();
@@ -42,5 +43,15 @@ public class StaffService implements StaffDaoService {
     public void updateStaff(StaffDto staffDto) {
         staffDaoIMPL.updateStaff(staffDto);
     }
-    
+
+    @Override
+    public List<StaffDto> getStaffSearchList(String name) {
+        return staffDaoIMPL.getSearchStaff(name);
+    }
+
+    @Override
+    public List<ExInventoryDto> getSearchInventory(String name) {
+        return staffDaoIMPL.getInventory(name);
+    }
+
 }

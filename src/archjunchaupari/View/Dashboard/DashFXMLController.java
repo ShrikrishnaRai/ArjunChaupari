@@ -29,6 +29,7 @@ import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -536,6 +537,9 @@ public class DashFXMLController extends LangSts implements Initializable {
     private ResourceBundle resourceBundle;
     int i = 0;
 
+    @FXML
+    private Button save_inventory;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         splitPane.setDividerPositions(-0.5);
@@ -581,6 +585,20 @@ public class DashFXMLController extends LangSts implements Initializable {
         staffTableJoinedDate.setCellValueFactory(new PropertyValueFactory<>("joined_date"));
         staffTableDesignation.setCellValueFactory(new PropertyValueFactory<>("designation"));
         staffTable.getItems().setAll(staffService.getStaffList());
+    }
+
+    @FXML
+    void searchStaff(String name) {
+        staffService = new StaffService();
+        staffTableId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        staffTableEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
+        staffTableName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        staffTableDOB.setCellValueFactory(new PropertyValueFactory<>("date_of_birth"));
+        staffTableGender.setCellValueFactory(new PropertyValueFactory<>("gender"));
+        staffTableSalary.setCellValueFactory(new PropertyValueFactory<>("salary"));
+        staffTableJoinedDate.setCellValueFactory(new PropertyValueFactory<>("joined_date"));
+        staffTableDesignation.setCellValueFactory(new PropertyValueFactory<>("designation"));
+        staffTable.getItems().setAll(staffService.getStaffSearchList(name));
     }
 
     //loads data to patrachalani table when program runs
@@ -712,6 +730,7 @@ public class DashFXMLController extends LangSts implements Initializable {
             staffDto.setJoined_date(staffJoinedDate.getValue().toString());
             staffDto.setGender(staffGenderCombo.getValue().toString());
             staffDto.setSalary(staffSalary.getText());
+            //staffDto.setPassword(staffPassword.getText());
             staffService.saveStaff(staffDto);
             loadStaffTable();
         } catch (Exception e) {
@@ -734,6 +753,9 @@ public class DashFXMLController extends LangSts implements Initializable {
         String signedValue = signedDate.getValue().format(DateTimeFormatter.ISO_DATE);
         dartaDto.setSigned_date(signedValue);
         dartaService.saveDarta(dartaDto);
+    }
+
+    void saveInventoryAction() {
     }
 
     @FXML
@@ -956,14 +978,15 @@ public class DashFXMLController extends LangSts implements Initializable {
                 loadSearchTable(searchText.getText());
                 break;
             case 1:
-                JOptionPane.showMessageDialog(null, "1");
+                JOptionPane.showMessageDialog(null, "Please Enter Staff or Inventory Name");
                 break;
             case 2:
-                JOptionPane.showMessageDialog(null, "2");
+                JOptionPane.showMessageDialog(null, "Please Enter Staff or Inventory Name");
                 break;
             case 3:
-                break;
-            case 4:
+                JOptionPane.showMessageDialog(null, "Hello");
+                searchStaff(searchText.getText());
+                //  searchStaff(searchText.getText());
                 break;
         }
     }
@@ -1236,7 +1259,6 @@ public class DashFXMLController extends LangSts implements Initializable {
         staffPassword.setPromptText(resourceBundle.getString("Password"));
         staffSalary.setPromptText(resourceBundle.getString("Salary"));
         staffJoinedDate.setPromptText(resourceBundle.getString("Joined_Date"));
-
     }
 
     //Loads language from resourceBundle on click either nepali or english

@@ -13,6 +13,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
@@ -38,9 +40,13 @@ import javafx.scene.control.TreeView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.ImageViewBuilder;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javax.swing.JOptionPane;
@@ -54,6 +60,11 @@ public class FXMLDocumentController extends LangSts implements Initializable {
     LoginServices loginServices_Ic = new LoginServices();
     private Locale locale;
     private ResourceBundle resourceBundle;
+
+    static double ii = 0;
+
+    @FXML
+    private Label status;
 
     @FXML
     private ProgressBar progressBar;
@@ -85,13 +96,44 @@ public class FXMLDocumentController extends LangSts implements Initializable {
     String path = "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Emblem_of_Nepal.svg/1200px-Emblem_of_Nepal.svg.png";
     Image image = new Image(path);
 
+    public static final Font ITALIC_FONT
+            = Font.font(
+                    "Serif",
+                    FontPosture.ITALIC,
+                    Font.getDefault().getSize()
+            );
+
     @FXML
-    void login(ActionEvent event) throws IOException {
-        Thread processing = new Thread(new Processinng());
-        processing.start();
+    void login() {
+        status.setFont(ITALIC_FONT);
+        status.setText("Processing....");
+//        Stage primaryStage = new Stage();
+//        ProgressIndicator PI = new ProgressIndicator();
+//        StackPane root = new StackPane();
+//        root.getChildren().add(PI);
+//        Scene scene = new Scene(root, 50, 50);
+//        primaryStage.setScene(scene);
+//        primaryStage.initStyle(StageStyle.UNDECORATED);
+//        primaryStage.show();
+//        Stage primary_stage = (Stage) login.getScene().getWindow();
+//        primary_stage.showAndWait();
+        login.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                try {
+                    actionLogin();
+               //     primaryStage.close();
+                } catch (IOException ex) {
+                    Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+    }
+
+    void actionLogin() throws IOException {
         if ("Role".equals(roleCombo.getSelectionModel().getSelectedItem().toString())) {
             JOptionPane.showMessageDialog(null, "Please Select Your Role");
-        } else if ("Admin".equals(roleCombo.getSelectionModel().getSelectedItem().toString()) && loginServices_Ic.login(email.getText(), password.getText())) {
+        } else if ("Staff".equals(roleCombo.getSelectionModel().getSelectedItem().toString()) && loginServices_Ic.login(email.getText(), password.getText())) {
             Stage primary_stage = (Stage) login.getScene().getWindow();
             primary_stage.close();
             primary_stage.setResizable(false);
@@ -121,6 +163,8 @@ public class FXMLDocumentController extends LangSts implements Initializable {
             stage.setTitle("ArjunChaupari Gaupalika");
             stage.setScene(new Scene(root1));
             stage.show();
+        } else {
+            JOptionPane.showMessageDialog(null, "Invalid Credentail");
         }
         //  } catch (HeadlessException | IOException e) {
         //     JOptionPane.showMessageDialog(null, "Please Select Your Role/ " + e);
@@ -136,8 +180,8 @@ public class FXMLDocumentController extends LangSts implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         setStatus("English");
         ObservableList<String> roleType = roleCombo.getItems();
+        roleType.add("Staff");
         roleType.add("Super Admin");
-        roleType.add("Admin");
         roleType.add("Branch Admin");
         WebEngine webEngine = webView.getEngine();
         //   webEngine.load("http://arjunchauparimun.gov.np/");
@@ -175,27 +219,4 @@ public class FXMLDocumentController extends LangSts implements Initializable {
         }
     }
 
-    class Processinng extends Task<Long> {
-
-        @Override
-        protected Long call() throws Exception {
-            Long i = null;
-            final double wndwWidth = 300.0d;
-            Label updateLabel = new Label("Running tasks...");
-            updateLabel.setPrefWidth(wndwWidth);
-            ProgressBar progress = new ProgressBar();
-            progress.setPrefWidth(wndwWidth);
-
-            VBox updatePane = new VBox();
-            updatePane.setPadding(new Insets(10));
-            updatePane.setSpacing(5.0d);
-            updatePane.getChildren().addAll(updateLabel, progress);
-
-            Stage taskUpdateStage = new Stage(StageStyle.UTILITY);
-            taskUpdateStage.setScene(new Scene(updatePane));
-            taskUpdateStage.show();
-            return i;
-        }
-
-    }
 }

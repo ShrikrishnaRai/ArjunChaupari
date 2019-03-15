@@ -14,6 +14,7 @@ public class RestUrl {
     public static String ACCESS_TOKEN = "http://aavash.pythonanywhere.com/api/get-token/";
     public static String SAVE_INVENTORY = "http://aavash.pythonanywhere.com/api/v1/inventory/item/";
     public static String GET_INVENTORY = "http://aavash.pythonanywhere.com/api/v1/inventory/item/";
+    public static String GET_INVENTORY_TYPE = "http://aavash.pythonanywhere.com/api/v1/inventory/item/";
     public static String UPDATE_INVENTORY = "http://aavash.pythonanywhere.com/api/v1/inventory/item/";
 //requires id
     public static String DELTE_INVENTORY = "http://aavash.pythonanywhere.com/api/v1/inventory/item/";
@@ -30,4 +31,9 @@ public class RestUrl {
     public static String GET_STAFF = "http://aavash.pythonanywhere.com/api/v1/accounts/staff-detail/";
     public static String SAVE_STAFF = "http://aavash.pythonanywhere.com/api/v1/accounts/staff-detail/";
     public static String DELETE_STAFF = "http://aavash.pythonanywhere.com/api/v1/accounts/staff-detail/";
+    public static String SEARCH_STAFF = "http://aavash.pythonanywhere.com/api/v1/accounts/staff-detail/";
+
+    public static String ALLOW_INVENTORY = "http://aavash.pythonanywhere.com/api/v1/inventory/item-approve/";
+
+    public static String REGISTER_USER = "http://aavash.pythonanywhere.com/api/v1/accounts/user-register/";
 }

@@ -10,6 +10,7 @@ import archjunchaupari.View.Dashboard.DashFXMLController;
 import archjunchaupari.Model.Inventory.ExInventoryDto;
 import archjunchaupari.Model.PatraChalani.PatraChalaniDto;
 import archjunchaupari.Model.Staff.StaffDto;
+import archjunchaupari.Services.Admin.AdminService;
 import archjunchaupari.Services.Darta.DartaServices;
 import archjunchaupari.Services.Inventory.InventoryService;
 import archjunchaupari.Services.PatraChalani.PatraChalaniService;
@@ -23,6 +24,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -58,10 +60,19 @@ import javax.swing.JOptionPane;
 public class BranchAdminDashController implements Initializable {
 
     @FXML
+    private Button createStaff;
+
+    @FXML
+    private Button home;
+
+    @FXML
     private TextField searchText;
 
     @FXML
     private BorderPane borderPaneMain;
+
+    @FXML
+    private BorderPane borderPane;
 
     @FXML
     private TabPane tabPane;
@@ -220,10 +231,10 @@ public class BranchAdminDashController implements Initializable {
     InventoryService inventoryService = new InventoryService();
     PatraChalaniService patraChalaniService = new PatraChalaniService();
     InventoryBranchController inventoryBranchController = new InventoryBranchController();
-    //  private ExInventoryDto exInventoryDto;
-    ExInventoryDto inventoryDto1;
-    StaffService staffService = new StaffService();
+    private ExInventoryDto inventoryDto1;
+    private StaffService staffService = new StaffService();
     private DartaServices dartaService;
+    private AdminService adminService;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -239,121 +250,130 @@ public class BranchAdminDashController implements Initializable {
 
     @FXML
     void tableAction() {
-        tableView.setOnMouseClicked((MouseEvent event) -> {
-            if (event.getButton().equals(MouseButton.PRIMARY)) {
-                if (event.getClickCount() == 2) {
-                    final Stage dialog = new Stage();
-                    BorderPane borderPane = new BorderPane();
-                    final Scene scene = new Scene(borderPane, 500, 500);
-                    dialog.initModality(Modality.APPLICATION_MODAL);
-                    inventoryDto1 = (ExInventoryDto) tableView.getSelectionModel().getSelectedItem();
-                    VBox dialogVbox = new VBox(5);
-                    HBox main = new HBox(2);
-                    HBox hBox = new HBox(2);
+        tableView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if (event.getButton().equals(MouseButton.PRIMARY)) {
+                    if (event.getClickCount() == 2) {
+                        final Stage dialog = new Stage();
+                        BorderPane borderPane = new BorderPane();
+                        final Scene scene = new Scene(borderPane, 500, 500);
+                        dialog.initModality(Modality.APPLICATION_MODAL);
+                        inventoryDto1 = (ExInventoryDto) tableView.getSelectionModel().getSelectedItem();
+                        VBox dialogVbox = new VBox(5);
+                        HBox main = new HBox(2);
+                        HBox hBox = new HBox(2);
 
-                    Label inventory_label = new Label("Inventory Infromation");
+                        Label inventory_label = new Label("Inventory Infromation");
 
-                    Label label = new Label("Name");
-                    TextField nameTextField = new TextField();
-                    nameTextField.setEditable(false);
-                    nameTextField.setText(inventoryDto1.getName());
-                    HBox nameBox = new HBox(2);
-                    nameBox.getChildren().add(label);
-                    nameBox.getChildren().add(nameTextField);
+                        Label label = new Label("Name");
+                        TextField nameTextField = new TextField();
+                        nameTextField.setEditable(false);
+                        nameTextField.setText(inventoryDto1.getName());
+                        HBox nameBox = new HBox(2);
+                        nameBox.getChildren().add(label);
+                        nameBox.getChildren().add(nameTextField);
 
-                    Label registration_label = new Label("Registration Number");
-                    TextField registrationTextField = new TextField();
-                    registrationTextField.setEditable(false);
-                    registrationTextField.setText(String.valueOf(inventoryDto1.getRegistration_number()));
-                    HBox registrationBox = new HBox(2);
-                    registrationBox.getChildren().add(registration_label);
-                    registrationBox.getChildren().add(registrationTextField);
+                        Label registration_label = new Label("Registration Number");
+                        TextField registrationTextField = new TextField();
+                        registrationTextField.setEditable(false);
+                        registrationTextField.setText(String.valueOf(inventoryDto1.getRegistration_number()));
+                        HBox registrationBox = new HBox(2);
+                        registrationBox.getChildren().add(registration_label);
+                        registrationBox.getChildren().add(registrationTextField);
 
-                    Label Quantity_label = new Label("Quantity");
-                    TextField quantityTextField = new TextField();
-                    quantityTextField.setEditable(false);
-                    quantityTextField.setText(String.valueOf(inventoryDto1.getQuantity()));
-                    HBox quantityBox = new HBox(2);
-                    quantityBox.getChildren().add(Quantity_label);
-                    quantityBox.getChildren().add(quantityTextField);
+                        Label Quantity_label = new Label("Quantity");
+                        TextField quantityTextField = new TextField();
+                        quantityTextField.setEditable(false);
+                        quantityTextField.setText(String.valueOf(inventoryDto1.getQuantity()));
+                        HBox quantityBox = new HBox(2);
+                        quantityBox.getChildren().add(Quantity_label);
+                        quantityBox.getChildren().add(quantityTextField);
 
-                    Label Rate_label = new Label("Rate");
-                    TextField rateTextField = new TextField();
-                    rateTextField.setEditable(false);
-                    rateTextField.setText(inventoryDto1.getRate());
-                    HBox rateBox = new HBox(2);
-                    rateBox.getChildren().add(Rate_label);
-                    rateBox.getChildren().add(rateTextField);
+                        Label Rate_label = new Label("Rate");
+                        TextField rateTextField = new TextField();
+                        rateTextField.setEditable(false);
+                        rateTextField.setText(inventoryDto1.getRate());
+                        HBox rateBox = new HBox(2);
+                        rateBox.getChildren().add(Rate_label);
+                        rateBox.getChildren().add(rateTextField);
 
-                    Label specification_label = new Label("Specification");
-                    TextField specificationTextField = new TextField();
-                    specificationTextField.setEditable(false);
-                    specificationTextField.setText(inventoryDto1.getSpecification());
-                    HBox specificationBox = new HBox(2);
-                    specificationBox.getChildren().add(specification_label);
-                    specificationBox.getChildren().add(specificationTextField);
+                        Label specification_label = new Label("Specification");
+                        TextField specificationTextField = new TextField();
+                        specificationTextField.setEditable(false);
+                        specificationTextField.setText(inventoryDto1.getSpecification());
+                        HBox specificationBox = new HBox(2);
+                        specificationBox.getChildren().add(specification_label);
+                        specificationBox.getChildren().add(specificationTextField);
 
-                    Label section_label = new Label("Section");
-                    TextField sectionTextField = new TextField();
-                    sectionTextField.setEditable(false);
-                    sectionTextField.setText(inventoryDto1.getSection());
-                    HBox sectionBox = new HBox(2);
-                    sectionBox.getChildren().add(section_label);
-                    sectionBox.getChildren().add(sectionTextField);
+                        Label section_label = new Label("Section");
+                        TextField sectionTextField = new TextField();
+                        sectionTextField.setEditable(false);
+                        sectionTextField.setText(inventoryDto1.getSection());
+                        HBox sectionBox = new HBox(2);
+                        sectionBox.getChildren().add(section_label);
+                        sectionBox.getChildren().add(sectionTextField);
 
-                    Label section_number_label = new Label("Section Number");
-                    TextField sectionNumberTextField = new TextField();
-                    sectionNumberTextField.setEditable(false);
-                    sectionNumberTextField.setText(inventoryDto1.getSection_number());
-                    HBox sectionNumberBox = new HBox(2);
-                    sectionNumberBox.getChildren().add(section_number_label);
-                    sectionNumberBox.getChildren().add(sectionNumberTextField);
+                        Label section_number_label = new Label("Section Number");
+                        TextField sectionNumberTextField = new TextField();
+                        sectionNumberTextField.setEditable(false);
+                        sectionNumberTextField.setText(inventoryDto1.getSection_number());
+                        HBox sectionNumberBox = new HBox(2);
+                        sectionNumberBox.getChildren().add(section_number_label);
+                        sectionNumberBox.getChildren().add(sectionNumberTextField);
 
-                    Label remarks_label = new Label("Remarks");
-                    TextField remarksTextField = new TextField();
-                    remarksTextField.setEditable(false);
-                    remarksTextField.setText(inventoryDto1.getRemarks());
-                    HBox remarksBox = new HBox(2);
-                    remarksBox.getChildren().add(remarks_label);
-                    remarksBox.getChildren().add(remarksTextField);
+                        Label remarks_label = new Label("Remarks");
+                        TextField remarksTextField = new TextField();
+                        remarksTextField.setEditable(false);
+                        remarksTextField.setText(inventoryDto1.getRemarks());
+                        HBox remarksBox = new HBox(2);
+                        remarksBox.getChildren().add(remarks_label);
+                        remarksBox.getChildren().add(remarksTextField);
 
-                    Label date_label = new Label("Date");
-                    TextField dateTextField = new TextField();
-                    dateTextField.setEditable(false);
-                    dateTextField.setText(inventoryDto1.getCreated_date());
-                    HBox dateBox = new HBox(2);
-                    dateBox.getChildren().add(date_label);
-                    dateBox.getChildren().add(dateTextField);
+                        Label date_label = new Label("Date");
+                        TextField dateTextField = new TextField();
+                        dateTextField.setEditable(false);
+                        dateTextField.setText(inventoryDto1.getCreated_date());
+                        HBox dateBox = new HBox(2);
+                        dateBox.getChildren().add(date_label);
+                        dateBox.getChildren().add(dateTextField);
 
-                    Label type_label = new Label("Type");
-                    TextField typeTextField = new TextField();
-                    typeTextField.setEditable(false);
-                    typeTextField.setText(inventoryDto1.getType());
-                    HBox typeBox = new HBox(2);
-                    typeBox.getChildren().add(type_label);
-                    typeBox.getChildren().add(typeTextField);
+                        Label type_label = new Label("Type");
+                        TextField typeTextField = new TextField();
+                        typeTextField.setEditable(false);
+                        typeTextField.setText(inventoryDto1.getType());
+                        HBox typeBox = new HBox(2);
+                        typeBox.getChildren().add(type_label);
+                        typeBox.getChildren().add(typeTextField);
 
-                    Button allowButton = new Button("Allow");
-                    Button discardButton = new Button("Discard");
-                    hBox.getChildren().add(allowButton);
-                    hBox.getChildren().add(discardButton);
-                    dialogVbox.getChildren().add(inventory_label);
-                    dialogVbox.getChildren().add(nameBox);
-                    dialogVbox.getChildren().add(registrationBox);
-                    dialogVbox.getChildren().add(quantityBox);
-                    dialogVbox.getChildren().add(rateBox);
-                    dialogVbox.getChildren().add(specificationBox);
-                    dialogVbox.getChildren().add(sectionBox);
-                    dialogVbox.getChildren().add(sectionNumberBox);
-                    dialogVbox.getChildren().add(remarksBox);
-                    dialogVbox.getChildren().add(dateBox);
-                    dialogVbox.getChildren().add(typeBox);
-                    dialogVbox.getChildren().add(hBox);
-                    dialogVbox.setPadding(new Insets(5, 5, 5, 5));
-                    borderPane.setCenter(dialogVbox);
-                    dialog.setScene(scene);
-                    dialog.show();
-
+                        Button allowButton = new Button("Allow");
+                        Button discardButton = new Button("Discard");
+                        hBox.getChildren().add(allowButton);
+                        hBox.getChildren().add(discardButton);
+                        dialogVbox.getChildren().add(inventory_label);
+                        dialogVbox.getChildren().add(nameBox);
+                        dialogVbox.getChildren().add(registrationBox);
+                        dialogVbox.getChildren().add(quantityBox);
+                        dialogVbox.getChildren().add(rateBox);
+                        dialogVbox.getChildren().add(specificationBox);
+                        dialogVbox.getChildren().add(sectionBox);
+                        dialogVbox.getChildren().add(sectionNumberBox);
+                        dialogVbox.getChildren().add(remarksBox);
+                        dialogVbox.getChildren().add(dateBox);
+                        dialogVbox.getChildren().add(typeBox);
+                        dialogVbox.getChildren().add(hBox);
+                        dialogVbox.setPadding(new Insets(5, 5, 5, 5));
+                        borderPane.setCenter(dialogVbox);
+                        dialog.setScene(scene);
+                        dialog.show();
+                        allowButton.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event1) -> {
+                            dialog.close();
+                            JOptionPane.showMessageDialog(null, inventoryDto1.getId());
+                            inventoryDto1.setIs_approved("rejected");
+                            allowInvenory(inventoryDto1);
+                            JOptionPane.showMessageDialog(null, inventoryDto1.getIs_approved());
+                        });
+                    }
                 }
             }
         });
@@ -500,6 +520,40 @@ public class BranchAdminDashController implements Initializable {
                 }
             }
         });
+    }
+
+    //allows inventory when allow button is clicked
+    void allowInvenory(ExInventoryDto inventoryDto) {
+        adminService = new AdminService();
+        adminService.allowInventory(inventoryDto);
+
+    }
+
+    @FXML
+    void createStaff() {
+        try {
+            BorderPane borderPaneAddress;
+            borderPaneAddress = FXMLLoader.load(getClass().getResource("/archjunchaupari/View/BranchAdmin/StaffBranch.fxml"));
+            borderPane.getChildren().setAll(borderPaneAddress);
+        } catch (IOException ex) {
+            Logger.getLogger(BranchAdminDashController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    void home() {
+        try {
+            Stage primary_stage = (Stage) home.getScene().getWindow();
+            primary_stage.close();
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/archjunchaupari/View/BranchAdmin/BranchAdminDash.fxml"));
+            Parent root1 = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setTitle("ArjunChaupari Gaupalika");
+            stage.setScene(new Scene(root1));
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(BranchAdminDashController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }

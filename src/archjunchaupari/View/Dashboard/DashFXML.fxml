@@ -62,7 +62,7 @@
                             </font>
                         </Button>
                         <Pane HBox.hgrow="ALWAYS" />
-                        <TextField fx:id="searchText" alignment="BASELINE_RIGHT" promptText="Inventory / Staff" />
+                        <TextField fx:id="searchText" alignment="BASELINE_LEFT" promptText="Inventory / Staff" />
                         <Button fx:id="searchButton" alignment="BOTTOM_RIGHT" mnemonicParsing="false" onAction="#searchButtonAction" onMouseClicked="#searchButtonAction" text="Search" />
                     </items>
                 </ToolBar>
@@ -75,7 +75,7 @@
                 <HBox alignment="BASELINE_RIGHT" prefHeight="40.0" prefWidth="600.0" spacing="5.0">
                     <children>
                         <Region />
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Processing" textAlignment="JUSTIFY" textOrigin="TOP">
+                        <Text fx:id="status_dash" strokeType="OUTSIDE" strokeWidth="0.0" text="Processing" textAlignment="JUSTIFY" textOrigin="TOP">
                             <HBox.margin>
                                 <Insets bottom="5.0" right="5.0" />
                             </HBox.margin>
@@ -252,7 +252,7 @@
                                                                                 <Insets left="25.0" />
                                                                             </padding>
                                                                         </Label>
-                                                                        <Button mnemonicParsing="false" onAction="#saveInventory" prefHeight="26.0" prefWidth="100.0" text="Save" GridPane.columnIndex="3" GridPane.rowIndex="7">
+                                                                        <Button fx:id="save_inventory" mnemonicParsing="false" onAction="#saveInventory" prefHeight="26.0" prefWidth="100.0" text="Save" GridPane.columnIndex="3" GridPane.rowIndex="7">
                                                                             <font>
                                                                                 <Font size="12.0" />
                                                                             </font>

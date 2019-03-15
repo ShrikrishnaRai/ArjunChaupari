@@ -19,6 +19,15 @@ public class StaffDto {
     private String salary;
     private String name;
     private String email;
+    private String password;
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public StaffDto(int id, String designation, String salary, String name, String email) {
         this.id = id;
@@ -30,8 +39,6 @@ public class StaffDto {
 
     public StaffDto() {
     }
-    
-    
 
     public int getId() {
         return id;

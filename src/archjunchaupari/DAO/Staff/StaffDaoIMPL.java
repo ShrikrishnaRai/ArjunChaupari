@@ -57,6 +57,7 @@ public class StaffDaoIMPL implements StaffDao {
             httpPost.setHeader("Content-type", "application/json");
             httpPost.addHeader("Authorization", "JWT " + LoginDaoIMPL.token);
             CloseableHttpResponse response = client.execute(httpPost);
+            JOptionPane.showMessageDialog(null, response);
             int statusCode = response.getStatusLine().getStatusCode();
             if (statusCode == 201 || statusCode == 204 || statusCode == 200) {
                 JOptionPane.showMessageDialog(null, "Staff Information Saved");
@@ -138,6 +139,53 @@ public class StaffDaoIMPL implements StaffDao {
         } catch (IOException ex) {
             Logger.getLogger(StaffDaoIMPL.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    @Override
+    public List<StaffDto> getSearchStaff(String name) {
+        StaffDto staffDto = new StaffDto();
+        List<StaffDto> staffDtoList = new ArrayList<>();
+        try {
+            HttpClient client = HttpClientBuilder.create().build();
+            JOptionPane.showMessageDialog(null,name);
+            HttpGet request = new HttpGet(RestUrl.SEARCH_INVENTORY + "?search=" + name);
+            request.setHeader("Accept", "application/json");
+            request.setHeader("Content-type", "application/json");
+            request.addHeader("Authorization", "JWT " + LoginDaoIMPL.token);
+            HttpResponse response = client.execute(request);
+            BufferedReader bufReader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+            int statusCode = response.getStatusLine().getStatusCode();
+            Gson gson = new Gson();
+            Type stafDto = new TypeToken<ArrayList<StaffDto>>() {
+            }.getType();
+            staffDtoList = new Gson().fromJson(bufReader, stafDto);
+        } catch (IOException ex) {
+            Logger.getLogger(InventoryDaoIMPL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return staffDtoList;
+    }
+
+    @Override
+    public List<ExInventoryDto> getInventory(String name) {
+        List<ExInventoryDto> inventoryList = new ArrayList<>();
+        try {
+            HttpClient client = HttpClientBuilder.create().build();
+            HttpGet request = new HttpGet(RestUrl.GET_INVENTORY + "/?is_approved=" + name);
+            request.setHeader("Accept", "application/json");
+            request.setHeader("Content-type", "application/json");
+            request.addHeader("Authorization", "JWT " + LoginDaoIMPL.token);
+            HttpResponse response = client.execute(request);
+            BufferedReader bufReader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+            int statusCode = response.getStatusLine().getStatusCode();
+            Gson gson = new Gson();
+            Type inventoryDto = new TypeToken<ArrayList<ExInventoryDto>>() {
+            }.getType();
+            inventoryList = new Gson().fromJson(bufReader, inventoryDto);
+        } catch (IOException ex) {
+            Logger.getLogger(InventoryDaoIMPL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return inventoryList;
     }
 
 }

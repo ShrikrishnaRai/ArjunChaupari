@@ -50,19 +50,4 @@
     nbproject/build-impl.xml and nbproject/jfx-impl.xml.
 
     -->
-<!--    <target name="-post-jar">
-        <jar jarfile="dist/ArjunChaupari.jar">
-            <zipfileset src="${dist.jar}" excludes="META-INF/*" />
-            <zipfileset src="dist/lib/commons-logging-1.1.2.jar" excludes="META-INF/*"/>
-            <zipfileset src="dist/lib/gson-2.8.5.jar" excludes="META-INF/*"/>
-            <zipfileset src="dist/lib/httpclient-4.4.1.jar" excludes="META-INF/*"/>
-            <zipfileset src="dist/lib/httpcore-4.4.10.jar" excludes="META-INF/*"/>
-            <zipfileset src="dist/lib/jackson-core-2.9.8.jar" excludes="META-INF/*"/>
-            <manifest>
-                <attribute name="Main-Class" value="archjunchaupari.ArchjunChaupari"/>
-            </manifest>
-        </jar>
-    </target>-->
-
-
 </project>

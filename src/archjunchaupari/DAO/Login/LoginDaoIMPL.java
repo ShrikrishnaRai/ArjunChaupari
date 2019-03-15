@@ -69,7 +69,7 @@ public class LoginDaoIMPL implements LoginDAO {
                 break;
             }
         }
-        if (statusCode == 200) {
+        if (statusCode == 200 || statusCode == 201 || statusCode == 204) {
             return true;
         } else {
             return false;

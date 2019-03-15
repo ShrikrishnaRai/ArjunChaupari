@@ -27,6 +27,7 @@
                     <menus>
                         <Menu mnemonicParsing="false" text="File">
                             <items>
+                        <MenuItem mnemonicParsing="false" text="Log Out" />
                                 <MenuItem mnemonicParsing="false" text="Close" />
                             </items>
                         </Menu>
@@ -44,9 +45,9 @@
                 </MenuBar>
                 <ToolBar prefHeight="40.0" prefWidth="200.0">
                     <items>
-                        <Button mnemonicParsing="false" text="Log Out" />
+                        <Button fx:id="home" mnemonicParsing="false" onAction="#home" text="Home" />
                         <Pane HBox.hgrow="ALWAYS" />
-                        <TextField fx:id="searchText" alignment="BASELINE_RIGHT" promptText="Inventory" />
+                        <TextField fx:id="searchText" alignment="BASELINE_LEFT" promptText="Inventory" />
                         <Button alignment="BOTTOM_RIGHT" mnemonicParsing="false" onAction="#loadSearchInventory" text="Search" />
                     </items>
                 </ToolBar>
@@ -54,7 +55,7 @@
         </VBox>
     </top>
     <center>
-        <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+        <BorderPane fx:id="borderPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <center>
                 <SplitPane orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" BorderPane.alignment="CENTER">
                     <items>
@@ -183,9 +184,13 @@
                                     </content>
                                 </TitledPane>
                                 <TitledPane animated="false" text="Staff">
-                                    <content>
-                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                                    </content>
+                           <content>
+                              <VBox prefHeight="200.0" prefWidth="100.0">
+                                 <children>
+                                    <Button fx:id="createStaff" mnemonicParsing="false" onAction="#createStaff" prefHeight="26.0" prefWidth="178.0" text="Create User" />
+                                 </children>
+                              </VBox>
+                           </content>
                                 </TitledPane>
                             </panes>
                         </Accordion>

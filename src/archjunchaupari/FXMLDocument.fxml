@@ -64,7 +64,7 @@
             <children>
                 <HBox alignment="BASELINE_RIGHT" prefHeight="28.0" prefWidth="600.0">
                <children>
-                  <Label prefHeight="16.0" prefWidth="94.0" text="Running..." />
+                  <Label fx:id="status" prefHeight="16.0" prefWidth="94.0" text="ArjunChaupari" />
                   <ProgressBar fx:id="progressBar" prefHeight="54.0" prefWidth="200.0" progress="0.0" />
                </children>
                 </HBox>

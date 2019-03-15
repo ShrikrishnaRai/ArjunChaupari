@@ -5,6 +5,7 @@
  */
 package archjunchaupari.DAO.Staff;
 
+import archjunchaupari.Model.Inventory.ExInventoryDto;
 import archjunchaupari.Model.Staff.StaffDto;
 import java.util.List;
 
@@ -17,8 +18,12 @@ public interface StaffDao {
     void saveStaff(StaffDto staffDto);
 
     List<StaffDto> getStaffList();
-    
+
     void deleteStaff(int id);
-    
+
     void updateStaff(StaffDto staffDto);
+
+    List<StaffDto> getSearchStaff(String name);
+
+    List<ExInventoryDto> getInventory(String name);
 }
