@@ -50,7 +50,6 @@ public class StaffDaoIMPL implements StaffDao {
             HttpPost httpPost = new HttpPost(RestUrl.SAVE_STAFF);
             Gson gson = new Gson();
             String json = gson.toJson(staffDto);
-            JOptionPane.showMessageDialog(null, json);
             StringEntity entity = new StringEntity(json);
             httpPost.setEntity(entity);
             httpPost.setHeader("Accept", "application/json");
@@ -147,7 +146,6 @@ public class StaffDaoIMPL implements StaffDao {
         List<StaffDto> staffDtoList = new ArrayList<>();
         try {
             HttpClient client = HttpClientBuilder.create().build();
-            JOptionPane.showMessageDialog(null,name);
             HttpGet request = new HttpGet(RestUrl.SEARCH_INVENTORY + "?search=" + name);
             request.setHeader("Accept", "application/json");
             request.setHeader("Content-type", "application/json");

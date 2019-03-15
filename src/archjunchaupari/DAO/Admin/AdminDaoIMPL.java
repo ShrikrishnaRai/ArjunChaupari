@@ -32,9 +32,8 @@ public class AdminDaoIMPL implements AdminDao {
             CloseableHttpClient client = HttpClients.createDefault();
             Gson gson = new Gson();
             String json = gson.toJson(inventoryDto);
-            JOptionPane.showMessageDialog(null, json);
             StringEntity entity = new StringEntity(json);
-            HttpPut httpPut = new HttpPut(RestUrl.UPDATE_INVENTORY + inventoryDto.getId() + "/");
+            HttpPut httpPut = new HttpPut(RestUrl.ALLOW_INVENTORY + inventoryDto.getId() + "/");
             httpPut.setEntity(entity);
             httpPut.setHeader("Accept", "application/json");
             httpPut.setHeader("Content-type", "application/json");

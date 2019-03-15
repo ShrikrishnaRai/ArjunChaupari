@@ -57,7 +57,7 @@ public class PatraChalaniDaoIMPL implements PatraChalaniDao {
             CloseableHttpResponse response = client.execute(httpPost);
             client.close();
             statusCode = response.getStatusLine().getStatusCode();
-            if (statusCode == 201) {
+            if (statusCode == 201 || statusCode == 401 || statusCode == 200 || statusCode == 204) {
                 JOptionPane.showMessageDialog(null, "Patra Chalani Information Saved");
             }
         } catch (UnsupportedEncodingException ex) {

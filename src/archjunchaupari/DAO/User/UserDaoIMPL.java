@@ -31,7 +31,6 @@ public class UserDaoIMPL implements UserDao {
             HttpPost httpPost = new HttpPost(RestUrl.REGISTER_USER);
             Gson gson = new Gson();
             String json = gson.toJson(userDto);
-            JOptionPane.showMessageDialog(null, json);
             StringEntity entity = new StringEntity(json);
             httpPost.setEntity(entity);
             httpPost.setHeader("Accept", "application/json");

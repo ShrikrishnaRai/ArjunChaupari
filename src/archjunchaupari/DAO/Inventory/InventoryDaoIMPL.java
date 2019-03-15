@@ -66,7 +66,7 @@ public class InventoryDaoIMPL implements InventoryDAO {
             CloseableHttpResponse response = client.execute(httpPost);
             client.close();
             statusCode = response.getStatusLine().getStatusCode();
-            if (statusCode == 201) {
+            if (statusCode == 201 || statusCode == 401 || statusCode == 200 || statusCode == 204) {
                 if (LoginDaoIMPL.is_staff == true) {
                     JOptionPane.showMessageDialog(null, "Request Sent for Approval");
                 }

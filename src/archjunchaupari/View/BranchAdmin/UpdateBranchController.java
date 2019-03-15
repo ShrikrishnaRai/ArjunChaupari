@@ -40,6 +40,9 @@ public class UpdateBranchController extends LangSts implements Initializable {
     private TextField staffDesignation;
 
     @FXML
+    private ComboBox staffRoleComboBox;
+
+    @FXML
     private Label staffDesignation_Label;
 
     @FXML
@@ -89,7 +92,7 @@ public class UpdateBranchController extends LangSts implements Initializable {
         // editable();
         LoadLang();
         loadStaffGender();
-
+        loadStaffRole();
     }
 
     @FXML
@@ -103,8 +106,9 @@ public class UpdateBranchController extends LangSts implements Initializable {
         userDto.setJoined_date(staffJoinedDate.getValue().toString());
         userDto.setPassword(staffPassword.getText());
         userDto.setGender(staffComboBox.getSelectionModel().getSelectedItem().toString());
-        userDto.setRole("Branch Admin");
+        userDto.setRole(staffRoleComboBox.getSelectionModel().getSelectedItem().toString());
         userDto.setAddress(staffAddress.getText());
+
         userService.saveUser(userDto);
     }
 
@@ -112,6 +116,12 @@ public class UpdateBranchController extends LangSts implements Initializable {
         ObservableList<String> roleType = staffComboBox.getItems();
         roleType.add("Male");
         roleType.add("Female");
+    }
+
+    void loadStaffRole() {
+        ObservableList<String> roleType = staffRoleComboBox.getItems();
+        roleType.add("Branch Admin");
+        roleType.add("Staff");
     }
 
     @FXML

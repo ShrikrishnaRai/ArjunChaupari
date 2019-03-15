@@ -103,6 +103,9 @@ public class BranchAdminDashController implements Initializable {
 
     @FXML
     private TableColumn<ExInventoryDto, String> columnType;
+    
+    @FXML
+    private TableColumn<ExInventoryDto,String> columnIs_Approved;
 
     @FXML
     private TextField textName;
@@ -368,10 +371,9 @@ public class BranchAdminDashController implements Initializable {
                         dialog.show();
                         allowButton.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event1) -> {
                             dialog.close();
-                            JOptionPane.showMessageDialog(null, inventoryDto1.getId());
-                            inventoryDto1.setIs_approved("rejected");
+                            inventoryDto1.setIs_approved("Approved");
                             allowInvenory(inventoryDto1);
-                            JOptionPane.showMessageDialog(null, inventoryDto1.getIs_approved());
+                            loadTable();
                         });
                     }
                 }
@@ -395,6 +397,7 @@ public class BranchAdminDashController implements Initializable {
         columnRemarks.setCellValueFactory(new PropertyValueFactory<>("remarks"));
         columnDate.setCellValueFactory(new PropertyValueFactory<>("created_date"));
         columnType.setCellValueFactory(new PropertyValueFactory<>("type"));
+        columnIs_Approved.setCellValueFactory(new PropertyValueFactory<>("is_approved"));
         tableView.getItems().setAll(inventoryService.getInventory());
     }
 

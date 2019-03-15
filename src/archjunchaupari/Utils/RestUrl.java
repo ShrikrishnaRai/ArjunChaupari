@@ -15,7 +15,7 @@ public class RestUrl {
     public static String SAVE_INVENTORY = "http://aavash.pythonanywhere.com/api/v1/inventory/item/";
     public static String GET_INVENTORY = "http://aavash.pythonanywhere.com/api/v1/inventory/item/";
     public static String GET_INVENTORY_TYPE = "http://aavash.pythonanywhere.com/api/v1/inventory/item/";
-    public static String UPDATE_INVENTORY = "http://aavash.pythonanywhere.com/api/v1/inventory/item/";
+    public static String UPDATE_INVENTORY = "http://aavash.pythonanywhere.com/api/v1/inventory/item-approve/";
 //requires id
     public static String DELTE_INVENTORY = "http://aavash.pythonanywhere.com/api/v1/inventory/item/";
     public static String SEARCH_INVENTORY = "http://aavash.pythonanywhere.com/api/v1/inventory/item/";
