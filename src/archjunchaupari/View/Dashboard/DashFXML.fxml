@@ -56,7 +56,7 @@
                 </MenuBar>
                 <ToolBar prefHeight="22.0" prefWidth="600.0">
                     <items>
-                        <Button fx:id="logOut" alignment="CENTER" mnemonicParsing="false" onAction="#logOut" prefHeight="28.0" prefWidth="100.0" style="-fx-background-color: #904e4e;" text="Log Out" textFill="WHITE">
+                        <Button fx:id="home" alignment="CENTER" mnemonicParsing="false" onAction="#home" prefHeight="28.0" prefWidth="100.0" style="-fx-background-color: #904e4e;" text="Home" textFill="WHITE">
                             <font>
                                 <Font name="System Bold" size="12.0" />
                             </font>

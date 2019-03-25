@@ -19,7 +19,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -346,7 +345,7 @@ public class DashFXMLController extends LangSts implements Initializable {
     private SplitPane splitPane;
 
     @FXML
-    private Button logOut;
+    private Button home;
 
     @FXML
     private Button b;
@@ -553,6 +552,11 @@ public class DashFXMLController extends LangSts implements Initializable {
         Editable();
         loadComboBox();
         progressBar.setProgress(0.0);
+        searchText.textProperty().addListener((obs,oldText,newText)->{
+            if(newText==null){
+                loadTable();
+            }
+        });
     }
 
     void loadComboBox() {
@@ -774,9 +778,20 @@ public class DashFXMLController extends LangSts implements Initializable {
             inventoryDto.setCreated_date(textDate.getValue().toString());
             inventoryDto.setType(typeComboBox.getValue().toString());
             inventoryService.saveInventory(inventoryDto);
+            textName.setText(null);
+            textRegistrationNumber.setText(null);
+            textQuantity.setText(null);
+            textRate.setText(null);
+            textSpecification.setText(null);
+            textSection.setText(null);
+            textSection_number.setText(null);
+            textRemarks.setText(null);
+            textDate.setValue(null);
+            typeComboBox.setValue(null);
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex);
         }
+        loadTable();
 
     }
 
@@ -786,11 +801,29 @@ public class DashFXMLController extends LangSts implements Initializable {
         patraChalaniDto = new PatraChalaniDto();
 
     }
+    
+    @FXML
+    public void home(){
+             switch (tabPane.getSelectionModel().getSelectedIndex()) {
+            case 0:
+                loadTable();
+                break;
+            case 1:
+                JOptionPane.showMessageDialog(null, "Please Enter Staff or Inventory Name");
+                break;
+            case 2:
+                JOptionPane.showMessageDialog(null, "Please Enter Staff or Inventory Name");
+                break;
+            case 3:
+                loadStaffTable();
+                break;
+        }
+    }
 
     @FXML
     public void logOut() {
         try {
-            Stage primary_stage = (Stage) logOut.getScene().getWindow();
+            Stage primary_stage = (Stage) home.getScene().getWindow();
             primary_stage.close();
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/archjunchaupari/FXMLDocument.fxml"));
             Parent root1 = (Parent) fxmlLoader.load();
@@ -984,9 +1017,7 @@ public class DashFXMLController extends LangSts implements Initializable {
                 JOptionPane.showMessageDialog(null, "Please Enter Staff or Inventory Name");
                 break;
             case 3:
-                JOptionPane.showMessageDialog(null, "Hello");
                 searchStaff(searchText.getText());
-                //  searchStaff(searchText.getText());
                 break;
         }
     }

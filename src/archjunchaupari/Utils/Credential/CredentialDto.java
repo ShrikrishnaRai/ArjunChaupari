@@ -14,7 +14,7 @@ public class CredentialDto {
     private String token;
     private String email;
     private int user_id;
-    private boolean is_super_user;
+    private boolean is_superuser;
     private boolean is_super_admin;
     private boolean is_branch_admin;
     private boolean is_staff;
@@ -43,13 +43,14 @@ public class CredentialDto {
         this.user_id = user_id;
     }
 
-    public boolean isIs_super_user() {
-        return is_super_user;
+    public boolean isIs_superuser() {
+        return is_superuser;
     }
 
-    public void setIs_super_user(boolean is_super_user) {
-        this.is_super_user = is_super_user;
+    public void setIs_superuser(boolean is_superuser) {
+        this.is_superuser = is_superuser;
     }
+
 
     public boolean isIs_super_admin() {
         return is_super_admin;

@@ -22,26 +22,25 @@
     <top>
         <VBox prefHeight="73.0" prefWidth="600.0" spacing="10.0" BorderPane.alignment="CENTER">
             <children>
-                <MenuBar>
-                    <menus>
-                        <Menu fx:id="file" mnemonicParsing="false" text="File">
-                            <items>
-                                <MenuItem fx:id="close" mnemonicParsing="false" onAction="#close" text="Close" />
-                            </items>
-                        </Menu>
-                        <Menu mnemonicParsing="false" text="Language">
-                            <items>
-                                <MenuItem mnemonicParsing="false" onAction="#setNepali" text="Nepali" />
-                        <MenuItem mnemonicParsing="false" onAction="#setEnglish" text="English" />
-                            </items>
-                        </Menu>
-                        <Menu mnemonicParsing="false" text="Help">
-                            <items>
-                                <MenuItem mnemonicParsing="false" text="About" />
-                            </items>
-                        </Menu>
-                    </menus>
-                </MenuBar>
+            <MenuBar>
+              <menus>
+                <Menu mnemonicParsing="false" text="File">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Close" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Edit">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Delete" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="About" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
                 <HBox alignment="BASELINE_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                     <children>
                         <TextField fx:id="email" promptText="Email" />

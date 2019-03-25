@@ -67,16 +67,16 @@ public class InventoryDaoIMPL implements InventoryDAO {
             client.close();
             statusCode = response.getStatusLine().getStatusCode();
             if (statusCode == 201 || statusCode == 401 || statusCode == 200 || statusCode == 204) {
-                if (LoginDaoIMPL.is_staff == true) {
+                if (LoginDaoIMPL.isIs_staff()) {
                     JOptionPane.showMessageDialog(null, "Request Sent for Approval");
                 }
-                if (LoginDaoIMPL.is_branch_admin == true) {
+                if (LoginDaoIMPL.isIs_branch_admin()) {
                     JOptionPane.showMessageDialog(null, "Inventory Saved");
                 }
-                if (LoginDaoIMPL.is_super_admin == true) {
+                if (LoginDaoIMPL.isIs_super_admin()) {
                     JOptionPane.showMessageDialog(null, "Inventory Saved");
                 }
-                if (LoginDaoIMPL.is_superuser == true) {
+                if (LoginDaoIMPL.isIs_superuser()) {
                     JOptionPane.showMessageDialog(null, "Inventory Saved");
                 }
             } else {

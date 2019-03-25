@@ -135,16 +135,11 @@ public class FXMLDocumentController extends LangSts implements Initializable {
             JOptionPane.showMessageDialog(null, "Please Select Your Role");
         } else if ("Staff".equals(roleCombo.getSelectionModel().getSelectedItem().toString()) && loginServices_Ic.login(email.getText(), password.getText())) {
             Stage primary_stage = (Stage) login.getScene().getWindow();
-            primary_stage.close();
-            primary_stage.setResizable(false);
-
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/archjunchaupari/View/Dashboard/DashFXML.fxml"));
-            Parent root1 = (Parent) fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.setTitle("ArjunChaupari Gaupalika");
-            stage.setScene(new Scene(root1));
-            stage.show();
-
+            Parent root1 = fxmlLoader.load();
+            primary_stage.setTitle("ArjunChaupari Gaupalika");
+            primary_stage.setScene(new Scene(root1));
+            primary_stage.show();
         } else if ("Super Admin".equals(roleCombo.getSelectionModel().getSelectedItem().toString()) && loginServices_Ic.login(email.getText(), password.getText())) {
             Stage primary_stage = (Stage) login.getScene().getWindow();
             primary_stage.close();

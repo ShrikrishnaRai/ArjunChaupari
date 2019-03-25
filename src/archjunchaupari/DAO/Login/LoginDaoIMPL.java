@@ -61,10 +61,10 @@ public class LoginDaoIMPL implements LoginDAO {
         credentialList = new Gson().fromJson(br_Dco, credentialDto);
         for (int i = 0; i < credentialList.size(); i++) {
             token = credentialList.get(i).getToken();
-            is_superuser = credentialList.get(i).isIs_super_user();
-            is_super_admin = credentialList.get(i).isIs_super_admin();
-            is_branch_admin = credentialList.get(i).isIs_branch_admin();
-            is_staff = credentialList.get(i).isIs_staff();
+            setIs_superuser(credentialList.get(i).isIs_superuser());
+            setIs_super_admin(credentialList.get(i).isIs_super_admin());
+            setIs_branch_admin(credentialList.get(i).isIs_branch_admin());
+            setIs_staff(credentialList.get(i).isIs_staff());
             if (token != null) {
                 break;
             }
@@ -84,5 +84,39 @@ public class LoginDaoIMPL implements LoginDAO {
     public static void setToken(String token) {
         LoginDaoIMPL.token = token;
     }
+
+    public static boolean isIs_superuser() {
+        return is_superuser;
+    }
+
+    public static void setIs_superuser(boolean is_superuser) {
+        LoginDaoIMPL.is_superuser = is_superuser;
+    }
+
+    public static boolean isIs_super_admin() {
+        return is_super_admin;
+    }
+
+    public static void setIs_super_admin(boolean is_super_admin) {
+        LoginDaoIMPL.is_super_admin = is_super_admin;
+    }
+
+    public static boolean isIs_branch_admin() {
+        return is_branch_admin;
+    }
+
+    public static void setIs_branch_admin(boolean is_branch_admin) {
+        LoginDaoIMPL.is_branch_admin = is_branch_admin;
+    }
+
+    public static boolean isIs_staff() {
+        return is_staff;
+    }
+
+    public static void setIs_staff(boolean is_staff) {
+        LoginDaoIMPL.is_staff = is_staff;
+    }
+    
+    
 
 }

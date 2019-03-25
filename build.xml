@@ -50,4 +50,37 @@
     nbproject/build-impl.xml and nbproject/jfx-impl.xml.
 
     -->
+<!--    <path id="build.classpath">
+        <fileset dir="${basedir}">
+            <include name="lib/*.jar"/>
+        </fileset>
+    </path>
+
+    <pathconvert property="manifest.classpath" pathsep=" ">
+        <path refid="build.classpath"/>
+        <mapper>
+            <chainedmapper>
+                <flattenmapper/>
+                <globmapper from="*.jar" to="lib/*.jar"/>
+            </chainedmapper>
+        </mapper>
+    </pathconvert>
+    
+    <property name="jar.class.path" value="lib/forms-1.2.0.jar lib/BrowserLauncher.jar"/>
+
+    <path id="project.class.path">
+        <pathelement location="build"/>
+        <fileset dir="." includes="${jar.class.path}"/>
+    </path>
+
+    <target depends="compile" name="buildjar">
+        <jar jarfile="${basedir}/${test.jar}">
+            <fileset dir="${build}" />
+            <manifest>
+                <attribute name="Main-Class" value="archjunchaupari.ArchjunChaupari"/>
+                <attribute name="Class-Path" value="${manifest.classpath}"/>
+            </manifest>
+        </jar>
+    </target>
+</project>-->
 </project>
