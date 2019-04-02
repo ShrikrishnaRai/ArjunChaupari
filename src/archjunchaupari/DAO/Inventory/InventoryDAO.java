@@ -17,6 +17,8 @@ public interface InventoryDAO {
     void saveInventory(ExInventoryDto inventoryDto);
 
     List<ExInventoryDto> getInventory();
+    
+    List<ExInventoryDto> getInventoryType(String type);
 
     void deleteInventory(int id);
 

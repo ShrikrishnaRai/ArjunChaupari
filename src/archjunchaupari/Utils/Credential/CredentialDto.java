@@ -14,10 +14,15 @@ public class CredentialDto {
     private String token;
     private String email;
     private int user_id;
-    private boolean is_superuser;
-    private boolean is_super_admin;
-    private boolean is_branch_admin;
-    private boolean is_staff;
+    private String role;
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
 
     public String getToken() {
         return token;
@@ -41,39 +46,6 @@ public class CredentialDto {
 
     public void setUser_id(int user_id) {
         this.user_id = user_id;
-    }
-
-    public boolean isIs_superuser() {
-        return is_superuser;
-    }
-
-    public void setIs_superuser(boolean is_superuser) {
-        this.is_superuser = is_superuser;
-    }
-
-
-    public boolean isIs_super_admin() {
-        return is_super_admin;
-    }
-
-    public void setIs_super_admin(boolean is_super_admin) {
-        this.is_super_admin = is_super_admin;
-    }
-
-    public boolean isIs_branch_admin() {
-        return is_branch_admin;
-    }
-
-    public void setIs_branch_admin(boolean is_branch_admin) {
-        this.is_branch_admin = is_branch_admin;
-    }
-
-    public boolean isIs_staff() {
-        return is_staff;
-    }
-
-    public void setIs_staff(boolean is_staff) {
-        this.is_staff = is_staff;
     }
 
 }

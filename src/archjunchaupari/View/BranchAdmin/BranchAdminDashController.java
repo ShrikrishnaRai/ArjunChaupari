@@ -103,9 +103,9 @@ public class BranchAdminDashController implements Initializable {
 
     @FXML
     private TableColumn<ExInventoryDto, String> columnType;
-    
+
     @FXML
-    private TableColumn<ExInventoryDto,String> columnIs_Approved;
+    private TableColumn<ExInventoryDto, String> columnIs_Approved;
 
     @FXML
     private TextField textName;
@@ -547,13 +547,11 @@ public class BranchAdminDashController implements Initializable {
     void home() {
         try {
             Stage primary_stage = (Stage) home.getScene().getWindow();
-            primary_stage.close();
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/archjunchaupari/View/BranchAdmin/BranchAdminDash.fxml"));
             Parent root1 = (Parent) fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.setTitle("ArjunChaupari Gaupalika");
-            stage.setScene(new Scene(root1));
-            stage.show();
+            primary_stage.setTitle("ArjunChaupari Gaupalika");
+            primary_stage.setScene(new Scene(root1));
+            primary_stage.show();
         } catch (IOException ex) {
             Logger.getLogger(BranchAdminDashController.class.getName()).log(Level.SEVERE, null, ex);
         }

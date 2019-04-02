@@ -1,0 +1,26 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Mar 29, 2019, 3:54:37 PM
+    Author     : shree
+*/
+
+ProgressBar{
+    animation:move 2s linear infinite;
+}
+
+@keyframe move{
+    0%{
+        background-position:0 0;
+    }
+    100%{
+        background-position:50px 50px;
+    }
+}
+
+.home{
+    -fx-background-color: red;
+}

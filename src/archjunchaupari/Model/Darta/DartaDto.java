@@ -108,6 +108,7 @@ public class DartaDto {
         this.image = image;
     }
 
+
     public String getResponsible_person_full_name() {
         return responsible_person_full_name;
     }

@@ -17,7 +17,10 @@ import archjunchaupari.Services.Staff.StaffService;
 import archjunchaupari.Utils.LangSts;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
@@ -32,6 +35,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -62,6 +66,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
+import org.apache.commons.io.IOUtils;
 
 /**
  * FXML Controller class
@@ -77,6 +82,8 @@ public class DashFXMLController extends LangSts implements Initializable {
     TreeItem<String> savedSpendable;
     TreeItem<String> discardedUnspendable;
     TreeItem<String> savedUnspendable;
+    TreeItem<String> PendingSpendable;
+    TreeItem<String> PendingUnspendable;
 
     @FXML
     private ProgressBar progressBar;
@@ -552,9 +559,32 @@ public class DashFXMLController extends LangSts implements Initializable {
         Editable();
         loadComboBox();
         progressBar.setProgress(0.0);
-        searchText.textProperty().addListener((obs,oldText,newText)->{
-            if(newText==null){
+        searchText.textProperty().addListener((obs, oldText, newText) -> {
+            if (newText == null) {
                 loadTable();
+            }
+        });
+        treeViewDash.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null && newValue != oldValue) {
+                switch (newValue.toString()) {
+                    case "TreeItem [ value: Saved Spendable Inventory ]":
+                        loadInventoryTableType("expendable");
+                        break;
+                    case "TreeItem [ value: Discarded Inventory ]":
+                        loadInventoryTableType("unexpendable");
+                        break;
+                }
+                if (treeViewDash.getSelectionModel().selectedItemProperty().getValue().equals("TreeItem [ value: Discarded Inventory ]")) {
+                    switch (newValue.toString()) {
+                        case "TreeItem [ value: Saved Inventory ]":
+                            loadInventoryTableType("");
+                            System.out.println("check:: " + treeViewDash.getSelectionModel().selectedItemProperty().getValue());
+                            break;
+                        case "TreeItem [ value: Discarded Inventory ]":
+                            break;
+                    }
+                }
+
             }
         });
     }
@@ -607,7 +637,6 @@ public class DashFXMLController extends LangSts implements Initializable {
 
     //loads data to patrachalani table when program runs
     void loadPatraChalaniTable() {
-
         patraChalaniService = new PatraChalaniService();
         chalaniId.setCellValueFactory(new PropertyValueFactory<>("id"));
         chalani_date.setCellValueFactory(new PropertyValueFactory<>("chalani_date"));
@@ -640,6 +669,25 @@ public class DashFXMLController extends LangSts implements Initializable {
         tableView.getItems().setAll(inventoryService.getInventory());
     }
 
+    //load data on inventory table when program runs
+    public void loadInventoryTableType(String type) {
+        inventoryService = new InventoryService();
+        //load item on tableview from pojo class 
+        columnId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        columnName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        columnRegistrationNumber.setCellValueFactory(new PropertyValueFactory<>("registration_number"));
+        columnQuantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+        columnRate.setCellValueFactory(new PropertyValueFactory<>("rate"));
+        columnSpecification.setCellValueFactory(new PropertyValueFactory<>("specification"));
+        columnSection.setCellValueFactory(new PropertyValueFactory<>("section"));
+        columnSection_number.setCellValueFactory(new PropertyValueFactory<>("section_number"));
+        columnRemarks.setCellValueFactory(new PropertyValueFactory<>("remarks"));
+        columnDate.setCellValueFactory(new PropertyValueFactory<>("created_date"));
+        columnIs_Approved.setCellValueFactory(new PropertyValueFactory<>("is_approved"));
+        columnType.setCellValueFactory(new PropertyValueFactory<>("type"));
+        tableView.getItems().setAll(inventoryService.getInventoryType(type));
+    }
+
     //load searched Inventory on Table
     public void loadSearchTable(String inventory) {
         inventoryService = new InventoryService();
@@ -668,7 +716,7 @@ public class DashFXMLController extends LangSts implements Initializable {
         letter_quantity.setCellValueFactory(new PropertyValueFactory<>("letter_quantity"));
         to_officee.setCellValueFactory(new PropertyValueFactory<>("to_office"));
         subject.setCellValueFactory(new PropertyValueFactory<>("subject"));
-        // image.setCellValueFactory(new PropertyValueFactory<>("image"));
+        //   image.setCellValueFactory(new PropertyValueFactory<>("image"));
         responsible_person_full_name.setCellValueFactory(new PropertyValueFactory<>("responsible_person_full_name"));
         signed_date.setCellValueFactory(new PropertyValueFactory<>("signed_date"));
         remarks.setCellValueFactory(new PropertyValueFactory<>("remarks"));
@@ -685,6 +733,7 @@ public class DashFXMLController extends LangSts implements Initializable {
             root.getChildren().add(new TreeItem<>(itemString));
         }
         treeViewDash.setRoot(root);
+
     }
 
     //load Darta treeView node
@@ -696,23 +745,29 @@ public class DashFXMLController extends LangSts implements Initializable {
         }
         //  TreeItem<String> inventory = new TreeItem<>("Inventory");
 
-        spendable = new TreeItem<>(resourceBundle.getString("Spendable_Inventory"));
+        spendable = new TreeItem<>(resourceBundle.getString("Inventory"));
         unspendable = new TreeItem<>(resourceBundle.getString("UnSpendable_Inventory"));
 
         //saved or discarded for unspendable
-        discardedSpendable = new TreeItem(resourceBundle.getString("Discarded_Inventory"));
-        savedSpendable = new TreeItem(resourceBundle.getString("Saved_Inventory"));
+        discardedSpendable = new TreeItem(resourceBundle.getString("Rejected_Inventory"));
+        savedSpendable = new TreeItem(resourceBundle.getString("Approved_Inventory"));
 
-        discardedUnspendable = new TreeItem(resourceBundle.getString("Discarded_Inventory"));
-        savedUnspendable = new TreeItem(resourceBundle.getString("Saved_Inventory"));
+        PendingSpendable = new TreeItem(resourceBundle.getString("Pending_Inventory"));
+        PendingUnspendable = new TreeItem(resourceBundle.getString("Pending_Unspendable_Inventory"));
+
+        discardedUnspendable = new TreeItem(resourceBundle.getString("Discarded_Unspendable_Inventory"));
+        savedUnspendable = new TreeItem(resourceBundle.getString("Saved_Unspendable_Inventory"));
+        
 
         root.getChildren().add(spendable);
-        root.getChildren().add(unspendable);
+        //root.getChildren().add(unspendable);
         //   inventory.getChildren().add(spendable);
         spendable.getChildren().add(savedSpendable);
+        spendable.getChildren().add(PendingSpendable);
         spendable.getChildren().add(discardedSpendable);
 
         unspendable.getChildren().add(savedUnspendable);
+        unspendable.getChildren().add(PendingUnspendable);
         unspendable.getChildren().add(discardedUnspendable);
         //   inventory.getChildren().add(unspendable);
         treeViewDash.setRoot(root);
@@ -751,7 +806,22 @@ public class DashFXMLController extends LangSts implements Initializable {
         dartaDto.setRemarks(dartaRemarks.getText());
         dartaDto.setResponsible_person_full_name(reception.getText());
         dartaDto.setSubject(dartaSubject.getText());
-        //  dartaDto.setImage(uploadImage());
+        String jsonTxt = null;
+        try {
+            //        dartaDto.setImage(uploadImage());
+            InputStream inputStream = new FileInputStream(uploadImage());
+            jsonTxt = IOUtils.toString(inputStream, "UTF-8");
+
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(DashFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(DashFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        dartaDto.setImage(jsonTxt);
+        /*    System.out.println(jsonTxt);
+            JSONObject json = new JSONObject(jsonTxt);       
+            String a = json.getString("1000");
+            System.out.println(a); */
         String dateValue = dartaDate.getValue().format(DateTimeFormatter.ISO_DATE);
         dartaDto.setDarta_date(dateValue);
         String signedValue = signedDate.getValue().format(DateTimeFormatter.ISO_DATE);
@@ -759,7 +829,13 @@ public class DashFXMLController extends LangSts implements Initializable {
         dartaService.saveDarta(dartaDto);
     }
 
+    @FXML
+    void exit() {
+        Platform.exit();
+    }
+
     void saveInventoryAction() {
+
     }
 
     @FXML
@@ -778,21 +854,25 @@ public class DashFXMLController extends LangSts implements Initializable {
             inventoryDto.setCreated_date(textDate.getValue().toString());
             inventoryDto.setType(typeComboBox.getValue().toString());
             inventoryService.saveInventory(inventoryDto);
-            textName.setText(null);
-            textRegistrationNumber.setText(null);
-            textQuantity.setText(null);
-            textRate.setText(null);
-            textSpecification.setText(null);
-            textSection.setText(null);
-            textSection_number.setText(null);
-            textRemarks.setText(null);
-            textDate.setValue(null);
-            typeComboBox.setValue(null);
+            emptyInventoryField();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex);
         }
         loadTable();
 
+    }
+
+    public void emptyInventoryField() {
+        textName.setText(null);
+        textRegistrationNumber.setText(null);
+        textQuantity.setText(null);
+        textRate.setText(null);
+        textSpecification.setText(null);
+        textSection.setText(null);
+        textSection_number.setText(null);
+        textRemarks.setText(null);
+        textDate.setValue(null);
+        typeComboBox.setValue(null);
     }
 
     @FXML
@@ -801,10 +881,10 @@ public class DashFXMLController extends LangSts implements Initializable {
         patraChalaniDto = new PatraChalaniDto();
 
     }
-    
+
     @FXML
-    public void home(){
-             switch (tabPane.getSelectionModel().getSelectedIndex()) {
+    public void home() {
+        switch (tabPane.getSelectionModel().getSelectedIndex()) {
             case 0:
                 loadTable();
                 break;
@@ -870,12 +950,32 @@ public class DashFXMLController extends LangSts implements Initializable {
                                 patraChalaniDto.getTicket(),
                                 patraChalaniDto.getRemarks());
                     });
-                    dialogVbox.getChildren().add(new Text(patraChalaniDto.getId() + " "));
-                    dialogVbox.getChildren().add(button);
-                    dialogVbox.getChildren().add(buttonUpdate);
-                    Scene dialogScene = new Scene(dialogVbox, 300, 200);
+
+                    HBox idHbox = new HBox();
+                    Label label_id = new Label("Id:: ");
+                    Label label_id_text = new Label("" + patraChalaniDto.getId());
+                    idHbox.getChildren().add(label_id);
+                    idHbox.getChildren().add(label_id_text);
+
+                    Label label_name = new Label("Chalani Number:: ");
+                    Label label_name_text = new Label("" + patraChalaniDto.getChalani_number());
+                    HBox nameHbox = new HBox();
+                    nameHbox.getChildren().add(label_name);
+                    nameHbox.getChildren().add(label_name_text);
+
+                    HBox buttonHbox = new HBox();
+                    buttonHbox.getChildren().add(button);
+                    buttonHbox.getChildren().add(buttonUpdate);
+
+                    dialogVbox.getChildren().add(idHbox);
+                    dialogVbox.getChildren().add(nameHbox);
+                    dialogVbox.getChildren().add(buttonHbox);
+
+                    dialogVbox.setPadding(new Insets(10, 10, 10, 10));
+                    Scene dialogScene = new Scene(dialogVbox, 300, 120);
                     dialog.setScene(dialogScene);
                     dialog.show();
+
                 }
             }
         });
@@ -888,6 +988,7 @@ public class DashFXMLController extends LangSts implements Initializable {
             if (event.getButton().equals(MouseButton.PRIMARY)) {
                 if (event.getClickCount() == 2) {
                     final Stage dialog = new Stage();
+                    dialog.setTitle("Staff Information");
                     dialog.initModality(Modality.APPLICATION_MODAL);
                     StaffDto staffDto = (StaffDto) staffTable.getSelectionModel().getSelectedItem();
                     VBox dialogVbox = new VBox(20);
@@ -914,10 +1015,30 @@ public class DashFXMLController extends LangSts implements Initializable {
                         dialog.close();
                         updateStaff.setDisable(false);
                     });
-                    dialogVbox.getChildren().add(new Text(staffDto.getName() + " " + staffDto.getDesignation()));
-                    dialogVbox.getChildren().add(button);
-                    dialogVbox.getChildren().add(buttonUpdate);
-                    Scene dialogScene = new Scene(dialogVbox, 300, 200);
+//                    dialogVbox.getChildren().add(button);
+//                    dialogVbox.getChildren().add(buttonUpdate);
+                    HBox idHbox = new HBox();
+                    Label label_id = new Label("Id::");
+                    Label label_id_text = new Label("" + staffDto.getId());
+                    idHbox.getChildren().add(label_id);
+                    idHbox.getChildren().add(label_id_text);
+
+                    Label label_name = new Label("Name::");
+                    Label label_name_text = new Label("" + staffDto.getName());
+                    HBox nameHbox = new HBox();
+                    nameHbox.getChildren().add(label_name);
+                    nameHbox.getChildren().add(label_name_text);
+
+                    HBox buttonHbox = new HBox();
+                    buttonHbox.getChildren().add(button);
+                    buttonHbox.getChildren().add(buttonUpdate);
+
+                    dialogVbox.getChildren().add(idHbox);
+                    dialogVbox.getChildren().add(nameHbox);
+                    dialogVbox.getChildren().add(buttonHbox);
+
+                    dialogVbox.setPadding(new Insets(10, 10, 10, 10));
+                    Scene dialogScene = new Scene(dialogVbox, 300, 120);
                     dialog.setScene(dialogScene);
                     dialog.show();
                 }
@@ -943,10 +1064,30 @@ public class DashFXMLController extends LangSts implements Initializable {
                         if (option == JOptionPane.YES_OPTION) {
                         }
                     });
-                    dialogVbox.getChildren().add(new Text(dartaDto.getDarta_date() + " " + dartaDto.getId()));
-                    dialogVbox.getChildren().add(button);
-                    dialogVbox.getChildren().add(buttonUpdate);
-                    Scene dialogScene = new Scene(dialogVbox, 300, 200);
+
+                    
+                    HBox idHbox = new HBox();
+                    Label label_id = new Label("Id:: ");
+                    Label label_id_text = new Label("" + dartaDto.getId());
+                    idHbox.getChildren().add(label_id);
+                    idHbox.getChildren().add(label_id_text);
+
+                    Label label_name = new Label("Darta Date:: ");
+                    Label label_name_text = new Label("" + dartaDto.getDarta_date());
+                    HBox nameHbox = new HBox();
+                    nameHbox.getChildren().add(label_name);
+                    nameHbox.getChildren().add(label_name_text);
+
+                    HBox buttonHbox = new HBox();
+                    buttonHbox.getChildren().add(button);
+                    buttonHbox.getChildren().add(buttonUpdate);
+
+                    dialogVbox.getChildren().add(idHbox);
+                    dialogVbox.getChildren().add(nameHbox);
+                    dialogVbox.getChildren().add(buttonHbox);
+
+                    dialogVbox.setPadding(new Insets(10, 10, 10, 10));
+                    Scene dialogScene = new Scene(dialogVbox, 300, 120);
                     dialog.setScene(dialogScene);
                     dialog.show();
                 }
@@ -962,9 +1103,11 @@ public class DashFXMLController extends LangSts implements Initializable {
                 if (event.getClickCount() == 2) {
                     //Dialog to display information and delete and update option
                     final Stage dialog = new Stage();
+                    dialog.setTitle("Inventory Information");
                     dialog.initModality(Modality.APPLICATION_MODAL);
                     ExInventoryDto inventoryDto1 = (ExInventoryDto) tableView.getSelectionModel().getSelectedItem();
                     VBox dialogVbox = new VBox(20);
+
                     Button button = new Button("Delete");
                     Button buttonUpdate = new Button("Update");
                     //Transfers to another update view
@@ -993,10 +1136,23 @@ public class DashFXMLController extends LangSts implements Initializable {
                         dialog.close();
                         updateInventory.setDisable(false);
                     });
-                    dialogVbox.getChildren().add(new Text(inventoryDto1.getName() + "" + inventoryDto1.getId()));
-                    dialogVbox.getChildren().add(button);
-                    dialogVbox.getChildren().add(buttonUpdate);
-                    Scene dialogScene = new Scene(dialogVbox, 300, 200);
+
+                    HBox hbox = new HBox(2);
+                    HBox idHbox = new HBox(2);
+                    HBox buttonHbox = new HBox(2);
+                    Label name_label = new Label("Name::");
+                    Label id_label = new Label("Id::");
+                    hbox.getChildren().add(name_label);
+                    hbox.getChildren().add(new Text(inventoryDto1.getName()));
+                    idHbox.getChildren().add(id_label);
+                    idHbox.getChildren().add(new Text(inventoryDto1.getId() + ""));
+                    dialogVbox.getChildren().add(idHbox);
+                    dialogVbox.getChildren().add(hbox);
+                    buttonHbox.getChildren().add(button);
+                    buttonHbox.getChildren().add(buttonUpdate);
+                    dialogVbox.getChildren().add(buttonHbox);
+                    dialogVbox.setPadding(new Insets(10, 10, 10, 10));
+                    Scene dialogScene = new Scene(dialogVbox, 300, 120);
                     dialog.setScene(dialogScene);
                     dialog.show();
                 }
@@ -1028,7 +1184,8 @@ public class DashFXMLController extends LangSts implements Initializable {
     }
 
     @FXML
-    public Image uploadImage() {
+    public File uploadImage() {
+        File file = null;
         Image image1 = null;
         try {
             FileChooser fileChooser = new FileChooser();
@@ -1038,7 +1195,7 @@ public class DashFXMLController extends LangSts implements Initializable {
             FileChooser.ExtensionFilter extFilterJPEG = new FileChooser.ExtensionFilter("JPEG files (*.jpeg)", "*.jpeg");
             fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG, extFilterJPEG);
             //Show open file dialog
-            File file = fileChooser.showOpenDialog(null);
+            file = fileChooser.showOpenDialog(null);
             String fileName = file.getAbsolutePath();
             imageLocation.setText(fileName);
             BufferedImage bufferedImage = ImageIO.read(file);
@@ -1046,7 +1203,7 @@ public class DashFXMLController extends LangSts implements Initializable {
         } catch (IOException | NullPointerException | IllegalArgumentException ex) {
             JOptionPane.showMessageDialog(null, "No Image Selected");
         }
-        return image1;
+        return file;
     }
 
     //method for staff Gender combobox
@@ -1090,6 +1247,8 @@ public class DashFXMLController extends LangSts implements Initializable {
                 textSection.getText()
         );
         inventoryService.updateInventory(inventoryDto);
+        updateInventory.setDisable(true);
+        emptyInventoryField();
         loadTable();
     }
 

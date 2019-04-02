@@ -49,4 +49,9 @@ public class InventoryService implements InventoryDaoService {
     public void updateInventory(ExInventoryDto inventoryDto) {
         in.updateInventory(inventoryDto);
     }
+ 
+    @Override
+    public List<ExInventoryDto> getInventoryType(String typ) {
+        return in.getInventoryType(typ);
+    }
 }

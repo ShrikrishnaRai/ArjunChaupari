@@ -7,6 +7,7 @@ package archjunchaupari.DAO.Inventory;
 
 //import archjunchaupari.FXMLDocumentController;
 import archjunchaupari.DAO.Login.LoginDaoIMPL;
+import static archjunchaupari.DAO.Login.LoginDaoIMPL.role;
 import archjunchaupari.Model.Inventory.ExInventoryDto;
 import archjunchaupari.Utils.Credential.CredentialDto;
 import archjunchaupari.Utils.RestUrl;
@@ -66,21 +67,11 @@ public class InventoryDaoIMPL implements InventoryDAO {
             CloseableHttpResponse response = client.execute(httpPost);
             client.close();
             statusCode = response.getStatusLine().getStatusCode();
-            if (statusCode == 201 || statusCode == 401 || statusCode == 200 || statusCode == 204) {
-                if (LoginDaoIMPL.isIs_staff()) {
-                    JOptionPane.showMessageDialog(null, "Request Sent for Approval");
-                }
-                if (LoginDaoIMPL.isIs_branch_admin()) {
-                    JOptionPane.showMessageDialog(null, "Inventory Saved");
-                }
-                if (LoginDaoIMPL.isIs_super_admin()) {
-                    JOptionPane.showMessageDialog(null, "Inventory Saved");
-                }
-                if (LoginDaoIMPL.isIs_superuser()) {
-                    JOptionPane.showMessageDialog(null, "Inventory Saved");
-                }
-            } else {
-                JOptionPane.showMessageDialog(null, "Server Error::" + response);
+            if (statusCode == 201 || statusCode == 401 || statusCode == 200 || statusCode == 204 && role.equals("staff")) {
+                JOptionPane.showMessageDialog(null, "Request Sent for Approval");
+            }
+            if (statusCode == 201 || statusCode == 401 || statusCode == 200 || statusCode == 204 && role.equals("Branch_Admin")) {
+                JOptionPane.showMessageDialog(null, "Inventory Saved");
             }
 
         } catch (UnsupportedEncodingException ex) {
@@ -90,7 +81,7 @@ public class InventoryDaoIMPL implements InventoryDAO {
         }
     }
 
-    //Dispalys inventoy in view
+//Dispalys inventoy in view
     @Override
     public List<ExInventoryDto> getInventory() {
         List<ExInventoryDto> inventoryList = new ArrayList<>();
@@ -107,8 +98,10 @@ public class InventoryDaoIMPL implements InventoryDAO {
             Type inventoryDto = new TypeToken<ArrayList<ExInventoryDto>>() {
             }.getType();
             inventoryList = new Gson().fromJson(bufReader, inventoryDto);
+
         } catch (IOException ex) {
-            Logger.getLogger(InventoryDaoIMPL.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(InventoryDaoIMPL.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
         return inventoryList;
     }
@@ -129,8 +122,36 @@ public class InventoryDaoIMPL implements InventoryDAO {
             Type inventoryDto = new TypeToken<ArrayList<ExInventoryDto>>() {
             }.getType();
             inventoryList = new Gson().fromJson(bufReader, inventoryDto);
+
         } catch (IOException ex) {
-            Logger.getLogger(InventoryDaoIMPL.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(InventoryDaoIMPL.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        }
+        return inventoryList;
+    }
+
+    //Search inventory with inventory name
+    public List<ExInventoryDto> getInventoryType(String type) {
+        List<ExInventoryDto> inventoryList = new ArrayList<>();
+        try {
+            HttpClient client = HttpClientBuilder.create().build();
+            HttpGet request = new HttpGet(RestUrl.GET_INVENTORY_TYPE
+            //        + "/?type=" + type+"/?is_approved=pending"
+            );
+            request.setHeader("Accept", "application/json");
+            request.setHeader("Content-type", "application/json");
+            request.addHeader("Authorization", "JWT " + LoginDaoIMPL.token);
+            HttpResponse response = client.execute(request);
+            BufferedReader bufReader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+            int statusCode = response.getStatusLine().getStatusCode();
+            Gson gson = new Gson();
+            Type inventoryDto = new TypeToken<ArrayList<ExInventoryDto>>() {
+            }.getType();
+            inventoryList = new Gson().fromJson(bufReader, inventoryDto);
+
+        } catch (IOException ex) {
+            Logger.getLogger(InventoryDaoIMPL.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
         return inventoryList;
     }
@@ -151,10 +172,12 @@ public class InventoryDaoIMPL implements InventoryDAO {
             } else {
                 JOptionPane.showMessageDialog(null, "" + response);
                 // JOptionPane.showMessageDialog(null, "Server Error");
+
             }
         } catch (IOException ex) {
 
-            Logger.getLogger(InventoryDaoIMPL.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(InventoryDaoIMPL.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -177,9 +200,11 @@ public class InventoryDaoIMPL implements InventoryDAO {
                 JOptionPane.showMessageDialog(null, "Updated");
             } else {
                 JOptionPane.showMessageDialog(null, "" + response);
+
             }
         } catch (IOException ex) {
-            Logger.getLogger(InventoryDaoIMPL.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(InventoryDaoIMPL.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 

@@ -21,6 +21,8 @@ public interface InventoryDaoService {
     void deleteInventory(int id);
 
     List<ExInventoryDto> getSearchInventory(String inventory);
+    
+    List<ExInventoryDto> getInventoryType(String typ);
 
     void updateInventory(ExInventoryDto inventoryDto);
 

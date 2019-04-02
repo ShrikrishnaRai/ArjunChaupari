@@ -42,7 +42,7 @@ public class BranchAmdinDaoIMPL implements BranchAdminDao {
             int statusCode;
             statusCode = response.getStatusLine().getStatusCode();
             if (statusCode == 204 || statusCode == 200 || statusCode == 201) {
-                JOptionPane.showMessageDialog(null, "Allowed Request");
+                JOptionPane.showMessageDialog(null, "Request Approved");
             } else {
                 JOptionPane.showMessageDialog(null, "" + response);
             }
