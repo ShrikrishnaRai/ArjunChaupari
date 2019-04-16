@@ -111,7 +111,7 @@ public class InventoryDaoIMPL implements InventoryDAO {
         List<ExInventoryDto> inventoryList = new ArrayList<>();
         try {
             HttpClient client = HttpClientBuilder.create().build();
-            HttpGet request = new HttpGet(RestUrl.SEARCH_INVENTORY + "/?search=" + inventory);
+            HttpGet request = new HttpGet(RestUrl.SEARCH_INVENTORY + "/?search="+ inventory);
             request.setHeader("Accept", "application/json");
             request.setHeader("Content-type", "application/json");
             request.addHeader("Authorization", "JWT " + LoginDaoIMPL.token);
@@ -135,7 +135,7 @@ public class InventoryDaoIMPL implements InventoryDAO {
         List<ExInventoryDto> inventoryList = new ArrayList<>();
         try {
             HttpClient client = HttpClientBuilder.create().build();
-            HttpGet request = new HttpGet(RestUrl.GET_INVENTORY_TYPE
+            HttpGet request = new HttpGet(RestUrl.GET_INVENTORY_TYPE+type
             //        + "/?type=" + type+"/?is_approved=pending"
             );
             request.setHeader("Accept", "application/json");

@@ -20,6 +20,15 @@ public class PatraChalaniDto {
     private String to_office;
     private String ticket;
     private String remarks;
+    private String created_by;
+
+    public String getCreated_by() {
+        return created_by;
+    }
+
+    public void setCreated_by(String created_by) {
+        this.created_by = created_by;
+    }
 
     public PatraChalaniDto(int id, String chalani_date, String chalani_number, String letter_quantity, String letter_date, String subject, String to_office, String ticket, String remarks) {
         this.id = id;
@@ -35,9 +44,6 @@ public class PatraChalaniDto {
 
     public PatraChalaniDto() {
     }
-    
-    
-    
 
     public int getId() {
         return id;

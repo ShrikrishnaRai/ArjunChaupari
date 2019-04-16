@@ -124,6 +124,7 @@
                                                                         <TableColumn fx:id="columnDate" prefWidth="75.0" text="Date" />
                                                                         <TableColumn fx:id="columnType" prefWidth="75.0" text="Type" />
                                                                         <TableColumn fx:id="columnIs_Approved" prefWidth="75.0" text="Approved" />
+                                                      <TableColumn fx:id="created_by" prefWidth="75.0" text="Created By" />
                                                                     </columns>
                                                                 </TableView>
                                                             </center>
@@ -320,6 +321,7 @@
                                                                         <TableColumn fx:id="chalaniSubject" prefWidth="75.0" text="Subject" />
                                                                         <TableColumn fx:id="chalaniRemarks" prefWidth="75.0" text="Remarks" />
                                                                         <TableColumn fx:id="columnIs_Approved2" prefWidth="75.0" text="Approved" />
+                                                      <TableColumn fx:id="chalani_created_by" prefWidth="75.0" text="Created By" />
                                                                     </columns>
                                                                 </TableView>
                                                             </center>

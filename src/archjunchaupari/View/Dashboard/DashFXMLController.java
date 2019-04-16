@@ -232,6 +232,9 @@ public class DashFXMLController extends LangSts implements Initializable {
 
     @FXML
     private TableColumn<PatraChalaniDto, String> chalani_number;
+    
+    @FXML
+    private TableColumn<PatraChalaniDto,String> chalani_created_by;
 
     @FXML
     private TextField chalani_number_t;
@@ -371,6 +374,9 @@ public class DashFXMLController extends LangSts implements Initializable {
 
     @FXML
     private TableView chalaniTable;
+    
+    @FXML
+    private TableColumn<ExInventoryDto,String> created_by;
 
     @FXML
     private TableColumn<ExInventoryDto, Hyperlink> columnDelete;
@@ -554,7 +560,7 @@ public class DashFXMLController extends LangSts implements Initializable {
         loadDarta(resourceBundle.getString("Darta"), resourceBundle.getString("Chalani"), resourceBundle.getString("Staff"));
         loadTable();
         loadPatraChalaniTable();
-        loadDartaTable();
+//        loadDartaTable();
         loadStaffTable();
         Editable();
         loadComboBox();
@@ -567,11 +573,14 @@ public class DashFXMLController extends LangSts implements Initializable {
         treeViewDash.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null && newValue != oldValue) {
                 switch (newValue.toString()) {
-                    case "TreeItem [ value: Saved Spendable Inventory ]":
-                        loadInventoryTableType("expendable");
+                    case "TreeItem [ value: Approved Inventory ]":
+                        loadInventoryTableType("approved");
                         break;
-                    case "TreeItem [ value: Discarded Inventory ]":
-                        loadInventoryTableType("unexpendable");
+                    case "TreeItem [ value: Pending Inventory ]":
+                        loadInventoryTableType("pending");
+                        break;
+                    case "TreeItem [ value: Rejected Inventory]":
+                        loadInventoryTableType("rejected");
                         break;
                 }
                 if (treeViewDash.getSelectionModel().selectedItemProperty().getValue().equals("TreeItem [ value: Discarded Inventory ]")) {
@@ -647,6 +656,7 @@ public class DashFXMLController extends LangSts implements Initializable {
         to_office.setCellValueFactory(new PropertyValueFactory<>("to_office"));
         chalaniTicket.setCellValueFactory(new PropertyValueFactory<>("ticket"));
         chalaniRemarks.setCellValueFactory(new PropertyValueFactory<>("remarks"));
+        chalani_created_by.setCellValueFactory(new PropertyValueFactory<>("created_by"));
         chalaniTable.getItems().setAll(patraChalaniService.getPatraChalaniList());
     }
 
@@ -666,6 +676,7 @@ public class DashFXMLController extends LangSts implements Initializable {
         columnDate.setCellValueFactory(new PropertyValueFactory<>("created_date"));
         columnIs_Approved.setCellValueFactory(new PropertyValueFactory<>("is_approved"));
         columnType.setCellValueFactory(new PropertyValueFactory<>("type"));
+        created_by.setCellValueFactory(new PropertyValueFactory<>("created_by"));
         tableView.getItems().setAll(inventoryService.getInventory());
     }
 
@@ -757,7 +768,6 @@ public class DashFXMLController extends LangSts implements Initializable {
 
         discardedUnspendable = new TreeItem(resourceBundle.getString("Discarded_Unspendable_Inventory"));
         savedUnspendable = new TreeItem(resourceBundle.getString("Saved_Unspendable_Inventory"));
-        
 
         root.getChildren().add(spendable);
         //root.getChildren().add(unspendable);
@@ -1065,7 +1075,6 @@ public class DashFXMLController extends LangSts implements Initializable {
                         }
                     });
 
-                    
                     HBox idHbox = new HBox();
                     Label label_id = new Label("Id:: ");
                     Label label_id_text = new Label("" + dartaDto.getId());

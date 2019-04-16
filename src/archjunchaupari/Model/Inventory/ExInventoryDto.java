@@ -31,7 +31,6 @@ public class ExInventoryDto {
     private String type;
     private String created_by;
     private String section;
-
     public ExInventoryDto() {
     }
 //       inventoryDto = new ExInventoryDto(inventoryId.getText(),
